@@ -1,0 +1,2 @@
+Fixation performance of run "wedgeringsaltnojump_tr1.5_images", which finished on 03-Feb-2020 16:00:37:
+percent correct: 0.0 %, reaction time: 0.0 secs

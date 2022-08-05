@@ -1,0 +1,4 @@
+Name: Roger Nelson
+Serial Number: 48685C06DC4A01F1
+
+Block outgoing connections using Little Snitch or any firewall app

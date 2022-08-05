@@ -1,0 +1,6 @@
+Fixation performance of run "eightbars_blanks_StimSize5dot5_tr2_images", which finished on 12-Jan-2022 13:55:55:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_StimSize5dot5_tr2_images", which finished on 12-Jan-2022 14:02:49:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_StimSize5dot5_tr2_images", which finished on 12-Jan-2022 14:10:47:
+percent correct: 0.0 %, reaction time: 0.0 secs

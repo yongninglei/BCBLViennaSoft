@@ -1,0 +1,2 @@
+Fixation performance of run "fullfield_StimSize5_tr2_images", which finished on 16-Dec-2019 13:35:49:
+percent correct: 0.0 %, reaction time: 0.0 secs

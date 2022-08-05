@@ -1,0 +1,74 @@
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:16:30:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:17:07:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:18:33:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:19:30:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:25:08:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:27:37:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 04-Mar-2019 18:28:05:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:28:56:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:31:31:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:34:50:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:35:29:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 18:39:37:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:04:23:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:13:44:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:18:44:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:48:10:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:49:28:
+percent correct: 4.9 %, reaction time: 1.8 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:50:23:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:50:52:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 19:51:44:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:04:46:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:10:44:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:12:20:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:18:29:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:20:51:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:23:06:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:34:57:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:38:48:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:39:42:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 04-Mar-2019 20:40:01:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:45:01:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 04-Mar-2019 20:45:20:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "wedgeringsaltnojump_StimSize5dot5_r2degree_center_tr2_images", which finished on 04-Mar-2019 20:45:39:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_StimSize5dot5_r2degree_center_tr2_images", which finished on 04-Mar-2019 20:46:02:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:46:45:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "wedgeringsaltnojump_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:47:13:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_StimSize5dot5_tr2_images", which finished on 04-Mar-2019 20:47:33:
+percent correct: 0.0 %, reaction time: 0.0 secs

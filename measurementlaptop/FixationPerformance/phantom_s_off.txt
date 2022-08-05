@@ -1,0 +1,2 @@
+Fixation performance of run "eightbar_double_tr1.5_images", which finished on 01-Apr-2022 14:34:12:
+percent correct: 0.0 %, reaction time: 0.0 secs

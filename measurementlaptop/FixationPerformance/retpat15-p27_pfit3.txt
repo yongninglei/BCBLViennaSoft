@@ -1,0 +1,12 @@
+Fixation performance of run "fullfield_tr1.5_images", which finished on 05-Nov-2019 12:56:12:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_tr1.5_images", which finished on 05-Nov-2019 12:57:00:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_tr1.5_images", which finished on 06-Nov-2019 11:47:11:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_tr1.5_images", which finished on 06-Nov-2019 11:49:08:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_tr1.5_images", which finished on 06-Nov-2019 12:37:43:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_tr1.5_images", which finished on 06-Nov-2019 13:00:48:
+percent correct: 0.0 %, reaction time: 0.0 secs

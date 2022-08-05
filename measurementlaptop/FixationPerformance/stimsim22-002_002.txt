@@ -1,0 +1,12 @@
+Fixation performance of run "eightbar_double_tr1.75_images", which finished on 03-Jun-2022 14:14:24:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbar_standard_tr1.75_images", which finished on 03-Jun-2022 14:26:24:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbar_rot_tr1.75_images", which finished on 03-Jun-2022 14:33:13:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbar_standard_tr1.75_images", which finished on 03-Jun-2022 14:41:23:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbar_rot_tr1.75_images", which finished on 03-Jun-2022 14:48:06:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbar_double_tr1.75_images", which finished on 03-Jun-2022 14:55:19:
+percent correct: 0.0 %, reaction time: 0.0 secs

@@ -1,0 +1,20 @@
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 14-Mar-2019 19:32:10:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 14-Mar-2019 19:35:59:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 14-Mar-2019 19:37:13:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 14-Mar-2019 19:37:33:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 14-Mar-2019 19:50:13:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 14-Mar-2019 19:50:30:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "wedgeringsaltnojump_StimSize5dot5_r2degree_center_tr2_images", which finished on 14-Mar-2019 19:50:50:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_StimSize5dot5_r2degree_center_tr2_images", which finished on 14-Mar-2019 19:51:18:
+percent correct: 4.0 %, reaction time: 0.7 secs
+Fixation performance of run "wedgeringsaltnojump_StimSize5dot5_r2degree_center_tr2_images", which finished on 14-Mar-2019 19:51:41:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_StimSize5dot5_r2degree_center_tr2_images", which finished on 14-Mar-2019 19:52:10:
+percent correct: 0.0 %, reaction time: 0.0 secs

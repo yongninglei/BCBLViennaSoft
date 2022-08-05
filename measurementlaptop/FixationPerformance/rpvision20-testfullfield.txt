@@ -1,0 +1,8 @@
+Fixation performance of run "fullfield_tr1.5_images", which finished on 28-Jan-2020 11:36:15:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_tr1.5_images", which finished on 28-Jan-2020 11:44:41:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_tr1.5_images", which finished on 28-Jan-2020 12:08:14:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_tr1.5_images", which finished on 28-Jan-2020 12:15:02:
+percent correct: 0.0 %, reaction time: 0.0 secs
