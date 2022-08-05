@@ -1,23 +1,17 @@
 %% This script creates the images that will be morphed later on
-tbUse PRFmodel;
+tbUse BCBLViennaSoft;
 close all; clear all;
 
-rootPath='/Users/glerma/soft/BCBLViennaSoft';
-addpath(genpath(rootPath));
-addpath(genpath('/Users/glerma/toolboxes/Psychtoolbox-3'));
-
 params = retCreateDefaultGUIParams;
-
-
 PatientName = 'TestGari';
 
 %% EDIT THIS DIFFERENTLY IN BCBL/VIENNA
 % Paste here data from both Vienna and SS
 % BCBL
 % {
-masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
-% masks = "~/soft/morphing/DATA/retWordsMagno/maskimages.mat"; % both are the same
-stimulusdir="/Users/glerma/soft/morphing/DATA/retWordsMagno";
+% masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
+masks = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
+stimulusdir = string(fullfile(pmRootPath,"morphing","DATA","retWordsMagno"));
 % Screen size and distance
 params.display.numPixels  = [1280 1024];
 params.display.dimensions = [42 31.5];
@@ -54,7 +48,7 @@ triggerDeviceDetector = '904';
 % For RetStim (pass them all, always)
 PatientName                     = PatientName;
 MeasurementlaptopFolderLocation = rootPath;
-FixationPerformanceFolder     = fullfile(rootPath,'measurementlaptop','FixationPerformance');
+FixationPerformanceFolder     = fullfile(bvRootPath,'measurementlaptop','FixationPerformance');
 Eyetracker                    = 0;
 StimType                      = 'allInFile'; % Provide file with params and stimuli
 SimulatedScotoma              = 0; 
@@ -187,7 +181,7 @@ if isfile(loadMatrix)
             'CalibValidRatio', CalibValidRatio, ...
             'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
             'TriggerKey', TriggerKey, ...
-            'MeasurementlaptopFolderLocation', rootPath);
+            'MeasurementlaptopFolderLocation', bvRootPath);
 else
     error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
 end
@@ -195,7 +189,7 @@ end
 %% RW
 if 0
 % Launch the stimulus function in prfModel to create the images
-bgfile   = "~/soft/morphing/DATA/retWordsMagno/ES_RW_768x768x100.mat";
+bgfile   = fullfile(bvRootPath,"morphing/DATA/retWordsMagno/ES_RW_768x768x100.mat");
 lang   = 'ES';
 imname = 'RW';
 % Launch the stimulus function in prfModel to create the images
@@ -247,7 +241,7 @@ if isfile(loadMatrix)
             'CalibValidRatio', CalibValidRatio, ...
             'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
             'TriggerKey', TriggerKey, ...
-            'MeasurementlaptopFolderLocation', rootPath);
+            'MeasurementlaptopFolderLocation', bvRootPath);
 else
     error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
 end
@@ -273,7 +267,7 @@ RetStim(...
             'TriggerKey', TriggerKey, ...
             'TR',1, ...
             'Fixation','disk', ...
-            'MeasurementlaptopFolderLocation', rootPath);
+            'MeasurementlaptopFolderLocation', bvRootPath);
                       
  
         
