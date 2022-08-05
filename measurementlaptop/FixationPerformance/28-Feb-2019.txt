@@ -1,0 +1,10 @@
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 28-Feb-2019 19:15:30:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 28-Feb-2019 19:15:48:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 28-Feb-2019 19:16:51:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_r2degree_center_tr2_images", which finished on 28-Feb-2019 19:17:01:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize5dot5_tr2_images", which finished on 28-Feb-2019 19:17:21:
+percent correct: 0.0 %, reaction time: 0.0 secs

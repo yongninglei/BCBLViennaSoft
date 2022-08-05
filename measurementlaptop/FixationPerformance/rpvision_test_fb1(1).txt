@@ -1,0 +1,6 @@
+Fixation performance of run "wedgeringsaltnojump_tr1.5_images", which finished on 28-Aug-2020 11:01:59:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "wedgeringsaltnojump_tr1.5_images", which finished on 15-Mar-2021 15:08:00:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_tr1.5_images", which finished on 15-Mar-2021 15:36:26:
+percent correct: 71.4 %, reaction time: 1.2 secs

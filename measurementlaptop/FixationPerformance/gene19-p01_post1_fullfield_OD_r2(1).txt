@@ -1,0 +1,2 @@
+Fixation performance of run "fullfield_tr1.5_images", which finished on 04-Mar-2020 17:32:53:
+percent correct: 0.0 %, reaction time: 0.0 secs

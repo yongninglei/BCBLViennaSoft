@@ -1,0 +1,14 @@
+- instalar psychotoolbox
+- descargar esto y añadir al path: https://github.com/kendrickkay/knkutils/archive/master.zip
+- descargar el zip que adjunto y ponerlo en el path de matlab
+
+La idea es que:
+- Se crean los listados de palabras primero usando ret_makeTextBackground.m
+- Se lanza todo con call_retinotopyKnk.m
+(editar path y eso si quereis usar otros directorios)
+
+Ahora los defaults están ajustados para el dicom que envié ya a Kepa. 
+Tenemos que ajustar tiempos y todo esto a la nueva sequencia. 
+Mirad los defaults que tenía you para nuestra sequencia, 
+y a partir de ahí podemos hacer los ajustes y testear. 
+Lo que me envieis puedo testear yo aqui a ver si todo parece que va bien. 

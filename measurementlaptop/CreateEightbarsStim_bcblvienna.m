@@ -1,0 +1,272 @@
+function CreateEightbarsStim_bcblvienna(StimName,TR,location)
+%CREATEEIGHTBARSSTIM Summary of this function goes here
+%   Detailed explanation goes here
+params = retCreateDefaultGUIParams; 
+
+% modify them
+params.experiment       =  '8 bars with blanks';
+%params.experiment       =  'experiment from file';
+params.fixation         =  'disk';%'my thin cross';%'disk'; % edit in retSetFixationParams.m
+params.modality         =  'fMRI';
+%params.savestimparams   =  0;
+params.savestimparams   =  1;
+params.repetitions      =  1;  
+if ispc
+    params.runPriority  =  1;
+else
+    params.runPriority  =  7;
+end
+params.skipCycleFrames  =  0;
+params.prescanDuration  =  0;  
+% Gari
+params.period           =  288;%280 %286; %In Reality the stimulus is 336 seconds long, because of the 4 * 12s long blanks which are inserted after each diagonal;
+% params.period           =  192;
+% Gari 
+params.numCycles        =  1;
+params.motionSteps      =  2;
+params.tempFreq         =  4;
+params.contrast         =  1;
+params.interleaves      =  [];
+params.tr               =  TR;
+params.loadMatrix       =  [];
+%params.loadMatrix       =  ['/Users/fmri/Dropbox/measurementlaptop/images/',StimName,'_images.mat'];
+%params.saveMatrix       =  [];
+params.saveMatrix       =  [datestr(now,30),'_',StimName,'_tr',num2str(TR),'_images.mat'];
+params.calibration      =  []; % Was calibrated with Photometer --> TODO - so that stimSize really corresponds to ? visual angle
+%params.calibration      =  '3T2_projector_800x600temp';
+params.stimSize         =  'max';%5.5;%'max';%5.5/2%5%5.5;%'max';%6;9
+if strcmp(location,'bcbl')
+    params.triggerKey       =  'bcbl';
+else
+    params.triggerKey       =  '6';%'Manual';%'6'; % For different trigger device see pressKey2Begin.m
+    %params.triggerKey       =  'Manual';
+    %params.trigger          = '5';
+end
+%Set Grey or Black Background
+params.BackgroundFullscreen = 128;
+
+
+%Get Stimulus Resolution (values from setDefaultDisplay)
+if strcmp(location,'bcbl')
+    display.screenNumber = max(Screen('screens'));
+    height = 1024;
+    width = 1280;
+    display.numPixels  = [width height];
+    display.dimensions = [42 31.5];
+    display.pixelSize = display.dimensions(2)/display.numPixels(2);
+    display.distance = 128;
+    display.frameRate = 60; % VGA Projector
+    display.backColorIndex=128;
+    params.ImageSize=round(2 * angle2pix(display, params.stimSize));
+else
+    display.screenNumber = max(Screen('screens'));
+    [width, height] = Screen('WindowSize',display.screenNumber);
+    display.numPixels       = [width height];
+    display.dimensions      = [24.6 18.3];
+    display.pixelSize       = min(display.dimensions./display.numPixels);
+    display.distance        = 43.0474; 
+    params.ImageSize=round(2 * angle2pix(display, params.stimSize));
+end
+
+%Gesichtsfeldausfall (Gesichtsfeld = 800x800)
+
+
+% %Cross Fixation
+% 
+% %DiagVektor=ones(1024,1);
+% DiagVektor=ones(ImageSize,1);
+% 
+% DiagMatrix=diag(DiagVektor,0);
+% Thickness=2;
+% 
+% %Thickness upwards
+% for i=1:Thickness/2
+% 
+%    DiagMatrix=DiagMatrix+diag(DiagVektor(1:end-i),i);
+% 
+% end
+% 
+% %Thickness downwards
+% 
+% for k=1:Thickness/2
+% 
+%    DiagMatrix=DiagMatrix+diag(DiagVektor(1:end-k),-k);
+% 
+% end
+% 
+% DiagMatrix=DiagMatrix+fliplr(DiagMatrix);
+% DiagMatrix(DiagMatrix>0)=1; %Fix higher values ocurring when lines cross
+% 
+% params.DiagMatrix=DiagMatrix;
+
+
+
+% %Arrow Fixation
+% 
+
+% Resolution=1024;
+% BlankVectorThickness=100;
+% 
+% DiagVektor=ones(Resolution,1);
+% 
+% DiagVektor(BlankVectorThickness:end-BlankVectorThickness)=0;
+% 
+% DiagMatrix=diag(DiagVektor,0);
+% 
+% 
+% 
+% Thickness=50;
+% 
+% %Thickness upwards
+% for i=1:Thickness/2
+% 
+%     DiagMatrix=DiagMatrix+diag(DiagVektor(1:end-i),i);
+% 
+% end
+% 
+% %Thickness downwards
+% 
+% for k=1:Thickness/2
+% 
+%     DiagMatrix=DiagMatrix+diag(DiagVektor(1:end-k),-k);
+% 
+% end
+% 
+% DiagMatrix=DiagMatrix+fliplr(DiagMatrix);
+% DiagMatrix=DiagMatrix+flipud(DiagMatrix);
+% DiagMatrix(DiagMatrix==1)=0;
+% %figure; imagesc(DiagMatrix)
+% 
+% params.DiagMatrix=DiagMatrix;
+
+
+%Ausfall linker unterer Quadrant
+%params.xfailure= 1:floor(params.ImageSize/2);
+%params.yfailure= floor(params.ImageSize/2):params.ImageSize;
+%params.xfailure= 1:512;
+%params.yfailure= 512:1024;
+
+%Ausfall rechter unterer Quadrant
+%params.xfailure= floor(params.ImageSize/2):params.ImageSize;
+%params.yfailure= floor(params.ImageSize/2):params.ImageSize;
+
+%Ausfall linker oberer Quadrant
+
+%params.xfailure= 1:512;
+%params.yfailure= 1:512;
+
+
+%Ausfall von 1 Balken
+%params.xfailure= 334:434;
+%params.yfailure= 1:768;
+
+%Ausfall alles au?er 1 Balken
+%params.xfailure= [1:334,434:768];
+%params.yfailure= 1:768;
+%params.xfailure= [1:384,640:1024];
+%params.yfailure= 1:1024;
+
+%Ausfall von einem Kreis
+
+%resolution= 1024 * 768 (size stimulus = 384) (7T - 7? stimulation size)
+% r=(params.ImageSize/2)/3.5; %2? scotoma for 7T 
+% xm=params.ImageSize/2;
+% ym=params.ImageSize/2;
+
+r = (height/2)/7*2; % /stim radius in deg * scotradius in deg
+xm = height/2;
+ym = height/2;
+ 
+params.mycircle='full';
+params.myradius=r;
+params.xfailure=xm;
+params.yfailure=ym;
+
+% % %Fixation
+%   r=128;
+%   xm=10;%512;
+%   ym=10;%512;
+%   
+%   xm2=1024-10;%512;
+%   ym2=10;%512;
+%   
+%   xm3=10;%512;
+%   ym3=1024-10;%512;
+%   
+%   xm4=1024-10;%512;
+%   ym4=1024-10;%512;
+%   
+%  %Parameter setzen
+% 
+%  params.mycircle='full';
+%  params.myradius=r;
+%  params.xfailure=xm;
+%  params.yfailure=ym;
+%  
+%  params.xfailure2=xm2;
+%  params.yfailure2=ym2;
+% 
+%  params.xfailure3=xm3;
+%  params.yfailure3=ym3;
+%  
+%  params.xfailure4=xm4;
+%  params.yfailure4=ym4;
+
+%resolution= 1024 * 768 (size stimulus = 384)
+% r=192;
+% xm=384;
+% ym=384;
+
+% params.mycircle='fullhalfleft';
+% params.myradius=r;
+% params.xfailure=xm;
+% params.yfailure=ym;
+
+% r=192;
+% xm=384;
+% ym=384;
+% 
+% params.mycircle='fullhalfright';
+% params.myradius=r;
+% params.xfailure=xm;
+% params.yfailure=ym;
+
+%Ausfall alles au?er einem Kreis
+
+%   r=256;
+%   xm=512;
+%   ym=512;
+% %  
+%   params.mycircle='empty';
+%   params.myradius=r;
+%   params.xfailure=xm;
+%   params.yfailure=ym;
+
+%  r=192;
+%  xm=384;
+%  ym=384;
+%  
+%  params.mycircle='emptyhalfleft';
+%  params.myradius=r;
+%  params.xfailure=xm;
+%  params.yfailure=ym;
+
+%  r=192;
+%  xm=384;
+%  ym=384;
+%  
+%  params.mycircle='emptyhalfright';
+%  params.myradius=r;
+%  params.xfailure=xm;
+%  params.yfailure=ym;
+
+
+% run it
+
+
+ret(params)
+
+
+
+end
+

@@ -1,0 +1,4 @@
+Fixation performance of run "eightbars_blanks_tr1.5_images", which finished on 28-Jan-2020 11:37:21:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "eightbars_blanks_tr1.5_images", which finished on 28-Jan-2020 11:47:03:
+percent correct: 0.0 %, reaction time: 0.0 secs

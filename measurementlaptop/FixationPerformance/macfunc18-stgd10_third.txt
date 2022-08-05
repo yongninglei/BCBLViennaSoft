@@ -1,0 +1,12 @@
+Fixation performance of run "fullfield_StimSize4dot75_tr2_images", which finished on 11-Oct-2019 15:15:56:
+percent correct: 0.0 %, reaction time: 0.0 secs
+Fixation performance of run "fullfield_StimSize4dot75_tr2_images", which finished on 11-Oct-2019 15:29:52:
+percent correct: 90.5 %, reaction time: 0.7 secs
+Fixation performance of run "wedgeringsaltnojump_StimSize4dot75_tr2_images", which finished on 11-Oct-2019 15:36:07:
+percent correct: 100.0 %, reaction time: 0.6 secs
+Fixation performance of run "eightbars_blanks_StimSize4dot75_tr2_images", which finished on 11-Oct-2019 15:42:26:
+percent correct: 100.0 %, reaction time: 0.6 secs
+Fixation performance of run "wedgeringsaltnojump_StimSize4dot75_tr2_images", which finished on 11-Oct-2019 15:52:01:
+percent correct: 100.0 %, reaction time: 0.6 secs
+Fixation performance of run "eightbars_blanks_StimSize4dot75_tr2_images", which finished on 11-Oct-2019 15:58:20:
+percent correct: 100.0 %, reaction time: 0.7 secs
