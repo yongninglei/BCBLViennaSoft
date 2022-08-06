@@ -5,7 +5,6 @@ Created on Mon Apr  6 16:18:22 2020
 
 @author: dlinhardt
 """
-np = py.importlib.import_module('numpy')
 import numpy as np
 import skimage.transform as skiT
 from skimage.transform import resize
@@ -129,7 +128,7 @@ class Stimulus:
 
         # load reference files
         mat = loadmat(
-            "/z/fmrilab/home/dlinhardt/newStims/eightbars_blanks_tr2_images.mat"
+            os.path.join(oName.split("local")[0],"measurementlaptop","images","eightbars_blanks_tr2_images.mat")
         )
 
         # feed in all necessary parameters
