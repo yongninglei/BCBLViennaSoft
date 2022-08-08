@@ -37,7 +37,7 @@ class Stimulus:
         self._stimSize = stimSize
         self.TR = TR
         self._loadImages = loadImages
-        self._carrier = "images" if self._loadImages is not None else "ckecker"
+        self._carrier = "images" if self._loadImages is not None else "checker"
 
         self.nFrames = int(stim_duration / self.TR)
         self.blankLength = int(blank_duration / self.TR)
@@ -128,7 +128,12 @@ class Stimulus:
 
         # load reference files
         mat = loadmat(
-            os.path.join(oName.split("local")[0],"measurementlaptop","images","eightbars_blanks_tr2_images.mat")
+            os.path.join(
+                os.path.dirname(oName),
+                "measurementlaptop",
+                "images",
+                "eightbars_blanks_tr2_images.mat",
+            )
         )
 
         # feed in all necessary parameters
@@ -199,7 +204,7 @@ class Stimulus:
                     )
                 else:
                     img_artist.set_data(self.flickerUncStim[..., self._flickerSeq[i]])
-                plt.pause(1 / self.flickerFrequency * 2)
+                plt.pause(1 / self.flickerFrequency)
         else:
             if not np.any(z):
                 z = self._stimUnc
@@ -450,8 +455,11 @@ class Stimulus:
 
     def _loadCarrierImages(self, loadImages):
         if loadImages.endswith(".mat"):
-            self.carrierImages = loadmat(loadImages, simplify_cells=True)["stim"]
+            self.carrierImages = loadmat(loadImages, simplify_cells=True)["images"][
+                :, :, 1, :
+            ]
 
+            # resize them if necessary
             if (
                 self.carrierImages.shape[0] != self._stimSize
                 or self.carrierImages.shape[1] != self._stimSize
@@ -461,6 +469,16 @@ class Stimulus:
                     (self._stimSize, self._stimSize),
                     anti_aliasing=True,
                 )
+
+            # rescale them to [0,255]
+            if self.carrierImages.min() != 0:
+                self.carrierImages += self.carrierImages.min()
+
+            if self.carrierImages.max() != 255:
+                if self.carrierImages.max() != 1:
+                    self.carrierImages %= self.carrierImages.max()
+                self.carrierImages *= 255
+                self.carrierImages = self.carrierImages.astype(int)
 
         else:
             Warning("Please provide carrier images as .mat file!")
