@@ -24,7 +24,7 @@ join = os.path.join
 # RP = "/Users/glerma/toolboxes/BCBLViennaSoft"
 RP = "/local/dlinhardt/develop/BCBLViennaSoft"
 localpath = join(RP, "local")
-triggerKey = "bcbl"
+triggerKey = "6"  # "bcbl"
 stimSize = 1024
 maxEcc = 9
 overlap = 1 / 3
@@ -32,9 +32,9 @@ tr = 0.8
 duration = 300
 blank_duration = 10
 flickerFrequency = 2.5
-loadImages = join(RP, "morphing", "DATA", "retWordsMagno", "ES_PW_768x768x100.mat")
 
-# Call, all variables are in the previous cell
+#%% Call, all variables are in the previous cell; call for pseudo-words
+loadImages = join(RP, "morphing", "DATA", "retWordsMagno", "ES_PW_768x768x100.mat")
 stim = barStimulus(
     stimSize=stimSize,
     maxEcc=maxEcc,
@@ -46,4 +46,18 @@ stim = barStimulus(
     loadImages=loadImages,
 )
 oName = join(localpath, f"words_tr-{tr}_duration-{duration}sec_size-{stimSize}.mat")
+stim.saveMrVistaStimulus(oName, triggerKey=triggerKey)
+
+
+#%% Call it again for checkers, same parameters
+stim = barStimulus(
+    stimSize=stimSize,
+    maxEcc=maxEcc,
+    overlap=overlap,
+    TR=tr,
+    stim_duration=duration,
+    blank_duration=blank_duration,
+    flickerFrequency=flickerFrequency,
+)
+oName = join(localpath, f"check_tr-{tr}_duration-{duration}sec_size-{stimSize}.mat")
 stim.saveMrVistaStimulus(oName, triggerKey=triggerKey)
