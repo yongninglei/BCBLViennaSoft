@@ -459,6 +459,7 @@ class Stimulus:
                 :, :, 1, :
             ]
 
+            # resize them if necessary
             if (
                 self.carrierImages.shape[0] != self._stimSize
                 or self.carrierImages.shape[1] != self._stimSize
@@ -468,6 +469,16 @@ class Stimulus:
                     (self._stimSize, self._stimSize),
                     anti_aliasing=True,
                 )
+
+            # rescale them to [0,255]
+            if self.carrierImages.min() != 0:
+                self.carrierImages += self.carrierImages.min()
+
+            if self.carrierImages.max() != 255:
+                if self.carrierImages.max() != 1:
+                    self.carrierImages %= self.carrierImages.max()
+                self.carrierImages *= 255
+                self.carrierImages = self.carrierImages.astype(int)
 
         else:
             Warning("Please provide carrier images as .mat file!")
