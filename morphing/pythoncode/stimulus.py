@@ -37,7 +37,7 @@ class Stimulus:
         self._stimSize = stimSize
         self.TR = TR
         self._loadImages = loadImages
-        self._carrier = "images" if self._loadImages is not None else "ckecker"
+        self._carrier = "images" if self._loadImages is not None else "checker"
 
         self.nFrames = int(stim_duration / self.TR)
         self.blankLength = int(blank_duration / self.TR)
