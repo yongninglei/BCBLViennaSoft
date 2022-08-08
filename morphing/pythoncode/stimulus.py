@@ -128,7 +128,12 @@ class Stimulus:
 
         # load reference files
         mat = loadmat(
-            os.path.join(oName.split("local")[0],"measurementlaptop","images","eightbars_blanks_tr2_images.mat")
+            os.path.join(
+                os.path.dirname(oName),
+                "measurementlaptop",
+                "images",
+                "eightbars_blanks_tr2_images.mat",
+            )
         )
 
         # feed in all necessary parameters
@@ -199,7 +204,7 @@ class Stimulus:
                     )
                 else:
                     img_artist.set_data(self.flickerUncStim[..., self._flickerSeq[i]])
-                plt.pause(1 / self.flickerFrequency * 2)
+                plt.pause(1 / self.flickerFrequency)
         else:
             if not np.any(z):
                 z = self._stimUnc
@@ -450,7 +455,9 @@ class Stimulus:
 
     def _loadCarrierImages(self, loadImages):
         if loadImages.endswith(".mat"):
-            self.carrierImages = loadmat(loadImages, simplify_cells=True)["stim"]
+            self.carrierImages = loadmat(loadImages, simplify_cells=True)["images"][
+                :, :, 1, :
+            ]
 
             if (
                 self.carrierImages.shape[0] != self._stimSize
