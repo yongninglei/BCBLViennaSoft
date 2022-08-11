@@ -253,7 +253,14 @@ else
                 LoadEightbarsStim(FullStimulusPath,input);
             case {'allInFile'}
                 readParams = load(FullStimulusPath,'params');
-                LoadAllInFile(readParams.params,input);
+                readParams.params.loadMatrix   = FullStimulusPath;
+                readParams.params.experiment   = 'experiment from file';
+                readParams.params.triggerKey   = input.TriggerKey;
+                readParams.params.tr           = input.TR;
+                readParams.params.fixation     = 'double disk';
+                readParams.params.modality     = 'fMRI';
+                readParams.params.runPriority  =  7;
+                LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);
             case {'prismacentersurround'}
