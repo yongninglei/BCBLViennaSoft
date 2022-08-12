@@ -2,16 +2,9 @@ function LoadAllInFile(params, input)
 %LOADAllInFile Summary of this function goes here
 % create some default parameters
 
-
-if input.TR==1.25
-    params.period           =  280; %In Reality the stimulus is 330 seconds long, because of the 4 * 12.5s long blanks which are inserted after each diagonal;
-else
-    params.period           =  288; %In Reality the stimulus is 336 seconds long, because of the 4 * 12s long blanks which are inserted after each diagonal;
-end
-
 StimForStimSizePixel      =  load(params.loadMatrix,'stimulus');
-params.StimSizePixel.x    =  size(StimForStimSizePixel.stimulus.images{1},1);
-params.StimSizePixel.y    =  size(StimForStimSizePixel.stimulus.images{1},2);
+params.StimSizePixel.x    =  size(StimForStimSizePixel.stimulus.images,1);
+params.StimSizePixel.y    =  size(StimForStimSizePixel.stimulus.images,2);
 clear StimForStimSizePixel
 
 if isfield(input,'FixationandBackgroundSizeMult') && ~isempty(input.FixationandBackgroundSizeMult)
