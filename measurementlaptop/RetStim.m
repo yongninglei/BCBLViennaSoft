@@ -153,7 +153,7 @@ else
     FullStimulusName = strcat(FullStimulusName,ext);
     FullStimulusPath = input.FullStimName;
 end
-    
+
 if exist(FullStimulusPath,'file') || strcmp(input.StimType,'prismacentersurround')
     
     display(strcat("[",string(mfilename),"] Performing Stimulus: ",FullStimulusName))
@@ -186,9 +186,9 @@ if input.Eyetracker==1
         
         
         [EyelinkParameters, edfFile, width,height]=ConfigEyetracker(PresentRun,...
-                                                    input.CalibrationTargetSize,...
-                                                    input.UsePlusCalibrationTarget,...
-                                                    CalibValidRatio);
+            input.CalibrationTargetSize,...
+            input.UsePlusCalibrationTarget,...
+            CalibValidRatio);
         DriftCorrection(EyelinkParameters);
         
         StartEyetracker(width,height);
@@ -200,17 +200,21 @@ if input.Eyetracker==1
                 LoadEightbarsStim(FullStimulusPath,input);
             case {'allInFile'}
                 readParams = load(FullStimulusPath,'params');
-                LoadAllInFile(readParams.params,input);
+                readParams.params.loadMatrix   = FullStimulusPath;
+                readParams.params.experiment   = 'experiment from file';
+                readParams.params.triggerKey   = input.TriggerKey;
+                readParams.params.runPriority = 7;
+                LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);
             case {'prismacentersurround'}
                 CreatePrismaCenterSurroundStim(input.ScotomaBorderVisualAngle,...
-                                               input.TR,...
-                                               input.TriggerKey,...
-                                               input.Eyetracker)
+                    input.TR,...
+                    input.TriggerKey,...
+                    input.Eyetracker)
             otherwise
                 disp(['[',mfilename,'] Stimulus type ',input.StimType,' not known. Aborting...'])
-            return    
+                return
         end
         
         StopEyetracker(width,height);
@@ -245,7 +249,7 @@ if input.Eyetracker==1
     
 else
     
-    for PresentRun=1:input.Repetitions        
+    for PresentRun=1:input.Repetitions
         switch input.StimType
             case {'fullfield'}
                 LoadFullFieldStim(FullStimulusPath,input);
@@ -256,10 +260,7 @@ else
                 readParams.params.loadMatrix   = FullStimulusPath;
                 readParams.params.experiment   = 'experiment from file';
                 readParams.params.triggerKey   = input.TriggerKey;
-                readParams.params.tr           = input.TR;
-                readParams.params.fixation     = 'double disk';
-                readParams.params.modality     = 'fMRI';
-                readParams.params.runPriority  =  7;
+                readParams.params.runPriority = 7;
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);
@@ -267,7 +268,7 @@ else
                 CreatePrismaCenterSurroundStim(input.ScotomaBorderVisualAngle,input.TR,input.TriggerKey,input.Eyetracker)
             otherwise
                 disp(['[',mfilename,'] Stimulus type ',input.StimType,' not known. Aborting...'])
-            return    
+                return
         end
     end
     
