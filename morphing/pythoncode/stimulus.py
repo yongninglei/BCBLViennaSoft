@@ -126,37 +126,8 @@ class Stimulus:
     def saveMrVistaStimulus(self, oName, triggerKey="6"):
         """save the created stimulus as mrVista _images and _params to present it at the scanner"""
 
-        # load reference files
-        mat = loadmat(
-            os.path.join(
-                os.path.dirname(oName),
-                "measurementlaptop",
-                "images",
-                "eightbars_blanks_tr2_images.mat",
-            )
-        )
-
-        # feed in all necessary parameters
-        mat["stimulus"]["images"][0][0][0][0] = self.flickerUncStim.astype("uint8")
-        mat["stimulus"]["seq"][0][0] = (self._flickerSeq + 1).astype("uint16")
-        mat["stimulus"]["seqtiming"][0][0] = self._flickerSeqTimeing.astype(
-            mat["stimulus"]["seqtiming"][0][0].dtype
-        )
-
-        mat["params"]["period"][0][0][0][0] = (
-            self.nFrames - self.blankLength * self.crossings / 2
-        ) * self.TR
-        mat["params"]["tr"][0][0][0][0] = self.TR
-        mat["params"]["saveMatrix"][0][0][0] = "foobar_testPythonStim.mat"
-        mat["params"]["numImages"][0][0][0][0] = self.nFrames
-        mat["params"]["tempFreq"][0][0][0][0] = self.flickerFrequency
-        mat["params"]["dispString"][0][0][
-            0
-        ] = """test Bars from python with blanks.
-                                                  Please watch the central fixation dot."""
-        mat["params"]["scanDuration"][0][0][0][0] = mat["params"]["period"][0][0][0][0]
-        mat["params"]["triggerKey"][0][0][0] = triggerKey
-        mat["params"]["radius"][0][0][0][0] = self._maxEcc
+        if not hasattr(self, "_flickerSeq"):
+            self.flickeringStim()
 
         self.fixSeq = np.zeros(len(self._flickerSeq))
         chunckSize = 9
@@ -172,17 +143,46 @@ class Stimulus:
                     colour = 1 if colour == 2 else 2
                 i += chunckSize
 
-        mat["stimulus"]["fixSeq"][0][0] = self.fixSeq.astype("uint8")
+        oStim = {
+            'images'    : self.flickerUncStim.astype("uint8"),
+            'seq'       : (self._flickerSeq + 1).astype("uint16"),
+            'seqtiming' : self._flickerSeqTimeing.astype('<f8'),
+            'cmap'      : np.vstack((aa := np.linspace(0, 1, 256), aa, aa)).T,
+            'fixSeq'    : self.fixSeq.astype("uint8"),
+        }
 
-        if not "/" in oName:
-            savemat(
-                os.path.join(
-                    "/home_local/dlinhardt/Dropbox/measurementlaptop/images", oName
-                ),
-                mat,
-            )
+        oPara = {
+            'experiment' : 'experiment from file',
+            'fixation'   : 'disk',
+            'modality'   : 'fMRI',
+            'trigger'    : 'scanner triggers computer',
+            'period'     : (self.nFrames - self.blankLength * self.crossings / 2) * self.TR,
+            'tempFreq'   : self.flickerFrequency,
+            'tr'         : self.TR,
+            'scanDuration': (self.nFrames - self.blankLength * self.crossings / 2) * self.TR,
+            'saveMatrix' : 'None',
+            'interleaves': [],
+            'numImages'  : self.nFrames,
+            'stimSize'   : 'max',
+            'radius'     : self._maxEcc,
+            'prescanDuration' : 0,
+            'runPriority': 7,
+            'calibration': [],
+            'numCycles'  : 1,
+            'repetitions': 1,
+            'motionSteps': 2,
+            'countdown'  : 0,
+        }
+
+        oMat  = {
+            'stimulus' : oStim,
+            'params'   : oPara,
+        }
+
+        if "/" not in oName:
+            savemat(os.path.join("/home_local/dlinhardt/Dropbox/measurementlaptop/images", oName), oMat)
         else:
-            savemat(oName, mat)
+            savemat(oName, oMat)
 
     def playVid(self, z=None, flicker=False):
         """play the stimulus video, if not defined otherwise, the unconvolved stimulus"""
@@ -423,33 +423,33 @@ class Stimulus:
             elif i >= self.framesPerCrossing and i < self.framesPerCrossing * 2:
                 self._stimUnc[i, ...] *= maskQ1
             elif (
-                i >= self.framesPerCrossing * 2 + self.blankLength
-                and i < self.framesPerCrossing * 3 + self.blankLength
+                i >= self.framesPerCrossing * 2 + self.blankLength and
+                i < self.framesPerCrossing * 3 + self.blankLength
             ):
                 self._stimUnc[i, ...] *= maskQ2
             elif (
-                i >= self.framesPerCrossing * 3 + self.blankLength
-                and i < self.framesPerCrossing * 4 + self.blankLength
+                i >= self.framesPerCrossing * 3 + self.blankLength and
+                i < self.framesPerCrossing * 4 + self.blankLength
             ):
                 self._stimUnc[i, ...] *= maskQ3
             elif (
-                i >= self.framesPerCrossing * 4 + self.blankLength * 2
-                and i < self.framesPerCrossing * 5 + self.blankLength * 2
+                i >= self.framesPerCrossing * 4 + self.blankLength * 2 and
+                i < self.framesPerCrossing * 5 + self.blankLength * 2
             ):
                 pass
             elif (
-                i >= self.framesPerCrossing * 5 + self.blankLength * 2
-                and i < self.framesPerCrossing * 6 + self.blankLength * 2
+                i >= self.framesPerCrossing * 5 + self.blankLength * 2 and
+                i < self.framesPerCrossing * 6 + self.blankLength * 2
             ):
                 self._stimUnc[i, ...] *= maskQ1
             elif (
-                i >= self.framesPerCrossing * 6 + self.blankLength * 3
-                and i < self.framesPerCrossing * 7 + self.blankLength * 3
+                i >= self.framesPerCrossing * 6 + self.blankLength * 3 and
+                i < self.framesPerCrossing * 7 + self.blankLength * 3
             ):
                 self._stimUnc[i, ...] *= maskQ2
             elif (
-                i >= self.framesPerCrossing * 7 + self.blankLength * 3
-                and i < self.framesPerCrossing * 8 + self.blankLength * 3
+                i >= self.framesPerCrossing * 7 + self.blankLength * 3 and
+                i < self.framesPerCrossing * 8 + self.blankLength * 3
             ):
                 self._stimUnc[i, ...] *= maskQ3
 
@@ -461,8 +461,8 @@ class Stimulus:
 
             # resize them if necessary
             if (
-                self.carrierImages.shape[0] != self._stimSize
-                or self.carrierImages.shape[1] != self._stimSize
+                self.carrierImages.shape[0] != self._stimSize or
+                self.carrierImages.shape[1] != self._stimSize
             ):
                 self.carrierImages = resize(
                     self.carrierImages,
@@ -545,8 +545,8 @@ class barStimulus(Stimulus):
                         max(0, int(self.overlap * self.barThickness * (i - 1))) : min(
                             self._stimSize,
                             int(
-                                self.overlap * self.barThickness * (i - 1)
-                                + self.barThickness
+                                self.overlap * self.barThickness * (i - 1) +
+                                self.barThickness
                             ),
                         ),
                     ] = 1
@@ -561,35 +561,35 @@ class barStimulus(Stimulus):
                                 o = max(
                                     int(np.ceil(self._stimSize / 2 - 1)),
                                     int(
-                                        self.overlap * self.barThickness * (i - 1)
-                                        + self.barThickness * self.thickRatio * 0.55
-                                        + self.nBarShift * (nbar + 1)
+                                        self.overlap * self.barThickness * (i - 1) +
+                                        self.barThickness * self.thickRatio * 0.55 +
+                                        self.nBarShift * (nbar + 1)
                                     ),
                                 )
                                 t = int(
-                                    self.overlap * self.barThickness * (i - 1)
-                                    + self.barThickness * self.thickRatio
-                                    + self.nBarShift * (nbar + 1)
+                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.barThickness * self.thickRatio +
+                                    self.nBarShift * (nbar + 1)
                                 )
                             elif i == self.framesPerCrossing - 1:
                                 o = int(
-                                    self.overlap * self.barThickness * (i - 1)
-                                    + self.nBarShift * (nbar + 1)
+                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.nBarShift * (nbar + 1)
                                 )
                                 t = int(
-                                    self.overlap * self.barThickness * (i - 1)
-                                    + self.barThickness * self.thickRatio * 0.45
-                                    + self.nBarShift * (nbar + 1)
+                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.barThickness * self.thickRatio * 0.45 +
+                                    self.nBarShift * (nbar + 1)
                                 )
                             else:
                                 o = int(
-                                    self.overlap * self.barThickness * (i - 1)
-                                    + self.nBarShift * (nbar + 1)
+                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.nBarShift * (nbar + 1)
                                 )
                                 t = int(
-                                    self.overlap * self.barThickness * (i - 1)
-                                    + self.barThickness * self.thickRatio
-                                    + self.nBarShift * (nbar + 1)
+                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.barThickness * self.thickRatio +
+                                    self.nBarShift * (nbar + 1)
                                 )
 
                             frame2[:, max(0, o) : min(self._stimSize, t)] = 1
@@ -648,19 +648,19 @@ class barStimulus(Stimulus):
                         max(
                             0,
                             int(
-                                self.overlap
-                                * self.barThickness
-                                / self.frameMultiplier
-                                * (i - self.frameMultiplier * 2)
+                                self.overlap *
+                                self.barThickness /
+                                self.frameMultiplier *
+                                (i - self.frameMultiplier * 2)
                             ),
                         ) : min(
                             self._stimSize,
                             int(
-                                self.overlap
-                                * self.barThickness
-                                / self.frameMultiplier
-                                * (i - self.frameMultiplier * 2)
-                                + self.barThickness
+                                self.overlap *
+                                self.barThickness /
+                                self.frameMultiplier *
+                                (i - self.frameMultiplier * 2) +
+                                self.barThickness
                             ),
                         ),
                     ] = 1
@@ -700,16 +700,16 @@ class barStimulus(Stimulus):
         checkSize = np.ceil(self._stimSize / self.nChecks / 2).astype("int")
 
         self.checkA = np.kron(
-            [[0, 255] * (self.nChecks + 1), [255, 0] * (self.nChecks + 1)]
-            * (self.nChecks + 1),
+            [[0, 255] * (self.nChecks + 1), [255, 0] * (self.nChecks + 1)] *
+            (self.nChecks + 1),
             np.ones((checkSize, checkSize)),
         )[
             int(checkSize * 3 / 2) : -int(checkSize / 2),
             int(checkSize / 2) : -int(checkSize * 3 / 2),
         ]
         self.checkB = np.kron(
-            [[255, 0] * (self.nChecks + 1), [0, 255] * (self.nChecks + 1)]
-            * (self.nChecks + 1),
+            [[255, 0] * (self.nChecks + 1), [0, 255] * (self.nChecks + 1)] *
+            (self.nChecks + 1),
             np.ones((checkSize, checkSize)),
         )[
             int(checkSize * 3 / 2) : -int(checkSize / 2),
@@ -719,30 +719,30 @@ class barStimulus(Stimulus):
         self.checkC = np.where(
             skiT.rotate(
                 np.kron(
-                    [[0, 255] * (self.nChecks + 1), [255, 0] * (self.nChecks + 1)]
-                    * (self.nChecks + 1),
+                    [[0, 255] * (self.nChecks + 1), [255, 0] * (self.nChecks + 1)] *
+                    (self.nChecks + 1),
                     np.ones((checkSize, checkSize)),
                 ),
                 angle=45,
                 resize=False,
                 order=0,
-            )
-            < 128,
+            ) <
+            128,
             0,
             255,
         )[checkSize:-checkSize, checkSize:-checkSize]
         self.checkD = np.where(
             skiT.rotate(
                 np.kron(
-                    [[255, 0] * (self.nChecks + 1), [0, 255] * (self.nChecks + 1)]
-                    * (self.nChecks + 1),
+                    [[255, 0] * (self.nChecks + 1), [0, 255] * (self.nChecks + 1)] *
+                    (self.nChecks + 1),
                     np.ones((checkSize, checkSize)),
                 ),
                 angle=45,
                 resize=False,
                 order=0,
-            )
-            < 128,
+            ) <
+            128,
             0,
             255,
         )[checkSize:-checkSize, checkSize:-checkSize]
@@ -808,10 +808,10 @@ class wedgeStimulus(Stimulus):
 
         # define meshgrid in polar corrdinates
         self.X, self.Y = np.meshgrid(
-            np.linspace(-self._stimSize // 2, self._stimSize // 2 - 1, self._stimSize)
-            + 0.5,
-            np.linspace(-self._stimSize // 2, self._stimSize // 2 - 1, self._stimSize)
-            + 0.5,
+            np.linspace(-self._stimSize // 2, self._stimSize // 2 - 1, self._stimSize) +
+            0.5,
+            np.linspace(-self._stimSize // 2, self._stimSize // 2 - 1, self._stimSize) +
+            0.5,
         )
         self.R, self.P = np.sqrt(self.X ** 2 + self.Y ** 2), np.arctan2(self.Y, self.X)
         self.P[self.P < 0] += 2 * np.pi
