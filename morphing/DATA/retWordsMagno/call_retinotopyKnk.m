@@ -29,7 +29,7 @@ pathImages = fullfile(imagesDir, imagesName);
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 expnum      = 103;
-runnum      = 2; 
+runnum      = 1; 
 pathMasks = fullfile('./', 'maskimages.mat');
 
 % how many frames we want a refresh to last. default: 15. previously: 4. 
