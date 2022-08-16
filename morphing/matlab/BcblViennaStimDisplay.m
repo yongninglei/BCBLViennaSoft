@@ -188,10 +188,10 @@ else
     error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
 end
 end                   
-%% RW
+%% PW
 if 1
 lang   = 'ES';
-imname = 'RW';
+imname = 'PW';
 % Launch the stimulus function in prfModel to create the images
 loadMatrix = fullfile(bvRootPath,'local', ...
                     [lang '_' imname '_tr-' num2str(params.tr) ...
