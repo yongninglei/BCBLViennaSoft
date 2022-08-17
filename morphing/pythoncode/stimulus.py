@@ -502,6 +502,7 @@ class barStimulus(Stimulus):
         blank_duration=12,
         loadImages=None,
         flickerFrequency=8,
+        forceBarWidth=None,
     ):
 
         super().__init__(
@@ -520,6 +521,8 @@ class barStimulus(Stimulus):
         self.doubleBarRot = doubleBarRot
         self.thickRatio = thickRatio
 
+        self.forceBarWidth = forceBarWidth
+
         self.startingDirection = [0, 3, 6, 1, 4, 7, 2, 5]
         self.crossings = len(self.startingDirection)
 
@@ -527,10 +530,13 @@ class barStimulus(Stimulus):
             (self.nFrames - 4 * self.blankLength) / self.crossings
         )
 
-        self.overlap = overlap
-        self.barThickness = np.ceil(
-            self._stimSize / (self.framesPerCrossing * self.overlap - 0.5)
-        ).astype("int")
+        if self.forceBarWidth is not None:
+            forceBarWidthPix = np.ceil(self.forceBarWidth / (2 * self._maxEcc) * self._stimSize).astype('int')
+            self.barWidth = forceBarWidthPix
+            self.overlap  = (self._stimSize + 0.5) / (self.barWidth * self.framesPerCrossing)
+        else:
+            self.overlap  = overlap
+            self.barWidth = np.ceil(self._stimSize / (self.framesPerCrossing * self.overlap - 0.5)).astype('int')
 
         if not continous:
             self._stimRaw = np.zeros((self.nFrames, self._stimSize, self._stimSize))
@@ -542,11 +548,11 @@ class barStimulus(Stimulus):
                     frame = np.zeros((self._stimSize, self._stimSize))
                     frame[
                         :,
-                        max(0, int(self.overlap * self.barThickness * (i - 1))) : min(
+                        max(0, int(self.overlap * self.barWidth * (i - 1))) : min(
                             self._stimSize,
                             int(
-                                self.overlap * self.barThickness * (i - 1) +
-                                self.barThickness
+                                self.overlap * self.barWidth * (i - 1) +
+                                self.barWidth
                             ),
                         ),
                     ] = 1
@@ -561,34 +567,34 @@ class barStimulus(Stimulus):
                                 o = max(
                                     int(np.ceil(self._stimSize / 2 - 1)),
                                     int(
-                                        self.overlap * self.barThickness * (i - 1) +
-                                        self.barThickness * self.thickRatio * 0.55 +
+                                        self.overlap * self.barWidth * (i - 1) +
+                                        self.barWidth * self.thickRatio * 0.55 +
                                         self.nBarShift * (nbar + 1)
                                     ),
                                 )
                                 t = int(
-                                    self.overlap * self.barThickness * (i - 1) +
-                                    self.barThickness * self.thickRatio +
+                                    self.overlap * self.barWidth * (i - 1) +
+                                    self.barWidth * self.thickRatio +
                                     self.nBarShift * (nbar + 1)
                                 )
                             elif i == self.framesPerCrossing - 1:
                                 o = int(
-                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.overlap * self.barWidth * (i - 1) +
                                     self.nBarShift * (nbar + 1)
                                 )
                                 t = int(
-                                    self.overlap * self.barThickness * (i - 1) +
-                                    self.barThickness * self.thickRatio * 0.45 +
+                                    self.overlap * self.barWidth * (i - 1) +
+                                    self.barWidth * self.thickRatio * 0.45 +
                                     self.nBarShift * (nbar + 1)
                                 )
                             else:
                                 o = int(
-                                    self.overlap * self.barThickness * (i - 1) +
+                                    self.overlap * self.barWidth * (i - 1) +
                                     self.nBarShift * (nbar + 1)
                                 )
                                 t = int(
-                                    self.overlap * self.barThickness * (i - 1) +
-                                    self.barThickness * self.thickRatio +
+                                    self.overlap * self.barWidth * (i - 1) +
+                                    self.barWidth * self.thickRatio +
                                     self.nBarShift * (nbar + 1)
                                 )
 
@@ -649,7 +655,7 @@ class barStimulus(Stimulus):
                             0,
                             int(
                                 self.overlap *
-                                self.barThickness /
+                                self.barWidth /
                                 self.frameMultiplier *
                                 (i - self.frameMultiplier * 2)
                             ),
@@ -657,10 +663,10 @@ class barStimulus(Stimulus):
                             self._stimSize,
                             int(
                                 self.overlap *
-                                self.barThickness /
+                                self.barWidth /
                                 self.frameMultiplier *
                                 (i - self.frameMultiplier * 2) +
-                                self.barThickness
+                                self.barWidth
                             ),
                         ),
                     ] = 1
@@ -670,8 +676,8 @@ class barStimulus(Stimulus):
                     #     frame2 = np.zeros((self._stimSize,self._stimSize))
 
                     #     for nbar in range(self.nBars-1) :
-                    #         o = int(self.overlap*self.barThickness*(i-1)                                     + self.nBarShift*(nbar+1))
-                    #         t = int(self.overlap*self.barThickness*(i-1) + self.barThickness*self.thickRatio + self.nBarShift*(nbar+1))
+                    #         o = int(self.overlap*self.barWidth*(i-1)                                     + self.nBarShift*(nbar+1))
+                    #         t = int(self.overlap*self.barWidth*(i-1) + self.barWidth*self.thickRatio + self.nBarShift*(nbar+1))
                     #         if o>self._stimSize: o -= self._stimSize
                     #         if t>self._stimSize: t -= self._stimSize
                     #         frame2[:, max(0, o):min(self._stimSize, t)] = 1
@@ -847,7 +853,7 @@ class wedgeStimulus(Stimulus):
         # self.framesPerCrossing = 18
 
         # self.overlap = overlap
-        # self.barThickness = np.ceil(self._stimSize / (self.framesPerCrossing * self.overlap - .5)).astype('int')
+        # self.barWidth = np.ceil(self._stimSize / (self.framesPerCrossing * self.overlap - .5)).astype('int')
 
         # self._stimRaw = np.zeros((self.nFrames, self._stimSize, self._stimSize))
         # self._stimBase = np.zeros(self.nFrames) # to find which checkerboard to use
@@ -856,15 +862,15 @@ class wedgeStimulus(Stimulus):
         # for cross in self.startingDirection:
         #     for i in range(self.framesPerCrossing):
         #         frame = np.zeros((self._stimSize,self._stimSize))
-        #         frame[:, max(0, int(self.overlap*self.barThickness*(i-1))):min(self._stimSize, int(self.overlap*self.barThickness*(i-1)+self.barThickness))] = 1
+        #         frame[:, max(0, int(self.overlap*self.barWidth*(i-1))):min(self._stimSize, int(self.overlap*self.barWidth*(i-1)+self.barWidth))] = 1
 
         #         if self.nBars > 1:
         #             self.nBarShift = self._stimSize // self.nBars
         #             frame2 = np.zeros((self._stimSize,self._stimSize))
 
         #             for nbar in range(self.nBars-1) :
-        #                 o = int(self.overlap*self.barThickness*(i-1)                                     + self.nBarShift*(nbar+1))
-        #                 t = int(self.overlap*self.barThickness*(i-1) + self.barThickness*self.thickRatio + self.nBarShift*(nbar+1))
+        #                 o = int(self.overlap*self.barWidth*(i-1)                                     + self.nBarShift*(nbar+1))
+        #                 t = int(self.overlap*self.barWidth*(i-1) + self.barWidth*self.thickRatio + self.nBarShift*(nbar+1))
         #                 if o>self._stimSize: o -= self._stimSize
         #                 if t>self._stimSize: t -= self._stimSize
         #                 frame2[:, max(0, o):min(self._stimSize, t)] = 1
