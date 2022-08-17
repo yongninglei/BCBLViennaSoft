@@ -154,13 +154,17 @@ else
     FullStimulusPath = input.FullStimName;
 end
 
+% convert file names to char
+FullStimulusPath = char(FullStimulusPath);
+FullStimulusName = char(FullStimulusName);
+
 if exist(FullStimulusPath,'file') || strcmp(input.StimType,'prismacentersurround')
     
     display(strcat("[",string(mfilename),"] Performing Stimulus: ",FullStimulusName))
     
 else
     
-    disp(['[',mfilename,'] Stimulus: ',char(FullStimulusPath),' doesn''t exist. Build it with one of the "Create..." functions.'])
+    disp(['[',mfilename,'] Stimulus: ',FullStimulusPath,' doesn''t exist. Build it with one of the "Create..." functions.'])
     return
     
 end
