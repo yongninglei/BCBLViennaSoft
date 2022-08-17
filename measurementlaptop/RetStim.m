@@ -203,7 +203,9 @@ if input.Eyetracker==1
                 readParams.params.loadMatrix   = FullStimulusPath;
                 readParams.params.experiment   = 'experiment from file';
                 readParams.params.triggerKey   = input.TriggerKey;
-                readParams.params.runPriority = 7;
+                readParams.params.runPriority  = 7;
+                readParams.params.repetitions  = input.Repetitions;
+                readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;                
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);
@@ -260,7 +262,9 @@ else
                 readParams.params.loadMatrix   = FullStimulusPath;
                 readParams.params.experiment   = 'experiment from file';
                 readParams.params.triggerKey   = input.TriggerKey;
-                readParams.params.runPriority = 7;
+                readParams.params.runPriority  = 7;
+                readParams.params.repetitions  = input.Repetitions;
+                readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);

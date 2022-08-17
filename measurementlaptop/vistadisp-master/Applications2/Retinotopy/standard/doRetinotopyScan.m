@@ -59,17 +59,17 @@ end
 
 %Report Stimulus length in Scan
 
-disp(['[',mfilename,'] Displaying the stimulus will take a total of ', ...
-    num2str((length(stimulus.seq)/(params.motionSteps*params.tempFreq))/params.tr'),...
-    ' scans at a TR of ',num2str(params.tr),' secs.'])
+% disp(['[',mfilename,'] Displaying the stimulus will take a total of ', ...
+%     num2str((length(stimulus.seq)/(params.motionSteps*params.tempFreq))/params.tr'),...
+%     ' scans at a TR of ',num2str(params.tr),' secs.'])
 %disp(['[',mfilename,'] For TR=1.25 each blank has a duration of 12.5 seconds. 
 % For all other TRs each of the four blanks has a duration of ceil(1/3 single bar screen pass)'])
-disp(['[',mfilename,'] Each of the four blanks has a duration of 1/3 period ' ...
-      '(bar screen pass, wedge rotation, circle period)'])
+% disp(['[',mfilename,'] Each of the four blanks has a duration of 1/3 period ' ...
+%       '(bar screen pass, wedge rotation, circle period)'])
 
 
 %Use to create stimuli for presentation
-save('stimulus','params','stimulus')
+% save('stimulus','params','stimulus')
 
 %Background Color Outside Stimulus
 if isfield(params,'BackgroundFullscreen')
@@ -125,7 +125,7 @@ retScreenReverse(params, stimulus);
 % outputs.
 %stimulus = retECOGtrigger(params, stimulus);
 
-for n = 1:params.repetitions,
+for n = 1:params.repetitions
     % set priority
     Priority(params.runPriority);
     
@@ -222,7 +222,7 @@ for n = 1:params.repetitions,
     [time0] = countDown(params.display,params.countdown,params.startScan, params.trigger);
     time0   = time0 + params.startScan; % we know we should be behind by that amount
     
-    if isfield(params,'EyetrackerExperiment')&&params.EyetrackerExperiment==1
+    if isfield(params,'EyetrackerExperiment') && params.EyetrackerExperiment==1
         
         Eyelink('Message', ['Experiments Starts. Time is: ',num2str(now)]);
         display(['Experiments start time (',num2str(now),') successfully sent to Eyetracker.'])
@@ -285,7 +285,8 @@ for n = 1:params.repetitions,
     end
     
     % save
-    if params.savestimparams && isfield(params,'MeasurementlaptopFolderLocation')
+    % if params.savestimparams && isfield(params,'MeasurementlaptopFolderLocation')
+    if isfield(params,'MeasurementlaptopFolderLocation')    
         filename = fullfile(params.MeasurementlaptopFolderLocation,'/measurementlaptop/logfiles/',[datestr(now,30),'.mat']);
         save(filename);                % save parameters
         fprintf('[%s]:Saving in %s.',mfilename,filename);

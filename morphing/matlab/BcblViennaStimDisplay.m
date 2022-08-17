@@ -1,9 +1,19 @@
-%% This script creates the images that will be morphed later on
-tbUse BCBLViennaSoft;
+%% This script creates the images that will be morphed lsqater on
+
+% tbUse BCBLViennaSoft;
+
 close all; clear all;
 
 params = retCreateDefaultGUIParams;
-PatientName = 'TestGari';   
+PatientName = 'TestGari';  
+
+Eyetracker = 0;
+
+TR = 1; % TR=1 > 305 (300+5); TR=0.8 > 380 (300/0.8+5)
+
+CB = true;
+RW = false;
+PW = false;
 
 %% EDIT THIS DIFFERENTLY IN BCBL/VIENNA
 % Paste here data from both Vienna and SS
@@ -14,7 +24,7 @@ masks = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno","maskimages
 stimulusdir = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno"));
 % Screen size and distance
 params.display.numPixels  = [1280 1024];
-params.display.dimensions = [49 37]; % [49 37] [42 31.5]
+params.display.dimensions = [42 31.5];
 params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
 params.display.distance = 128;
 params.display.frameRate = 60; % VGA Projector
@@ -49,7 +59,6 @@ triggerDeviceDetector = '904';
 PatientName                     = PatientName;
 MeasurementlaptopFolderLocation = bvRootPath;
 FixationPerformanceFolder     = fullfile(bvRootPath,'measurementlaptop','FixationPerformance');
-Eyetracker                    = 0;
 StimType                      = 'allInFile'; % Provide file with params and stimuli
 SimulatedScotoma              = 0; 
 FixationandBackgroundSizeMult = [];
@@ -59,117 +68,50 @@ CalibrationTargetSize         = 'small';
 UsePlusCalibrationTarget      = 0;
 CalibValidRatio               = 1;
 ScotomaBorderVisualAngle      = 0; % 3.5;
-TR = 1; % 0.8; % Python code is not writing it, fix it
+Repetitions                   = 1;
 
-
-
-% For Stimulus Creation (used once at the time of stimulus creation)
-expname         = "103";
-onlymasks       = false;
-checkimages     = false;
-wantdownsample  = true;
-wantresize      = false;
-resizedvert     = 101;
-resizedhorz     = 101;
-normalize01     = true;
-binarize        = false;
-savestimmat     = true;
-shuffle         = false;
-shuffleseed     = 12345;
-barwidth        = 2;
-totalduration   = 300;
-frameduration   = 4;
-stimSize        = 1024;
 
 % For params, some where defaults within the file, load/edit them here and do
 % not change them later. This travels Vienna/BCBL with the stimulus file
 params.tr               = TR;
-params.scanDuration     = totalduration;
-params.numCycles        = 1;
-params.ncycles          = params.numCycles;
-params.period           = totalduration/params.numCycles;
-params.motionSteps      = 1;
-params.tempFreq         = 1;
-params.contrast         = 1;
-params.interleaves      = [];
+params.scanDuration     = 300;
+% params.numCycles        = 1;
+% params.ncycles          = params.numCycles;
+% params.period           = totalduration/params.numCycles;
+% params.motionSteps      = 1;
+% params.tempFreq         = 1;
+% params.contrast         = 1;
+% params.interleaves      = [];
 params.experiment       = 'experiment from file';
 params.fixation         = 'double disk';
 params.modality         = 'fMRI';
-params.repetitions      = 1;
+params.repetitions      = Repetitions;
 params.BackgroundFullscreenColor = 128; % 0=Black, 255=White
 params.calibration      =  []; % Was calibrated with Photometer
 params.stimSize         =  'max';
 params.skipCycleFrames  =  0;
 params.prescanDuration  =  0;
-params.numImages        = round((params.scanDuration + params.prescanDuration)/params.tr);
+% params.numImages        = round((params.scanDuration + params.prescanDuration)/params.tr);
 params.ShiftStim        = [0 0];
 params.display.gammaTable = [linspace(0,1,256);linspace(0,1,256);linspace(0,1,256)]';
 params.runPriority      =  7;
 
+
+totalduration = params.scanDuration;
+stimSize = 1024;
+
 %% CB
-if 0
-% Create checkerboards to draw from, then CB and RW will be the same and I will
-% be able to morph the 100 images and not the individual time points.
-
-
-% This is done and stored, comment
-bgfile = fullfile(stimulusdir,"ES_CB_768x768x100.mat");
-%{
-pixelsSide = 48; 
-rowsOfTiles = 8;
-K  = double(checkerboard(pixelsSide, rowsOfTiles) > 0.5);
-imshow(K)
-A  = load("~/soft/morphing/DATA/retWordsMagno/ES_RW_768x768x100.mat");
-A  = A.images{1};
-II = repmat(K,[1,1,size(A,3), size(A,4)]);
-II = uint8(II * 255);
-% convert to cell
-images      = cell(1,1);
-images{1}   = II; 
-
-% saving
-save(bgfile, 'images')
-%}
+if CB
 lang   = 'ES';
 imname = 'CB';
 % Launch the stimulus function in prfModel to create the images
-filename = fullfile(stimulusdir, ...
+loadMatrix = fullfile(bvRootPath,'local', ...
                     [lang '_' imname '_tr-' num2str(params.tr) ...
-                    '_barwidth-' num2str(barwidth) ...
-                    '_dur-' num2str(totalduration) ...
-                    '_framedur-' num2str(frameduration) ...
-                    '.mat']);
-% Create the stimulus files if they don't exist, only first time
-%{
-  [stim, params] = pmStimulusGenerate('bgfile', bgfile, ...
-                          'masks', masks, ...
-                          'stimulusdir', stimulusdir, ...
-                          'expname', expname,...
-                          'onlymasks', onlymasks, ...
-                          'checkimages', checkimages, ...
-                          'wantdownsample', wantdownsample, ...
-                          'wantresize', wantresize, ...
-                          'resizedvert', resizedvert, ...
-                          'resizedhorz', resizedhorz, ...
-                          'normalize01', normalize01, ...
-                          'binarize', binarize, ...
-                          'savestimmat', savestimmat, ...
-                          'shuffle', shuffle, ...
-                          'shuffleseed', shuffleseed, ...
-                          'filename', filename, ...
-                          'barwidth', barwidth, ...
-                          'totalduration', totalduration, ...
-                          'tr', params.tr, ...
-                          'saveParamStimFile', true, ...
-                          'params', params, ...
-                          'frameduration', frameduration);
-%}
-
-% Launch using David's Vienna Software
-[fp,pn,fe] = fileparts(filename);
-loadMatrix = fullfile(fp,strcat(pn,"_ParamsStims",fe));
+                    '_duration-' num2str(totalduration) 'sec' ...
+                    '_size-' num2str(stimSize) ...
+                    '.mat']);      
 if isfile(loadMatrix)
-    RetStim('FullStimName',loadMatrix, ...
+    RetStim('FullStimName',string(loadMatrix), ...
             'PatientName', PatientName, ...
             'Eyetracker', Eyetracker, ...
             'StimType', StimType, ...
@@ -183,13 +125,49 @@ if isfile(loadMatrix)
             'CalibValidRatio', CalibValidRatio, ...
             'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
             'TriggerKey', TriggerKey, ...
-            'MeasurementlaptopFolderLocation', bvRootPath);
+            'TR', TR, ...
+            'Repetitions', Repetitions, ...
+            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
 else
     error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
 end
-end                   
+end
+
 %% PW
-if 1
+if PW
+lang   = 'ES';
+imname = 'PW';
+% Launch the stimulus function in prfModel to create the images
+loadMatrix = fullfile(bvRootPath,'local', ...
+                    [lang '_' imname '_tr-' num2str(params.tr) ...
+                    '_duration-' num2str(totalduration) 'sec' ...
+                    '_size-' num2str(stimSize) ...
+                    '.mat']);      
+if isfile(loadMatrix)
+    RetStim('FullStimName',string(loadMatrix), ...
+            'PatientName', PatientName, ...
+            'Eyetracker', Eyetracker, ...
+            'StimType', StimType, ...
+            'SimulatedScotoma', SimulatedScotoma, ...
+            'FixationandBackgroundSizeMult', FixationandBackgroundSizeMult, ...
+            'FixationPerformanceFolder', FixationPerformanceFolder, ...
+            'StaticBlackFixation', StaticBlackFixation, ...
+            'MovingFixation', MovingFixation, ...
+            'CalibrationTargetSize', CalibrationTargetSize, ...
+            'UsePlusCalibrationTarget', UsePlusCalibrationTarget, ...
+            'CalibValidRatio', CalibValidRatio, ...
+            'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
+            'TriggerKey', TriggerKey, ...
+            'TR', TR, ...
+            'Repetitions', Repetitions, ...
+            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
+else
+    error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
+end
+end        
+
+%% RW
+if RW
 lang   = 'ES';
 imname = 'RW';
 % Launch the stimulus function in prfModel to create the images
@@ -214,11 +192,12 @@ if isfile(loadMatrix)
             'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
             'TriggerKey', TriggerKey, ...
             'TR', TR, ...
-            'MeasurementlaptopFolderLocation', bvRootPath);
+            'Repetitions', Repetitions, ...
+            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
 else
     error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
 end
-end        
+end     
 
 %% Create stimulus for the tests
 if 0
@@ -239,7 +218,8 @@ RetStim(...
             'TriggerKey', TriggerKey, ...
             'TR',1, ...
             'Fixation','disk', ...
-            'MeasurementlaptopFolderLocation', bvRootPath);
+            'Repetitions', Repetitions, ...
+            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
                       
  
         
@@ -250,7 +230,8 @@ RetStim(...
         
         
         
-end                  
+end
+
 %% Create png images that will be later morphed
 if 0
 for ns =1:size(stim,3)
@@ -272,6 +253,4 @@ end
 
 
 
-
-    
-    
+s
