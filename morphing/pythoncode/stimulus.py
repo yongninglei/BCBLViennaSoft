@@ -43,7 +43,7 @@ class Stimulus:
         self.blankLength = int(blank_duration / self.TR)
 
         self.flickerFrequency = flickerFrequency  # Hz
-        self.nFramesFlicker = int(self.nFrames * self.TR * self.flickerFrequency)
+        self.nFramesFlicker = int(self.nFrames * np.round(self.TR * self.flickerFrequency + .0001))
 
     def save(self):
         pass
@@ -79,7 +79,7 @@ class Stimulus:
             Warning(f"Invalid carrier {self._carrier}, choose from [checker, images]!")
 
         if not self.continous:
-            framesPerPos = int(self.TR * self.flickerFrequency)
+            framesPerPos = int(np.round(self.TR * self.flickerFrequency + .0001))
             self._flickerSeqTimeing = np.arange(
                 0, self._stimUnc.shape[0] * self.TR, 1 / self.flickerFrequency
             )
