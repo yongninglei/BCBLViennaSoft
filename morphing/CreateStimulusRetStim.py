@@ -28,12 +28,13 @@ triggerKey = "6"  # "bcbl"
 stimSize = 1024
 maxEcc = 9
 overlap = 1 / 3
-tr = 0.8
+tr = 1  # 0.8  #
 duration = 300
 blank_duration = 10
 flickerFrequency = 2.5
+forceBarWidth = 2
 
-#%% Call, all variables are in the previous cell; call for pseudo-words
+# %% Call, all variables are in the previous cell; call for pseudo-words
 loadImages = join(RP, "morphing", "DATA", "retWordsMagno", "ES_PW_768x768x100.mat")
 stim = barStimulus(
     stimSize=stimSize,
@@ -44,12 +45,13 @@ stim = barStimulus(
     blank_duration=blank_duration,
     flickerFrequency=flickerFrequency,
     loadImages=loadImages,
+    forceBarWidth=forceBarWidth,
 )
 oName = join(localpath, f"words_tr-{tr}_duration-{duration}sec_size-{stimSize}.mat")
 stim.saveMrVistaStimulus(oName, triggerKey=triggerKey)
 
 
-#%% Call it again for checkers, same parameters
+# %% Call it again for checkers, same parameters
 stim = barStimulus(
     stimSize=stimSize,
     maxEcc=maxEcc,
@@ -58,6 +60,7 @@ stim = barStimulus(
     stim_duration=duration,
     blank_duration=blank_duration,
     flickerFrequency=flickerFrequency,
+    forceBarWidth=forceBarWidth,
 )
 oName = join(localpath, f"check_tr-{tr}_duration-{duration}sec_size-{stimSize}.mat")
 stim.saveMrVistaStimulus(oName, triggerKey=triggerKey)
