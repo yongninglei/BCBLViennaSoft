@@ -179,11 +179,11 @@ class Stimulus:
             'params'   : oPara,
         }
 
-        # if "/" not in oName:
+        # if "/" not in oName:
         # savemat(os.path.join("/home_local/dlinhardt/Dropbox/measurementlaptop/images", oName), oMat)
         # else:
         print(f"Saving {oMat} to {oName}")
-        savemat(oName, oMat)
+        savemat(oName, oMat, do_compression=True)
 
     def playVid(self, z=None, flicker=False):
         """play the stimulus video, if not defined otherwise, the unconvolved stimulus"""
