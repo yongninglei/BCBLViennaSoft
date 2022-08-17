@@ -21,13 +21,25 @@ from pythoncode.stimulus import barStimulus
 import os
 
 join = os.path.join
-# RP = "/Users/glerma/toolboxes/BCBLViennaSoft"
-RP = "/local/dlinhardt/develop/BCBLViennaSoft"
+
+
+###### EDIT ##########
+## BCBL ##
+RP = "/Users/glerma/toolboxes/BCBLViennaSoft"
+triggerKey = "bcbl"
+
+## VIENNA ##
+# RP = "/local/dlinhardt/develop/BCBLViennaSoft"
+# triggerKey = "6"  # "bcbl"
+
+###### END EDIT ##########
+
+
 localpath = join(RP, "local")
-triggerKey = "6"  # "bcbl"
 stimSize = 1024
 maxEcc = 9
 overlap = 1 / 3
+
 tr = 1  # 0.8  #
 duration = 300
 blank_duration = 10

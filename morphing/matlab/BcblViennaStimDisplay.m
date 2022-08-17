@@ -14,7 +14,7 @@ masks = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno","maskimages
 stimulusdir = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno"));
 % Screen size and distance
 params.display.numPixels  = [1280 1024];
-params.display.dimensions = [42 31.5];
+params.display.dimensions = [49 37]; % [49 37] [42 31.5]
 params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
 params.display.distance = 128;
 params.display.frameRate = 60; % VGA Projector
@@ -59,7 +59,7 @@ CalibrationTargetSize         = 'small';
 UsePlusCalibrationTarget      = 0;
 CalibValidRatio               = 1;
 ScotomaBorderVisualAngle      = 0; % 3.5;
-TR = 0.8; % Python code is not writing it, fix it
+TR = 1; % 0.8; % Python code is not writing it, fix it
 
 
 
@@ -188,7 +188,7 @@ else
     error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
 end
 end                   
-%% RW
+%% PW
 if 1
 lang   = 'ES';
 imname = 'RW';
