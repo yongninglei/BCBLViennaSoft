@@ -1,8 +1,0 @@
-eightbars_blanks
-eightbars_blanks_r2dot5degree_center
-eightbars_blanks_rand1
-eightbars_blanks_rand1_r2dot5degree_center
-eightbars_blanks
-eightbars_blanks_r2dot5degree_center
-eightbars_blanks_rand2
-eightbars_blanks_rand2_r2dot5degree_center
