@@ -31,8 +31,8 @@ except:
 
 
 triggerKey = "generic"  # 
-localpath = join(RP, "local")
-stimSize  = 1024
+localpath = join(RP, "images")
+stimSize  =isdir24
 maxEccs   = [8, 9] # 9 Vienna, 8 BCBL until changes
 overlap   = 1 / 3
 
@@ -76,6 +76,8 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                                         forceBarWidth=forceBarWidth,
                                     )
                 oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
-                        f"_size-{stimSize}_maxEcc-{maxEcc}.mat"
+                        f"_size-{stimSize}pix_" \
+                        f"maxEcc-{maxEcc}deg_barWidth-{forceBarWidth}deg.mat"
                 oPath = join(localpath, oName)
                 stim.saveMrVistaStimulus(oPath, triggerKey=triggerKey)
+                

@@ -69,6 +69,14 @@ function RetStim(varargin)
 %Possible Values: [0.1 1]
 %Default = 1
 
+
+Display.numPixels  = [1280 1024];
+Display.dimensions = [42 31.5];
+Display.pixelSize = Display.dimensions(2)/Display.numPixels(2);
+Display.distance = 128;
+Display.frameRate = 60; % VGA Projector
+Display.backColorIndex=128;
+
 %Create input parser
 
 p = inputParser;
@@ -98,6 +106,7 @@ p.addParameter('UsePlusCalibrationTarget', 0,@isnumeric);
 p.addParameter('CalibValidRatio', 1,@isnumeric);
 p.addParameter('TriggerKey', 's',@ischar); %only 'prisma' has an effect in pressKey2Begin.m
 p.addParameter('ScotomaBorderVisualAngle', 3.5,@isnumeric);
+p.addParameter('Display', Display, @isstruct);
 
 p.parse(varargin{:})
 Screen('Preference', 'SkipSyncTests', 1);
@@ -209,6 +218,7 @@ if input.Eyetracker==1
                 readParams.params.triggerKey   = input.TriggerKey;
                 readParams.params.runPriority  = 7;
                 readParams.params.repetitions  = input.Repetitions;
+                readParams.params.display      = input.Display;
                 readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;                
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
@@ -268,6 +278,7 @@ else
                 readParams.params.triggerKey   = input.TriggerKey;
                 readParams.params.runPriority  = 7;
                 readParams.params.repetitions  = input.Repetitions;
+                readParams.params.display      = input.Display;
                 readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
