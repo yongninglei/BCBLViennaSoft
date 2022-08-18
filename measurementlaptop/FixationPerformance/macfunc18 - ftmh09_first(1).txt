@@ -1,8 +1,0 @@
-Fixation performance of run "fullfield_StimSize5_tr2_images", which finished on 26-Jun-2020 13:03:41:
-percent correct: 0.0 %, reaction time: 0.0 secs
-Fixation performance of run "fullfield_StimSize5_tr2_images", which finished on 26-Jun-2020 13:04:26:
-percent correct: 0.0 %, reaction time: 0.0 secs
-Fixation performance of run "fullfield_StimSize5_tr2_images", which finished on 26-Jun-2020 13:06:30:
-percent correct: 0.0 %, reaction time: 0.0 secs
-Fixation performance of run "wedgeringsaltnojump_StimSize5_tr2_images", which finished on 26-Jun-2020 13:06:47:
-percent correct: 0.0 %, reaction time: 0.0 secs

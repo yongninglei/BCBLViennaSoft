@@ -1,6 +1,0 @@
-Fixation performance of run "fullfield_StimSize4dot75_tr2_images", which finished on 28-Jun-2019 14:15:47:
-percent correct: 0.0 %, reaction time: 0.0 secs
-Fixation performance of run "fullfield_StimSize4dot75_tr2_images", which finished on 28-Jun-2019 14:17:13:
-percent correct: 0.0 %, reaction time: 0.0 secs
-Fixation performance of run "fullfield_StimSize4dot75_tr2_images", which finished on 03-Jul-2019 13:15:03:
-percent correct: 0.0 %, reaction time: 0.0 secs
