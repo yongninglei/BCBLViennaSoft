@@ -1,21 +1,25 @@
 %% This script creates the images that will be morphed lsqater on
 
-% tbUse BCBLViennaSoft;
+% RUN THIS LINE FIRST, THEN USE THE RUN COMMAND FOR THE WHOLE FILE
+% EVERY TIME WE ARE RUNNING THE STIMULUS
+%{ 
+   tbUse BCBLViennaSoft;
+%} 
 
 close all; clear all;
 
-params = retCreateDefaultGUIParams;
 PatientName = 'TestGari';  
 
 Eyetracker = 0;
 
-TR = 1; % TR=1 > 305 (300+5); TR=0.8 > 380 (300/0.8+5)
+TR = 1; % VOLUMES: for TR=1 > 305 (300+5); for TR=0.8 > 380 (300/0.8+5)
 
 CB = true;
 RW = false;
 PW = false;
 
 %% EDIT THIS DIFFERENTLY IN BCBL/VIENNA
+params = retCreateDefaultGUIParams;
 % Paste here data from both Vienna and SS
 % BCBL
 % {

@@ -24,32 +24,28 @@ import os
 join = os.path.join
 
 
-###### EDIT ##########
-## BCBL ##
-RP = "/Users/glerma/toolboxes/BCBLViennaSoft"
-triggerKey = "bcbl"
+if os.name=='posix':
+     script_path = os.path.dirname(os.path.realpath(__file__))
+     logdir       = os.path.join(Path(script_path).parent.parent,'DATA','triadlogs')
 
-## VIENNA ##
-# RP = "/local/dlinhardt/develop/BCBLViennaSoft"
-# triggerKey = "6"  # "bcbl"
-
-###### END EDIT ##########
-
+# Find root path of the repo in any computer
+try:
+    RP = globals()['_dh'][0].parent
+except:
+    RP = os.path.dirname(os.path.realpath(__file__)).parent
 
 
-
+triggerKey = "generic"  # 
 localpath = join(RP, "local")
 stimSize  = 1024
-maxEcc    = 8 # 9 Vienna, 8 BCBL until changes
+maxEccs   = [8, 9] # 9 Vienna, 8 BCBL until changes
 overlap   = 1 / 3
 
 duration = 300
 blank_duration = 10
-forceBarWidth = 2
+forceBarWidth  = 2
 
-# trs = [0.8, 1]
-# flickerFrequency = [2.5, 2]
-trs_flickerFreqs = [(1,2)] # [(0.8, 2.5), (1, 2)]
+trs_flickerFreqs = [(0.8, 2.5), (1, 2)] # [(0.8, 2.5), (1, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
@@ -59,32 +55,33 @@ imnames = ["CB", "PW", "RW"]
 for (tr,flickerFrequency) in trs_flickerFreqs:
     for lang in langs:
         for imname in imnames:
-            imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
-            loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
-            if imname == "CB":
-                stim = barStimulus(
-                                    stimSize=stimSize,
-                                    maxEcc=maxEcc,
-                                    overlap=overlap,
-                                    TR=tr,
-                                    stim_duration=duration,
-                                    blank_duration=blank_duration,
-                                    flickerFrequency=flickerFrequency
-                                )
-            else:
-                stim = barStimulus(
-                                    stimSize=stimSize,
-                                    maxEcc=maxEcc,
-                                    overlap=overlap,
-                                    TR=tr,
-                                    stim_duration=duration,
-                                    blank_duration=blank_duration,
-                                    flickerFrequency=flickerFrequency,
-                                    loadImages=loadImages
-                                )
-            oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
-                    f"_size-{stimSize}.mat"
-            oPath = join(localpath, oName)
-            stim.saveMrVistaStimulus(oPath, triggerKey=triggerKey)
+            for maxEcc in maxEccs:
+                imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
+                loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
+                if imname == "CB":
+                    stim = barStimulus(
+                                        stimSize=stimSize,
+                                        maxEcc=maxEcc,
+                                        overlap=overlap,
+                                        TR=tr,
+                                        stim_duration=duration,
+                                        blank_duration=blank_duration,
+                                        flickerFrequency=flickerFrequency
+                                    )
+                else:
+                    stim = barStimulus(
+                                        stimSize=stimSize,
+                                        maxEcc=maxEcc,
+                                        overlap=overlap,
+                                        TR=tr,
+                                        stim_duration=duration,
+                                        blank_duration=blank_duration,
+                                        flickerFrequency=flickerFrequency,
+                                        loadImages=loadImages
+                                    )
+                oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
+                        f"_size-{stimSize}_maxEcc-{maxEcc}.mat"
+                oPath = join(localpath, oName)
+                stim.saveMrVistaStimulus(oPath, triggerKey=triggerKey)
             
             
