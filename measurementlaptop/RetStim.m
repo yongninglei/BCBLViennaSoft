@@ -81,8 +81,7 @@ p.addParameter('TR', 1.5,@isnumeric);
 p.addParameter('PatientName','none',@isstr);
 p.addParameter('StimName',0,@isstr);
 p.addParameter('FullStimName','',@isstring);
-p.addParameter('StimType',['allInFilesca' ...
-    ''],@isstr);
+p.addParameter('StimType',['allInFile'],@isstr);
 p.addParameter('CustomStimSize',[],@isnumeric);
 p.addParameter('ShiftStimX',0,@isnumeric);
 p.addParameter('ShiftStimY',0,@isnumeric);
