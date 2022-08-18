@@ -10,17 +10,33 @@ close all; clear all;
 
 PatientName = 'TestGari';  
 
+% Edit EyeTracker. Options: 0 | 1
 Eyetracker = 0;
 
-TR = 1; % VOLUMES: for TR=1 > 305 (300+5); for TR=0.8 > 380 (300/0.8+5)
+% Edit TR. Options: 1 | 0.8
+% Select right sequence in scanner: 
+% for TR=1 > 305 (300+5); for TR=0.8 > 380 (300/0.8+5) volumes
+TR = 1; 
 
-CB = true;
-RW = false;
-PW = false;
+% Edit imageName. Options: 'CB'|'RW'|'PW'
+imageName = 'CB'; 
+
+% Edit lang. Options: 'ES'|'AT'
+lang = 'ES'; 
+
+% Edit macEcc. Options: 8 | 9
+maxEcc = 8; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
+
+
+% No options for these for now
+stimSize     = 1024;
+barWidth     = 2;
+scanDuration = 300;
 
 %% EDIT THIS DIFFERENTLY IN BCBL/VIENNA
 params = retCreateDefaultGUIParams;
 % Paste here data from both Vienna and SS
+
 % BCBL
 % {
 % masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
@@ -62,30 +78,24 @@ triggerDeviceDetector = '904';
 % For RetStim (pass them all, always)
 PatientName                     = PatientName;
 MeasurementlaptopFolderLocation = bvRootPath;
-FixationPerformanceFolder     = fullfile(bvRootPath,'measurementlaptop','FixationPerformance');
-StimType                      = 'allInFile'; % Provide file with params and stimuli
-SimulatedScotoma              = 0; 
-FixationandBackgroundSizeMult = [];
-StaticBlackFixation           =  'none';
-MovingFixation                = 0;
-CalibrationTargetSize         = 'small';
-UsePlusCalibrationTarget      = 0;
-CalibValidRatio               = 1;
-ScotomaBorderVisualAngle      = 0; % 3.5;
-Repetitions                   = 1;
+FixationPerformanceFolder       = fullfile(bvRootPath,'measurementlaptop',...
+                                  'FixationPerformance');
+StimType                        = 'allInFile'; % Provide file with params and stimuli
+SimulatedScotoma                = 0; 
+FixationandBackgroundSizeMult   = [];
+StaticBlackFixation             =  'none';
+MovingFixation                  = 0;
+CalibrationTargetSize           = 'small';
+UsePlusCalibrationTarget        = 0;
+CalibValidRatio                 = 1;
+ScotomaBorderVisualAngle        = 0; % 3.5;
+Repetitions                     = 1;
 
 
 % For params, some where defaults within the file, load/edit them here and do
 % not change them later. This travels Vienna/BCBL with the stimulus file
 params.tr               = TR;
-params.scanDuration     = 300;
-% params.numCycles        = 1;
-% params.ncycles          = params.numCycles;
-% params.period           = totalduration/params.numCycles;
-% params.motionSteps      = 1;
-% params.tempFreq         = 1;
-% params.contrast         = 1;
-% params.interleaves      = [];
+params.scanDuration     = scanDuration;
 params.experiment       = 'experiment from file';
 params.fixation         = 'double disk';
 params.modality         = 'fMRI';
@@ -102,20 +112,21 @@ params.runPriority      =  7;
 
 
 totalduration = params.scanDuration;
-stimSize = 1024;
 
-%% CB
-if CB
-lang   = 'ES';
-imname = 'CB';
-% Launch the stimulus function in prfModel to create the images
-loadMatrix = fullfile(bvRootPath,'local', ...
-                    [lang '_' imname '_tr-' num2str(params.tr) ...
+%% RUN RetStim
+
+
+% Generate file name to read (created with the python code)
+loadMatrix = fullfile(bvRootPath,'images', ...
+                    [lang '_' imageName '_tr-' num2str(params.tr) ...
                     '_duration-' num2str(totalduration) 'sec' ...
-                    '_size-' num2str(stimSize) ...
-                    '.mat']);      
+                    '_size-' num2str(stimSize) 'pix' ...
+                    '_maxEcc-' num2str(maxEcc) 'deg' ...
+                    '_barWidth-' num2str(barWidth) 'deg' ...
+                    '.mat']);   
+                
 if isfile(loadMatrix)
-    RetStim('FullStimName',string(loadMatrix), ...
+    RetStim('FullStimName', loadMatrix, ...
             'PatientName', PatientName, ...
             'Eyetracker', Eyetracker, ...
             'StimType', StimType, ...
@@ -133,128 +144,5 @@ if isfile(loadMatrix)
             'Repetitions', Repetitions, ...
             'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
 else
-    error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
+    error('Check the file %s exists, otherwise create it with the python code',loadMatrix)
 end
-end
-
-%% PW
-if PW
-lang   = 'ES';
-imname = 'PW';
-% Launch the stimulus function in prfModel to create the images
-loadMatrix = fullfile(bvRootPath,'local', ...
-                    [lang '_' imname '_tr-' num2str(params.tr) ...
-                    '_duration-' num2str(totalduration) 'sec' ...
-                    '_size-' num2str(stimSize) ...
-                    '.mat']);      
-if isfile(loadMatrix)
-    RetStim('FullStimName',string(loadMatrix), ...
-            'PatientName', PatientName, ...
-            'Eyetracker', Eyetracker, ...
-            'StimType', StimType, ...
-            'SimulatedScotoma', SimulatedScotoma, ...
-            'FixationandBackgroundSizeMult', FixationandBackgroundSizeMult, ...
-            'FixationPerformanceFolder', FixationPerformanceFolder, ...
-            'StaticBlackFixation', StaticBlackFixation, ...
-            'MovingFixation', MovingFixation, ...
-            'CalibrationTargetSize', CalibrationTargetSize, ...
-            'UsePlusCalibrationTarget', UsePlusCalibrationTarget, ...
-            'CalibValidRatio', CalibValidRatio, ...
-            'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
-            'TriggerKey', TriggerKey, ...
-            'TR', TR, ...
-            'Repetitions', Repetitions, ...
-            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
-else
-    error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
-end
-end        
-
-%% RW
-if RW
-lang   = 'ES';
-imname = 'RW';
-% Launch the stimulus function in prfModel to create the images
-loadMatrix = fullfile(bvRootPath,'local', ...
-                    [lang '_' imname '_tr-' num2str(params.tr) ...
-                    '_duration-' num2str(totalduration) 'sec' ...
-                    '_size-' num2str(stimSize) ...
-                    '.mat']);      
-if isfile(loadMatrix)
-    RetStim('FullStimName',string(loadMatrix), ...
-            'PatientName', PatientName, ...
-            'Eyetracker', Eyetracker, ...
-            'StimType', StimType, ...
-            'SimulatedScotoma', SimulatedScotoma, ...
-            'FixationandBackgroundSizeMult', FixationandBackgroundSizeMult, ...
-            'FixationPerformanceFolder', FixationPerformanceFolder, ...
-            'StaticBlackFixation', StaticBlackFixation, ...
-            'MovingFixation', MovingFixation, ...
-            'CalibrationTargetSize', CalibrationTargetSize, ...
-            'UsePlusCalibrationTarget', UsePlusCalibrationTarget, ...
-            'CalibValidRatio', CalibValidRatio, ...
-            'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
-            'TriggerKey', TriggerKey, ...
-            'TR', TR, ...
-            'Repetitions', Repetitions, ...
-            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
-else
-    error('Check the file %s exists, otherwise create it with the commented code above',loadMatrix)
-end
-end     
-
-%% Create stimulus for the tests
-if 0
-
-RetStim(...
-            'PatientName', 'TestGariSeq01', ...
-            'Eyetracker', 0, ...
-            'StimType', 'eightbars_blanks', ...
-            'SimulatedScotoma', SimulatedScotoma, ...
-            'FixationandBackgroundSizeMult', FixationandBackgroundSizeMult, ...
-            'FixationPerformanceFolder', FixationPerformanceFolder, ...
-            'StaticBlackFixation', StaticBlackFixation, ...
-            'MovingFixation', MovingFixation, ...
-            'CalibrationTargetSize', CalibrationTargetSize, ...
-            'UsePlusCalibrationTarget', UsePlusCalibrationTarget, ...
-            'CalibValidRatio', CalibValidRatio, ...
-            'ScotomaBorderVisualAngle', ScotomaBorderVisualAngle, ...
-            'TriggerKey', TriggerKey, ...
-            'TR',1, ...
-            'Fixation','disk', ...
-            'Repetitions', Repetitions, ...
-            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
-                      
- 
-        
-        
-        
-        
-        
-        
-        
-        
-end
-
-%% Create png images that will be later morphed
-if 0
-for ns =1:size(stim,3)
-      imwrite(stim(:,:,ns),sprintf('ES_RW_%02d.png',ns));
-end
-
-
-
-
-
-LANG: ES, AT
-ST: CB, PW, FF, RW, PW10, PW20, FF10, FF20, RW10, RW20
-numImages: 100
-%sizeImage: 1024x1024
-end
-
-
-
-
-
-
-s
