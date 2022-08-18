@@ -1,6 +1,0 @@
-%multifocal
-%multifocal_blanks
-eightbars_blanks
-multifocal
-mulifocal_blanks
-eightbars_blanks

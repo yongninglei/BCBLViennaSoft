@@ -1,2 +1,0 @@
-Fixation performance of run "eightbars_blanks_tr1.5_images", which finished on 29-Mar-2022 13:14:54:
-percent correct: 0.0 %, reaction time: 0.0 secs

@@ -156,22 +156,22 @@ class Stimulus:
             'fixation'   : 'disk',
             'modality'   : 'fMRI',
             'trigger'    : 'scanner triggers computer',
-            'period'     : (self.nFrames - self.blankLength * self.crossings / 2) * self.TR,
-            'tempFreq'   : self.flickerFrequency,
-            'tr'         : self.TR,
-            'scanDuration': (self.nFrames - self.blankLength * self.crossings / 2) * self.TR,
+            'period'     : np.float64((self.nFrames - self.blankLength * self.crossings / 2) * self.TR),
+            'tempFreq'   : np.float64(self.flickerFrequency),
+            'tr'         : np.float64(self.TR),
+            'scanDuration': np.float64((self.nFrames - self.blankLength * self.crossings / 2) * self.TR),
             'saveMatrix' : 'None',
             'interleaves': [],
-            'numImages'  : self.nFrames,
+            'numImages'  : np.float64(self.nFrames),
             'stimSize'   : 'max',
-            'radius'     : self._maxEcc,
-            'prescanDuration' : 0,
-            'runPriority': 7,
+            'radius'     : np.float64(self._maxEcc),
+            'prescanDuration' : np.float64(0),
+            'runPriority': np.float64(7),
             'calibration': [],
-            'numCycles'  : 1,
-            'repetitions': 1,
-            'motionSteps': 2,
-            'countdown'  : 0,
+            'numCycles'  : np.float64(1),
+            'repetitions': np.float64(1),
+            'motionSteps': np.float64(2),
+            'countdown'  : np.float64(0),
         }
 
         oMat  = {
@@ -179,11 +179,11 @@ class Stimulus:
             'params'   : oPara,
         }
 
-        # if "/" not in oName:
+        # if "/" not in oName:
         # savemat(os.path.join("/home_local/dlinhardt/Dropbox/measurementlaptop/images", oName), oMat)
         # else:
         print(f"Saving {oMat} to {oName}")
-        savemat(oName, oMat)
+        savemat(oName, oMat, do_compression=True)
 
     def playVid(self, z=None, flicker=False):
         """play the stimulus video, if not defined otherwise, the unconvolved stimulus"""
