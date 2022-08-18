@@ -172,6 +172,7 @@ class Stimulus:
             'repetitions': np.float64(1),
             'motionSteps': np.float64(2),
             'countdown'  : np.float64(0),
+            'startScan'  : np.float64(0),
         }
 
         oMat  = {

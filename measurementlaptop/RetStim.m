@@ -73,15 +73,15 @@ function RetStim(varargin)
 
 p = inputParser;
 
-p.addParameter('MeasurementlaptopFolderLocation','/Users/fmri/Dropbox/',@isstr)
-p.addParameter('StimulusFolder',fullfile('measurementlaptop','images'),@isstr);
-p.addParameter('EDFFolder',fullfile('measurementlaptop','edfFiles'),@isstr);
-p.addParameter('FixationPerformanceFolder',fullfile('measurementlaptop','FixationPerformance'),@isstr);
+p.addParameter('MeasurementlaptopFolderLocation','/Users/fmri/Dropbox/',@ischar)
+p.addParameter('StimulusFolder',fullfile('measurementlaptop','images'),@ischar);
+p.addParameter('EDFFolder',fullfile('measurementlaptop','edfFiles'),@ischar);
+p.addParameter('FixationPerformanceFolder',fullfile('measurementlaptop','FixationPerformance'),@ischar);
 p.addParameter('TR', 1.5,@isnumeric);
-p.addParameter('PatientName','none',@isstr);
-p.addParameter('StimName',0,@isstr);
-p.addParameter('FullStimName','',@isstring);
-p.addParameter('StimType','eightbars_blanks',@isstr);
+p.addParameter('PatientName','none',@ischar);
+p.addParameter('StimName',0,@ischar);
+p.addParameter('FullStimName','',@ischar);
+p.addParameter('StimType',['allInFile'],@ischar);
 p.addParameter('CustomStimSize',[],@isnumeric);
 p.addParameter('ShiftStimX',0,@isnumeric);
 p.addParameter('ShiftStimY',0,@isnumeric);
@@ -89,14 +89,14 @@ p.addParameter('Repetitions',1,@isnumeric);
 p.addParameter('SimulatedScotoma',0,@isnumeric);
 p.addParameter('BackgroundFullscreenColor',[],@isnumeric);
 p.addParameter('FixationandBackgroundSizeMult',[],@isnumeric);
-p.addParameter('Fixation', 'my thin cross',@isstr);%disk,'my thin cross'
-p.addParameter('StaticBlackFixation', 'none',@isstr);
+p.addParameter('Fixation', 'my thin cross',@ischar);%disk,'my thin cross'
+p.addParameter('StaticBlackFixation', 'none',@ischar);
 p.addParameter('MovingFixation', 0); % ,@isstruct
 p.addParameter('Eyetracker', 0,@isnumeric);
-p.addParameter('CalibrationTargetSize', 'small',@isstr);
+p.addParameter('CalibrationTargetSize', 'small',@ischar);
 p.addParameter('UsePlusCalibrationTarget', 0,@isnumeric);
 p.addParameter('CalibValidRatio', 1,@isnumeric);
-p.addParameter('TriggerKey', 's',@isstr); %only 'prisma' has an effect in pressKey2Begin.m
+p.addParameter('TriggerKey', 's',@ischar); %only 'prisma' has an effect in pressKey2Begin.m
 p.addParameter('ScotomaBorderVisualAngle', 3.5,@isnumeric);
 
 p.parse(varargin{:})
