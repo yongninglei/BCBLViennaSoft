@@ -219,6 +219,7 @@ if input.Eyetracker==1
                 readParams.params.runPriority  = 7;
                 readParams.params.repetitions  = input.Repetitions;
                 readParams.params.display      = input.Display;
+                readParams.params.startScan    = 0;
                 readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;                
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
@@ -279,6 +280,7 @@ else
                 readParams.params.runPriority  = 7;
                 readParams.params.repetitions  = input.Repetitions;
                 readParams.params.display      = input.Display;
+                readParams.params.startScan    = 0;
                 readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
