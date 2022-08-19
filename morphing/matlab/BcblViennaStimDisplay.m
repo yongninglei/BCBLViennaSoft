@@ -92,6 +92,7 @@ ScotomaBorderVisualAngle        = 0; % 3.5;
 Repetitions                     = 1;
 
 
+
 % For params, some where defaults within the file, load/edit them here and do
 % not change them later. This travels Vienna/BCBL with the stimulus file
 params.tr               = TR;
