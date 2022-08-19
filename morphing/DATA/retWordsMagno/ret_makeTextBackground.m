@@ -6,8 +6,8 @@ clear all; clc; close all;
 %% modify here
 stimSize  = 1024;
 numImages = 100;
-langs = {'ES'};
-imnames = {'RW','PW'};
+langs = {'AT'};
+imnames = {'RW'}; % {'RW','PW'};
 
 
 for lang=langs; for imname=imnames

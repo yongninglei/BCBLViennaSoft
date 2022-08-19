@@ -32,7 +32,7 @@ except:
 
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
-stimSize  =isdir24
+stimSize  = 1024
 maxEccs   = [8, 9] # 9 Vienna, 8 BCBL until changes
 overlap   = 1 / 3
 
@@ -43,8 +43,8 @@ trs_flickerFreqs = [(0.8, 2.5), (1, 2)] # [(0.8, 2.5), (1, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES"]
-imnames = ["CB", "PW", "RW"]
+langs = ["AT"]
+imnames = ["CB", "RW"]
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
     for lang in langs:
