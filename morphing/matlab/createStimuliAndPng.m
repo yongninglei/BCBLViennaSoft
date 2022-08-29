@@ -1,4 +1,5 @@
 %% Create png images that will be later morphed
+% tbUse BCBLViennaSoft;
 clear all
 
 res  = 1024;
@@ -45,3 +46,30 @@ end; end
 
 % Now use the morphing/autoimagemorph/autoimagemorph.py code to generate the
 % morphed images, and select the 10 and 20 intermediate step morphed images 
+
+%% Create the resxresx3x100 images
+bName = fullfile(bvRootPath,'local','mats');
+Example_file_name =  fullfile(bName,'ES_RW1_1024x1024x100.mat');
+A = load(Example_file_name);
+
+for lang=langs; for imname=imnames; for step=1:29
+    % Read all the images
+    ims = dir(fullfile(bvRootPath,'local','PNGs','orig', ...
+                       ['NEW_' lang{:} '_' imname{:} '_' num2str(res) 'x' ...
+                       num2str(res) '_*_step-' num2str(step) '.png']));
+    % Create empty matrix and fill it with the png-s
+    imagesFile = uint8(zeros(size(A.images{1})));
+    for jj=1:100
+        % 100 is in the 10th position, but we don't care, they are random
+        imagesFile(:,:,:,jj) = imread(fullfile(ims(jj).folder, ims(jj).name));
+    end
+    % Generate file name
+    destName = [lang{:} '_' imname{:} num2str(step) '_' num2str(res) 'x' ...
+                num2str(res) 'x' num2str(numImages) '.mat']; 
+    destPath = fullfile(bName, destName);
+    % saving
+    images      = cell(1,1);
+    images{1}   = imagesFile; 
+    save(destPath, 'images')
+       
+end; end; end
