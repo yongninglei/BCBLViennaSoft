@@ -73,3 +73,37 @@ for lang=langs; for imname=imnames; for step=1:29
     save(destPath, 'images')
        
 end; end; end
+
+%% Visualize the 100 images
+for step=1:29
+    destName = [lang{:} '_' imname{:} num2str(step) '_' num2str(res) 'x' ...
+        num2str(res) 'x' num2str(numImages) '.mat'];
+    destPath = fullfile(bName, destName);
+    im=load(destPath);
+    figure(step);
+    imshow(im.images{1}(:,:,:,5))
+end
+
+%% Visualize the bar stimuli
+
+destNameCB = 'AT_CB_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+imCB = load(destNameCB);
+figure(1);
+imshow(imCB.stimulus.images(:,:,20))
+
+
+destName10 = 'AT_RW10_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+im10 = load(destName10);
+figure(10);
+imshow(im10.stimulus.images(:,:,20))
+
+destName20 = 'AT_RW20_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+im20=load(destName20);
+figure(20);
+imshow(im20.stimulus.images(:,:,20))
+
+destNameRW = 'AT_RW_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+imRW=load(destNameRW);
+figure(30);
+imshow(imRW.stimulus.images(:,:,20))
+
