@@ -30,6 +30,7 @@ except:
     RP = os.path.dirname(os.path.realpath(__file__)).parent
 
 
+
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
 stimSize  = 1024
@@ -43,15 +44,27 @@ trs_flickerFreqs = [(0.8, 2.5), (1, 2)] # [(0.8, 2.5), (1, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["AT"]
-imnames = ["CB", "RW"]
+langs = ["ES", "AT"]
+# imnames = ["CB", "RW"]
+
+# Create one imname per every step in the morphing
+imnames = []
+for nstep in range(1,30):
+    imnames.append(f"RW{nstep}")
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
     for lang in langs:
         for imname in imnames:
-            for maxEcc in maxEccs:
+            for maxEcc in maxEccs: 
+                print(f"\n{tr}+{flickerFrequency}+{lang}+{imname}+{maxEcc}")
+                # Used this for the non morphed ones
+                # imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
+                # loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
+                
+                # Used this for the non morphed ones
                 imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
-                loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
+                loadImages = join(RP, "local", "mats", imfilename)
+
                 if imname == "CB":
                     stim = barStimulus(
                                         stimSize=stimSize,
