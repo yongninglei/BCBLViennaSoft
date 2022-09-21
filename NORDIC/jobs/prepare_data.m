@@ -1,0 +1,88 @@
+
+addpath(genpath('/ceph/mri.meduniwien.ac.at/departments/physics/fmrilab/lab/presurfer'))
+addpath(genpath('/ceph/mri.meduniwien.ac.at/departments/physics/fmrilab/lab/NORDIC_Raw'))
+
+baseP = '/ceph/mri.meduniwien.ac.at/projects/physics/fmri/data/bcblvie22/BIDS';
+subs = {'t001'}; %{'bt001','bt002'};
+sess = {'002'};
+
+for subI=1:length(subs)
+    sub = ['sub-',subs{subI}];
+    for sesI=1:length(sess)
+        ses = ['ses-',sess{sesI}];
+        sesP = fullfile(baseP, sub, ses);
+
+        %% first run presurfer to denoise mp2rage images
+        T1w_out = fullfile(sesP, 'anat', [sub,'_',ses,'_T1w.nii']);
+        if ~exist([T1w_out,'.gz'], 'file')
+            % define the files
+            UNI  = fullfile(sesP, 'anat', [sub,'_',ses,'_T1_uni.nii']);
+            INV2 = fullfile(sesP, 'anat', [sub,'_',ses,'_T1_inv2.nii']);
+
+            % unzip the data
+            gunzip([UNI,'.gz'])
+            gunzip([INV2,'.gz'])
+
+            % STEP - 0 : (optional) MPRAGEise UNI
+            UNI_out = presurf_MPRAGEise(INV2,UNI);
+
+            % move, rename, clean up
+            system(['cp ', UNI_out, ' ', T1w_out]);
+            pause(2);
+            gzip(T1w_out);
+            system(['rm ', UNI, ' ', INV2]);
+            system(['rm -r ', fullfile(sesP, 'anat', 'ypresurf_MPRAGEise')]);
+
+        end
+
+        %% perform nordic on all the funtional files
+        mags = rsl_ls(fullfile(sesP, 'func', '*_magnitude.nii.gz'), fullfile(sesP, 'func/'));
+
+        for magI=1:length(mags)
+            % define file names
+            fn_magn_in  = strrep(mags{magI}, '.gz', '');
+            fn_phase_in = strrep(strrep(fn_magn_in, 'magnitude', 'phase'), '.gz', '');
+            fn_out      = strrep(strrep(fn_magn_in, 'magnitude', 'bold'), '.gz', '');
+
+            if ~exist([fn_out,'.gz'], 'file')
+                info = niftiinfo([fn_magn_in,'.gz']);
+                system(['fslroi ', [fn_magn_in,'.gz'], ' ', fn_magn_in, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-4)]);
+                system(['fslroi ', [fn_phase_in,'.gz'], ' ', fn_phase_in, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-4)]);
+                system(['fslmaths ', fn_magn_in,  ' ', fn_magn_in,  ' -odt float']);
+                system(['fslmaths ', fn_phase_in, ' ', fn_phase_in, ' -odt float']);
+
+                ARG.temporal_phase = 1;
+                ARG.phase_filter_width = 10;
+                ARG.noise_volume_last = 1;
+                [ARG.DIROUT,fn_out_name,~] = fileparts(fn_out);
+                ARG.DIROUT = [ARG.DIROUT, '/'];
+                NIFTI_NORDIC(fn_magn_in,fn_phase_in,fn_out_name,ARG)
+
+
+                % clean up
+                system(['fslroi ', fn_out, ' ', fn_out, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-5)]);
+                gzip(fn_out);
+                system(['rm ', fn_magn_in, ' ', fn_phase_in, ' ', fn_out]);
+
+                % copy the events.tsv
+                system(['cp ', strrep(fn_magn_in, 'magnitude.nii', 'magnitude.json'), ' ', ...
+                               strrep(fn_magn_in, 'magnitude.nii', 'bold.json')]);
+            end
+        end
+
+        % rename sbref
+        sbref_mags = rsl_ls(fullfile(sesP, 'func', '*_part-mag_sbref.nii.gz'), fullfile(sesP, 'func/'));
+        for sbref_magI = 1:length(sbref_mags)
+            sbref_mag = sbref_mags{sbref_magI};
+            system(['cp ', sbref_mag, ' ', strrep(sbref_mag, '_part-mag', '')]);
+            system(['cp ', strrep(sbref_mag, '.nii.gz', '.json'), ' ', ...
+                          strrep(sbref_mag, '_part-mag_sbref.nii.gz', '_sbref.json')]);
+        end
+
+        %             % for testing copy the original magnitude image as other task
+        %             system(['cp ',fn_magn_in, '.gz ', strrep(fn_magn_in, '_run-01_magnitude', 'orig_run-01_bold'), '.gz']);
+        %             system(['cp ', strrep(fn_magn_in, 'magnitude.nii', 'magnitude.json'), ' ', ...
+        %                            strrep(fn_magn_in, '_run-01_magnitude.nii', 'orig_run-01_bold.json')]);
+
+    end
+end
