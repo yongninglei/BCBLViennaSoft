@@ -34,13 +34,13 @@ except:
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
 stimSize  = 1024
-maxEccs   = [8, 9] # 9 Vienna, 8 BCBL until changes
+maxEccs   = [10] # 9 Vienna, 8 BCBL until changes
 overlap   = 1 / 3
 
 duration = 300
 blank_duration = 10
 forceBarWidth  = 2
-trs_flickerFreqs = [(0.8, 2.5), (1, 2)] # [(0.8, 2.5), (1, 2)]
+trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
@@ -48,8 +48,12 @@ langs = ["ES", "AT"]
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
-imnames = []
-for nstep in range(1,30):
+# imnames = []
+# for nstep in range(1,30):
+#     imnames.append(f"RW{nstep}")
+
+imnames = ["RW30"]
+for nstep in [10, 20]:
     imnames.append(f"RW{nstep}")
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
