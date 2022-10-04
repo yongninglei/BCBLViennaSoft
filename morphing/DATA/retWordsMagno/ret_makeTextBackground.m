@@ -6,13 +6,17 @@ clear all; clc; close all;
 %% modify here
 stimSize  = 1024;
 numImages = 100;
-langs = {'AT'};
-imnames = {'RW'}; % {'RW','PW'};
+langs = {'ES'};
+imnames = {'FF'}; % {'RW','PW'};
 
 
 for lang=langs; for imname=imnames
     % Path to the .txt file with words in a column
-    txtfile = [lang{:} '_' imname{:} '_words_list.txt']; 
+    if strcmp(imname{:}, 'FF')
+        txtfile = [lang{:} '_RW_words_list.txt']; 
+    else
+        txtfile = [lang{:} '_' imname{:} '_words_list.txt']; 
+    end
     % background color
     bg_color        = [255];
     % word color
@@ -83,7 +87,16 @@ for lang=langs; for imname=imnames
 
             % pick a random word
             wordIndR    = randi(length(L)); 
-            wordImg     = renderText([L{wordIndR} '  '], word_font, word_fontSize, word_sampsPerPt, [], [], word_bold); 
+            if strcmp(imname{:}, 'FF')
+                georg = 4304 - abs('a');% es el offset entre el abecedario nuestro y el georgiano en ascii
+                wordImg     = renderText([latin2ff(L{wordIndR}, georg) '  '], ...
+                                                word_font, word_fontSize, ...
+                                            word_sampsPerPt, [], [], word_bold); 
+            else
+                wordImg     = renderText([L{wordIndR} '  '], ...
+                                                word_font, word_fontSize, ...
+                                            word_sampsPerPt, [], [], word_bold); 
+            end
             wordHeight  = size(wordImg,1);
             wordLength  = size(wordImg,2); 
 
