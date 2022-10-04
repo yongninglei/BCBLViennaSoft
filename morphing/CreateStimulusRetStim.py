@@ -34,7 +34,7 @@ except:
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
 stimSize  = 1024
-maxEccs   = [10] # 9 Vienna, 8 BCBL until changes
+maxEccs   = [9] # 9 Vienna, 8 BCBL until changes
 overlap   = 1 / 3
 
 duration = 300
@@ -44,7 +44,7 @@ trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES", "AT"]
+langs = ["ES"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -55,6 +55,8 @@ langs = ["ES", "AT"]
 imnames = ["RW30"]
 for nstep in [10, 20]:
     imnames.append(f"RW{nstep}")
+           
+imnames = ["FF", "PW"]
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
     for lang in langs:
@@ -62,12 +64,12 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
             for maxEcc in maxEccs: 
                 print(f"\n{tr}+{flickerFrequency}+{lang}+{imname}+{maxEcc}")
                 # Used this for the non morphed ones
-                # imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
-                # loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
+                imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
+                loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
                 
                 # Used this for the non morphed ones
-                imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
-                loadImages = join(RP, "local", "mats", imfilename)
+                # imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
+                # loadImages = join(RP, "local", "mats", imfilename)
 
                 if imname == "CB":
                     stim = barStimulus(
