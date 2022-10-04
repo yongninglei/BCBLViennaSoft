@@ -44,7 +44,7 @@ masks = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno","maskimages
 stimulusdir = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno"));
 % Screen size and distance
 params.display.numPixels  = [1280 1024];
-params.display.dimensions = [42 31.5];
+params.display.dimensions = [51 41];
 params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
 params.display.distance = 128;
 params.display.frameRate = 60; % VGA Projector
