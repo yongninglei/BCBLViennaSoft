@@ -8,24 +8,24 @@
 
 close all; clear all;
 
-PatientName = 'TestGari';  
+PatientName = 'sensotive-p001_001';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 0;
+Eyetracker = 1;
 
 % Edit TR. Options: 1 | 0.8
 % Select right sequence in scanner: 
 % for TR=1 > 305 (300+5); for TR=0.8 > 380 (300/0.8+5) volumes
-TR = 1; 
+TR = 0.8; 
 
-% Edit imageName. Options: 'CB'|'RW'|'PW'
+% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'
 imageName = 'CB'; 
 
 % Edit lang. Options: 'ES'|'AT'
-lang = 'ES'; 
+lang = 'AT'; 
 
 % Edit macEcc. Options: 8 | 9
-maxEcc = 8; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
+maxEcc = 9; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
 
 
 % No options for these for now
