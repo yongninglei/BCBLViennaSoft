@@ -257,7 +257,7 @@ for n = 1:params.repetitions
     end
     
     
-    if isfield(params,'EyetrackerExperiment')&&params.EyetrackerExperiment==1
+    if isfield(params,'EyetrackerExperiment') && params.EyetrackerExperiment==1
         
         Eyelink('Message', ['Experiments Stops. Time is: ',num2str(now)]);
         display(['Experiments stop time (',num2str(now),') successfully sent to Eyetracker.'])
@@ -279,8 +279,8 @@ for n = 1:params.repetitions
     if ~isempty(params.loadMatrix) && isfield(params,'FixationPerformanceFolder')
         [~,LoadStimName]=fileparts(params.loadMatrix);
         fid = fopen(fullfile(params.FixationPerformanceFolder,[SubjectName,'.txt']), 'a+');
-%         fprintf(fid,'Fixation performance of run "%s", which finished on %s:\n',LoadStimName,datestr(now));
-%         fprintf(fid,'percent correct: %.1f %%, reaction time: %.1f secs\n',pc,rc);
+        fprintf(fid,'Fixation performance of run "%s", which finished on %s:\n',LoadStimName,datestr(now));
+        fprintf(fid,'percent correct: %.1f %%, reaction time: %.1f secs\n',pc,rc);
         fclose(fid);
     end
     
