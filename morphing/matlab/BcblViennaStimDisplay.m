@@ -8,7 +8,7 @@
 
 close all; clear all;
 
-PatientName = 'sensotive-p001_001';  
+PatientName = 'sensotive-p002_001';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 1;
@@ -18,11 +18,11 @@ Eyetracker = 1;
 % for TR=1 > 305 (300+5); for TR=0.8 > 380 (300/0.8+5) volumes
 TR = 0.8; 
 
-% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'
-imageName = 'CB'; 
+% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
+imageName = 'RW'; 
 
-% Edit lang. Options: 'ES'|'AT'
-lang = 'AT'; 
+
+lang = 'ES'; 
 
 % Edit macEcc. Options: 8 | 9
 maxEcc = 9; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
@@ -118,7 +118,7 @@ totalduration = params.scanDuration;
 
 
 % Generate file name to read (created with the python code)
-loadMatrix = fullfile(bvRootPath,'images', ...
+loadMatrix = fullfile(bvRootPath,'final_stimuli', ...
                     [lang '_' imageName '_tr-' num2str(params.tr) ...
                     '_duration-' num2str(totalduration) 'sec' ...
                     '_size-' num2str(stimSize) 'pix' ...
