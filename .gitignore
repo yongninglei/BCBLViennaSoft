@@ -3,6 +3,7 @@ measurementlaptop/edfFiles/
 measurementlaptop/logfiles/
 local/
 images/
+measurementlaptop/FixationPerformance/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

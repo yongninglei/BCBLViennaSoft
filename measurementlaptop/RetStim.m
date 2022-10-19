@@ -69,13 +69,13 @@ function RetStim(varargin)
 %Possible Values: [0.1 1]
 %Default = 1
 
-
-Display.numPixels  = [1280 1024];
-Display.dimensions = [42 31.5];
-Display.pixelSize = Display.dimensions(2)/Display.numPixels(2);
-Display.distance = 128;
-Display.frameRate = 60; % VGA Projector
-Display.backColorIndex=128;
+% 
+% Display.numPixels  = [1280 1024];
+% Display.dimensions = [42 31.5];
+% Display.pixelSize = Display.dimensions(2)/Display.numPixels(2);
+% Display.distance = 128;
+% Display.frameRate = 60; % VGA Projector
+% Display.backColorIndex=128;
 
 %Create input parser
 
@@ -97,7 +97,7 @@ p.addParameter('Repetitions',1,@isnumeric);
 p.addParameter('SimulatedScotoma',0,@isnumeric);
 p.addParameter('BackgroundFullscreenColor',[],@isnumeric);
 p.addParameter('FixationandBackgroundSizeMult',[],@isnumeric);
-p.addParameter('Fixation', 'my thin cross',@ischar);%disk,'my thin cross'
+p.addParameter('Fixation', 'disk',@ischar);%disk,'my thin cross'
 p.addParameter('StaticBlackFixation', 'none',@ischar);
 p.addParameter('MovingFixation', 0); % ,@isstruct
 p.addParameter('Eyetracker', 0,@isnumeric);
@@ -106,14 +106,17 @@ p.addParameter('UsePlusCalibrationTarget', 0,@isnumeric);
 p.addParameter('CalibValidRatio', 1,@isnumeric);
 p.addParameter('TriggerKey', 's',@ischar); %only 'prisma' has an effect in pressKey2Begin.m
 p.addParameter('ScotomaBorderVisualAngle', 3.5,@isnumeric);
-p.addParameter('Display', Display, @isstruct);
+%p.addParameter('Display', Display, @isstruct);
+p.addParameter('pre_params', {}, @isstruct);
 
 p.parse(varargin{:})
 Screen('Preference', 'SkipSyncTests', 1);
 Screen('Preference', 'VisualDebugLevel', 0);
 %Show inputs
 
-input = p.Results
+input = p.Results;
+
+params = input.pre_params;
 
 %Prepend MeasurementlaptopFolderLocation to Paths
 input.StimulusFolder=fullfile(input.MeasurementlaptopFolderLocation,input.StimulusFolder);
@@ -213,15 +216,16 @@ if input.Eyetracker==1
                 LoadEightbarsStim(FullStimulusPath,input);
             case {'allInFile'}
                 readParams = load(FullStimulusPath,'params');
+                readParams.params = mergeStructure(readParams.params, params);
                 readParams.params.loadMatrix   = FullStimulusPath;
+                readParams.params.fixation     = input.Fixation;
                 readParams.params.experiment   = 'experiment from file';
                 readParams.params.triggerKey   = input.TriggerKey;
                 readParams.params.runPriority  = 7;
                 readParams.params.repetitions  = input.Repetitions;
-                readParams.params.display      = input.Display;
-                readParams.params.startScan    = 0;
                 readParams.params.FixationPerformanceFolder = input.FixationPerformanceFolder;
-                readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;                
+                readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;
+                disp(readParams.params)
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);
@@ -275,15 +279,16 @@ else
                 LoadEightbarsStim(FullStimulusPath,input);
             case {'allInFile'}
                 readParams = load(FullStimulusPath,'params');
+                readParams.params = mergeStructure(readParams.params, params);
                 readParams.params.loadMatrix   = FullStimulusPath;
+                readParams.params.fixation     = input.Fixation;
                 readParams.params.experiment   = 'experiment from file';
                 readParams.params.triggerKey   = input.TriggerKey;
                 readParams.params.runPriority  = 7;
                 readParams.params.repetitions  = input.Repetitions;
-                readParams.params.display      = input.Display;
-                readParams.params.startScan    = 0;
                 readParams.params.FixationPerformanceFolder = input.FixationPerformanceFolder;
                 readParams.params.MeasurementlaptopFolderLocation = input.MeasurementlaptopFolderLocation;
+                disp(readParams.params)
                 LoadAllInFile(readParams.params, input);
             case {'wedgeringsaltnojump'}
                 LoadRingAndWedgeStim(FullStimulusPath,input);
@@ -299,3 +304,24 @@ end
 
 end
 
+
+function [resultStruct] = mergeStructure(mainStruct,struct2merge)
+    fields2merge = fields(struct2merge);
+    if isempty(mainStruct) && ~isempty(struct2merge)
+        resultStruct = struct2merge;
+        return;
+    elseif ~isempty(mainStruct) && isempty(struct2merge)
+        resultStruct = mainStruct;
+        return;
+    end
+    for ifieldsIn = fields2merge'
+        moreLevels = isstruct(struct2merge.(ifieldsIn{1}));
+        if moreLevels 
+            [valueInStructLeveli] = mergeStructure((mainStruct),struct2merge.(ifieldsIn{1}));
+            mainStruct.(ifieldsIn{1}) = valueInStructLeveli;
+        else
+            mainStruct.(ifieldsIn{1}) = struct2merge.(ifieldsIn{1});
+        end
+    end
+    resultStruct = mainStruct;
+end
