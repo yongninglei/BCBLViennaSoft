@@ -1,0 +1,2 @@
+Fixation performance of run "ES_PW_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg", which finished on 19-Oct-2022 12:33:24:
+percent correct: 0.0 %, reaction time: 0.0 secs

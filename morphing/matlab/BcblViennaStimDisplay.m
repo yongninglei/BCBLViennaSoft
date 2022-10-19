@@ -8,10 +8,10 @@
 
 close all; clear all;
 
-PatientName = 'sensotive-p002_001';  
+PatientName = 'sensotive-p003_001';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 1;
+Eyetracker = 0;
 
 % Edit TR. Options: 1 | 0.8
 % Select right sequence in scanner: 
@@ -19,7 +19,7 @@ Eyetracker = 1;
 TR = 0.8; 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'RW'; 
+imageName = 'PW'; 
 
 
 lang = 'ES'; 
@@ -76,9 +76,8 @@ triggerDeviceDetector = '904';
 
 %% EDIT THIS AT EXPERIMENT LEVEL, SHOULD BE SAME IN BCBL/VIENNA
 % For RetStim (pass them all, always)
-PatientName                     = PatientName;
 MeasurementlaptopFolderLocation = bvRootPath;
-FixationPerformanceFolder       = fullfile(bvRootPath,'measurementlaptop',...
+FixationPerformanceFolder       = fullfile('measurementlaptop',...
                                   'FixationPerformance');
 StimType                        = 'allInFile'; % Provide file with params and stimuli
 SimulatedScotoma                = 0; 
@@ -95,6 +94,7 @@ Repetitions                     = 1;
 
 % For params, some where defaults within the file, load/edit them here and do
 % not change them later. This travels Vienna/BCBL with the stimulus file
+params.PatientName      = PatientName;
 params.tr               = TR;
 params.scanDuration     = scanDuration;
 params.experiment       = 'experiment from file';
@@ -102,10 +102,12 @@ params.fixation         = 'double disk';
 params.modality         = 'fMRI';
 params.repetitions      = Repetitions;
 params.BackgroundFullscreenColor = 128; % 0=Black, 255=White
-params.calibration      =  []; % Was calibrated with Photometer
-params.stimSize         =  'max';
-params.skipCycleFrames  =  0;
-params.prescanDuration  =  0;
+params.calibration      = []; % Was calibrated with Photometer
+params.stimSize         = 'max';
+params.skipCycleFrames  = 0;
+params.prescanDuration  = 8; %s
+params.startScan        = 8; %s
+params.tempFreq         = 2.5;
 % params.numImages        = round((params.scanDuration + params.prescanDuration)/params.tr);
 params.ShiftStim        = [0 0];
 params.display.gammaTable = [linspace(0,1,256);linspace(0,1,256);linspace(0,1,256)]';
@@ -143,7 +145,9 @@ if isfile(loadMatrix)
             'TriggerKey', TriggerKey, ...
             'TR', TR, ...
             'Repetitions', Repetitions, ...
-            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation);
+            'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation, ...
+            'pre_params', params ...
+        );
 else
     error('Check the file %s exists, otherwise create it with the python code',loadMatrix)
 end
