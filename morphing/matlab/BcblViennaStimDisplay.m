@@ -7,11 +7,12 @@
 %} 
 
 close all; clear all;
+cd('/Users/experimentaluser/toolboxes/BCBLViennaSoft/measurementlaptop')
 
-PatientName = 'sensotive-p003_001';  
+PatientName = 'sensotive-p004_001';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 0;
+Eyetracker = 1;
 
 % Edit TR. Options: 1 | 0.8
 % Select right sequence in scanner: 
@@ -19,10 +20,10 @@ Eyetracker = 0;
 TR = 0.8; 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'PW'; 
+imageName = 'FF'; 
 
 
-lang = 'ES'; 
+lang = 'AT'; 
 
 % Edit macEcc. Options: 8 | 9
 maxEcc = 9; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
@@ -105,7 +106,7 @@ params.BackgroundFullscreenColor = 128; % 0=Black, 255=White
 params.calibration      = []; % Was calibrated with Photometer
 params.stimSize         = 'max';
 params.skipCycleFrames  = 0;
-params.prescanDuration  = 8; %s
+params.prescanDuration  = 0; %s
 params.startScan        = 8; %s
 params.tempFreq         = 2.5;
 % params.numImages        = round((params.scanDuration + params.prescanDuration)/params.tr);
