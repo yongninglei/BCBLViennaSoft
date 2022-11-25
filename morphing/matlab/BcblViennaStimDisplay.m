@@ -5,25 +5,31 @@
 %{ 
    tbUse BCBLViennaSoft;
 %} 
-
 close all; clear all;
 cd('/Users/experimentaluser/toolboxes/BCBLViennaSoft/measurementlaptop')
 
-PatientName = 'sensotive-p004_001';  
+PatientName = 'sensotive-p006_001';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 1;
+Eyetracker = 0;
 
 % Edit TR. Options: 1 | 0.8
 % Select right sequence in scanner: 
 % for TR=1 > 305 (300+5); for TR=0.8 > 380 (300/0.8+5) volumes
+% Gari: David made changes and added 10 volumes at the beginning, we are
+% acquiring 390
+%      TR=0.8 > 380 (10+300/0.8+5) volumes
+% Now that I am preparing the TR2 and TR1.5 for the other project, same
+% calculations: 
+%      TR=2 > 165 (10+300/2+5) volumes
+%      TR=1.5 > 215 (10+300/1.5+5) volumes
 TR = 0.8; 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'FF'; 
+imageName = 'RW'; 
 
 
-lang = 'AT'; 
+lang = 'ES'; 
 
 % Edit macEcc. Options: 8 | 9
 maxEcc = 9; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
