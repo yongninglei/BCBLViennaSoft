@@ -24,12 +24,12 @@ import os
 join = os.path.join
 
 # Find root path of the repo in any computer
-try:
-    RP = globals()['_dh'][0].parent
-except:
-    RP = os.path.dirname(os.path.realpath(__file__)).parent
+# try:
+#     RP = globals()['_dh'][0].parent
+# except:
+#     RP = os.path.dirname(os.path.realpath(__file__)).parent
 
-
+RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
 
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
@@ -41,6 +41,8 @@ duration = 300
 blank_duration = 10
 forceBarWidth  = 2
 trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]
+trs_flickerFreqs = [(0.8, 2.5), (1, 2)]
+trs_flickerFreqs = [(2, 2), (1.5, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
@@ -57,6 +59,8 @@ for nstep in [10, 20]:
     imnames.append(f"RW{nstep}")
            
 imnames = ["FF", "PW"]
+
+imnames = ["CB"]
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
     for lang in langs:
