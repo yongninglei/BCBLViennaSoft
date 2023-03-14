@@ -30,23 +30,24 @@ join = os.path.join
 #     RP = os.path.dirname(os.path.realpath(__file__)).parent
 
 RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
+RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
 
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
 stimSize  = 1024
-maxEccs   = [9] # 9 Vienna, 8 BCBL until changes
+maxEccs   = [8] # 9 Vienna, 8 BCBL until changes
 overlap   = 1 / 3
 
 duration = 300
 blank_duration = 10
 forceBarWidth  = 2
 trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]
-trs_flickerFreqs = [(0.8, 2.5), (1, 2)]
-trs_flickerFreqs = [(2, 2), (1.5, 2)]
+# trs_flickerFreqs = [(0.8, 2.5), (1, 2)]
+# trs_flickerFreqs = [(2, 2), (1.5, 2)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES"]  # , "AT"
+langs = ["JP"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -54,13 +55,13 @@ langs = ["ES"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["RW30"]
+imnames = ["CB", "RW30"]
 for nstep in [10, 20]:
     imnames.append(f"RW{nstep}")
            
-imnames = ["FF", "PW"]
+# imnames = ["FF", "PW"]
 
-imnames = ["CB"]
+# imnames = ["CB"]
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
     for lang in langs:
