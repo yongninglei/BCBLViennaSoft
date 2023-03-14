@@ -8,7 +8,7 @@
 close all; clear all;
 cd('/Users/experimentaluser/toolboxes/BCBLViennaSoft/measurementlaptop')
 
-PatientName = 'sensotive-p006_001';  
+PatientName = 'sensotive-p007_001-Hiromasa';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 0;
@@ -26,13 +26,13 @@ Eyetracker = 0;
 TR = 0.8; 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'RW'; 
+imageName = 'RW30'; 
 
 
-lang = 'ES'; 
+lang = 'JP'; 
 
 % Edit macEcc. Options: 8 | 9
-maxEcc = 9; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
+maxEcc = 8; % Vienna = 9, , BCBL = 8. Oobjective 9 for bcbl first, then 13
 
 
 % No options for these for now
@@ -47,8 +47,8 @@ params = retCreateDefaultGUIParams;
 % BCBL
 % {
 % masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
-masks = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
-stimulusdir = string(fullfile(bvRootPath,"morphing","DATA","retWordsMagno"));
+masks = string(fullfile(bvRP,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
+stimulusdir = string(fullfile(bvRP,"morphing","DATA","retWordsMagno"));
 % Screen size and distance
 params.display.numPixels  = [1280 1024];
 params.display.dimensions = [51 41];
@@ -83,7 +83,7 @@ triggerDeviceDetector = '904';
 
 %% EDIT THIS AT EXPERIMENT LEVEL, SHOULD BE SAME IN BCBL/VIENNA
 % For RetStim (pass them all, always)
-MeasurementlaptopFolderLocation = bvRootPath;
+MeasurementlaptopFolderLocation = bvRP;
 FixationPerformanceFolder       = fullfile('measurementlaptop',...
                                   'FixationPerformance');
 StimType                        = 'allInFile'; % Provide file with params and stimuli
@@ -127,7 +127,7 @@ totalduration = params.scanDuration;
 
 
 % Generate file name to read (created with the python code)
-loadMatrix = fullfile(bvRootPath,'final_stimuli', ...
+loadMatrix = fullfile(bvRP,'final_stimuli', ...
                     [lang '_' imageName '_tr-' num2str(params.tr) ...
                     '_duration-' num2str(totalduration) 'sec' ...
                     '_size-' num2str(stimSize) 'pix' ...
