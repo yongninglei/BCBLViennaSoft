@@ -53,6 +53,7 @@ from matplotlib.path import Path
 import numpy as np
 import os
 import glob as glob
+import sys 
 
 #######################################################
 #   https://github.com/ddowd97/Morphing
@@ -238,6 +239,8 @@ def initmorph(startimgpath,endimgpath,featuregridsize,subpixel,showfeatures,scal
         leftImageRaw = cv2.resize(leftImageRaw, (leftImageRaw.shape[1]*subpixel,leftImageRaw.shape[0]*subpixel), interpolation = cv2.INTER_CUBIC)
 
     # right image load
+    print(f"\n\nstartimgpath in line 243 initmorph function is {startimgpath}\n\n")
+    print(f"\n\nendimgpath in line 243 initmorph function is {endimgpath}\n\n")
     rightImageRaw = cv2.imread(endimgpath)
     # resize image
     rightImageRaw = cv2.resize(rightImageRaw, (leftImageRaw.shape[1],leftImageRaw.shape[0]), interpolation = cv2.INTER_CUBIC)
@@ -306,6 +309,7 @@ def batchmorph(imgs,featuregridsize,subpixel,showfeatures,framerate,outimgprefix
     framecnt = 0
     totaltimerstart = time.time()
     for idx in range(len(imgs)-1) :
+        print(f"\n\n[bathmorph] calling initmorph with imgs[idx+1]: {imgs[idx+1]}. imgs is: {imgs}.\n\n")
         morphprocess(
             initmorph(imgs[idx],imgs[idx+1],featuregridsize,subpixel,showfeatures,scale),
             framerate,outimgprefix,subpixel,smoothing
@@ -332,79 +336,57 @@ def batchmorph(imgs,featuregridsize,subpixel,showfeatures,framerate,outimgprefix
 join = os.path.join
 
 # Find root path of the repo in any computer
-try:
-    RP = globals()['_dh'][0].parent.parent
-except:
-    RP = os.path.dirname(os.path.realpath(__file__)).parent
+# try:
+#     RP = globals()['_dh'][0].parent.parent
+# except:
+#     RP = os.path.dirname(os.path.realpath(__file__)).parent
+# 
+# origDir = join(RP,'local','PNGs','orig')
+# newDir  = join(RP,'local','PNGs','new')
+def main(a): 
 
-origDir = join(RP,'local','PNGs','orig')
-newDir  = join(RP,'local','PNGs','new')
+
+    print(sys.version)
+
+
+    mfeaturegridsize = 7 # number of image divisions on each axis, for example 5 creates 5x5 = 25 automatic feature points + 4 corners come automatically
+    mframerate = 30 # number of transition frames to render + 1 ; for example 30 renders transiton frames 1..29
+    framecnt = 0 # frame counter
+    msubpixel = 1 # int, min: 1, max: no hard limit, but 4 should be enough
+    msmoothing = 0 # median_filter smoothing
+    mshowfeatures = False # render automatically detected features
+    mscale = 1.0 # image scale
     
-mfeaturegridsize = 7 # number of image divisions on each axis, for example 5 creates 5x5 = 25 automatic feature points + 4 corners come automatically
-mframerate = 30 # number of transition frames to render + 1 ; for example 30 renders transiton frames 1..29
-framecnt = 0 # frame counter
-msubpixel = 1 # int, min: 1, max: no hard limit, but 4 should be enough
-msmoothing = 0 # median_filter smoothing
-mshowfeatures = False # render automatically detected features
-mscale = 1.0 # image scale
-
-
-
-# This is for the loop
-res  = 1024;
-numImages = 100;
-langs = {'AT'};  # {'ES','AT'};
-imnames = {'RW'}; # {'RW','PW'};
-numImages = 100;
-
-
-for imname in imnames:
-    for lang in langs:
-
-
-imname = 'RW'
-lang='AT'
-origDir = '/Users/glerma/toolboxes/BCBLViennaSoft/local/PNGs/orig'
-os.chdir(origDir)
-A = sorted(glob.glob(f"{lang}_{imname}_{res}x{res}*"))
-A = A[15:]
-for a in A:
+    
+    
+    # This is for the loop
+    res  = 1024;
+    numImages = 100;
+    langs = {'JP'};  # {'ES','AT'};
+    imnames = {'RW'}; # {'RW','PW'};
+    numImages = 100;
+    
+    
+    imname = 'RW'
+    lang='JP'
+    origDir = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft/local/PNGs/orig'
+    newDir = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft/local/PNGs/new'
+    
+    os.chdir(origDir)
+    # A = sorted(glob.glob(f"{lang}_{imname}_{res}x{res}*"))
+    # for a in A:
     images     = [f"{lang}_CB_{res}x{res}.png", a]
-    moutprefix = "NEW_"+a.replace(".png","")+"_step-"
+    moutprefix = f'{newDir}/NEW_{a.replace(".png","")}_step-'
     batchmorph(images, mfeaturegridsize, msubpixel, mshowfeatures, 
                mframerate, moutprefix, msmoothing, mscale)
-    # sd  = sp.call(f'~/bin/ffmpeg -framerate 15 -i {moutprefix}%d.png 
-    #               {moutprefix}advice.gif', shell=True)
+        # sd  = sp.call(f'~/bin/ffmpeg -framerate 15 -i {moutprefix}%d.png 
+        #               {moutprefix}advice.gif', shell=True)
 
 
 
-# Try to do it using parfor
-# from parfor import parfor
-# from parfor import pmap
-
-# origDir = '/Users/glerma/toolboxes/BCBLViennaSoft/local/PNGs/orig'
-# imname = 'RW'
-# lang='ES'
-# os.chdir(origDir)
-# A = sorted(glob.glob(f"{lang}_{imname}_{res}x{res}*"))
-# def fun(A):
-#     images     = [f"{lang}_CB_{res}x{res}.png", A]
-#     moutprefix = "NEW_"+A.replace(".png","")+"_step-"
-#     batchmorph(images, mfeaturegridsize, msubpixel, mshowfeatures, 
-#                        mframerate, moutprefix, msmoothing, mscale)
-# pmap(fun, A[0:2])
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    a = sys.argv[1]
+    main(a)
 
 
 

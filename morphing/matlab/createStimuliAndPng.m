@@ -4,11 +4,11 @@ clear all
 
 res  = 1024;
 numImages = 100;
-langs = {'ES','AT'};
+langs = {'JP'};  % {'ES','AT'};
 imnames = {'RW'}; % {'RW','PW'};
 numImages = 100;
 
-oPath = fullfile(bvRootPath,'local','PNGs','orig');
+oPath = fullfile(bvRP,'local','PNGs','orig');
 
 % Create equivalent chequerboard
 % 10 pairs per 1024
@@ -21,7 +21,7 @@ CB(:,(end-3):(end)) = CB(:,1:4);
 CB = uint8(CB*255);
 
 for lang=langs; for imname=imnames
-    bName = fullfile(bvRootPath,'morphing','DATA','retWordsMagno');
+    bName = fullfile(bvRP,'morphing','DATA','retWordsMagno');
     origName = [lang{:} '_' imname{:} '_' num2str(res) 'x' num2str(res) 'x' num2str(numImages) '.mat']; 
     origPath = fullfile(bName, origName);
     
@@ -48,13 +48,13 @@ end; end
 % morphed images, and select the 10 and 20 intermediate step morphed images 
 
 %% Create the resxresx3x100 images
-bName = fullfile(bvRootPath,'local','mats');
-Example_file_name =  fullfile(bName,'ES_RW1_1024x1024x100.mat');
+bName = fullfile(bvRP,'morphing','DATA','retWordsMagno');
+Example_file_name =  fullfile(bName,'JP_RW_1024x1024x100.mat');
 A = load(Example_file_name);
 
 for lang=langs; for imname=imnames; for step=1:29
     % Read all the images
-    ims = dir(fullfile(bvRootPath,'local','PNGs','orig', ...
+    ims = dir(fullfile(bvRP,'local','PNGs','new', ...
                        ['NEW_' lang{:} '_' imname{:} '_' num2str(res) 'x' ...
                        num2str(res) '_*_step-' num2str(step) '.png']));
     % Create empty matrix and fill it with the png-s
@@ -83,6 +83,13 @@ for step=1:29
     figure(step);
     imshow(im.images{1}(:,:,:,5))
 end
+
+%% Create the sitmuli bars
+% Now we need to create the bar stimuli using python again
+% use morphing/CreateStimulusRetStim.py
+
+
+
 
 %% Visualize the bar stimuli
 

@@ -8,7 +8,7 @@ Created on Mon Apr  6 16:18:22 2020
 import numpy as np
 import skimage.transform as skiT
 from skimage.transform import resize
-from nipy.modalities.fmri.hrf import spm_hrf_compat
+# from nipy.modalities.fmri.hrf import spm_hrf_compat
 import matplotlib.pyplot as plt
 from copy import deepcopy
 import pickle

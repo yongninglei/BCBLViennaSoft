@@ -1,10 +1,31 @@
+% VIENNA
+% addpath(genpath('/ceph/mri.meduniwien.ac.at/departments/physics/fmrilab/lab/presurfer'))
+% addpath(genpath('/ceph/mri.meduniwien.ac.at/departments/physics/fmrilab/lab/NORDIC_Raw'))
+% baseP = '/ceph/mri.meduniwien.ac.at/projects/physics/fmri/data/bcblvie22/BIDS';
 
-addpath(genpath('/ceph/mri.meduniwien.ac.at/departments/physics/fmrilab/lab/presurfer'))
-addpath(genpath('/ceph/mri.meduniwien.ac.at/departments/physics/fmrilab/lab/NORDIC_Raw'))
+% BCBL
+softPath = fileparts(bvRootPath);
+addpath(genpath(fullfile(fileparts(softPath),'soft','presurfer')));
+addpath(genpath(fullfile(fileparts(softPath),'soft','NORDIC_Raw')));
+addpath(genpath(fullfile(softPath,'spm12')));
+baseP = fullfile('/bcbl/home/public/Gari/SENSOTIVE/SNRtest','Nifti');
 
-baseP = '/ceph/mri.meduniwien.ac.at/projects/physics/fmri/data/bcblvie22/BIDS';
-subs = {'t001'}; %{'bt001','bt002'};
-sess = {'002'};
+baseP = fullfile('/bcbl/home/public/Gari/SENSOTIVE/NORDIC_PILOT','Nifti');
+%{ 
+TODO: use 
+    setenv('FSLOUTPUTTYPE', 'NIFTI_GZ')
+and remove the whole gz thing
+%}
+setenv('FSLOUTPUTTYPE', 'NIFTI')
+subs = {'GariTest','DavidTest'}; %{'bt001','bt002'};
+
+subs = {'bt002','t001'};
+% subs = {'DavidTest'}; %{'bt001','bt002'};
+sess = {'001'};
+
+doPresurfer = false;
+doNORDIC = true;
+dotsnr = true;
 
 for subI=1:length(subs)
     sub = ['sub-',subs{subI}];
@@ -13,6 +34,7 @@ for subI=1:length(subs)
         sesP = fullfile(baseP, sub, ses);
 
         %% first run presurfer to denoise mp2rage images
+        if doPresurfer
         T1w_out = fullfile(sesP, 'anat', [sub,'_',ses,'_T1w.nii']);
         if ~exist([T1w_out,'.gz'], 'file')
             % define the files
@@ -34,8 +56,10 @@ for subI=1:length(subs)
             system(['rm -r ', fullfile(sesP, 'anat', 'ypresurf_MPRAGEise')]);
 
         end
+        end
 
         %% perform nordic on all the funtional files
+        if doNORDIC 
         mags = rsl_ls(fullfile(sesP, 'func', '*_magnitude.nii.gz'), fullfile(sesP, 'func/'));
 
         for magI=1:length(mags)
@@ -46,8 +70,10 @@ for subI=1:length(subs)
 
             if ~exist([fn_out,'.gz'], 'file')
                 info = niftiinfo([fn_magn_in,'.gz']);
-                system(['fslroi ', [fn_magn_in,'.gz'], ' ', fn_magn_in, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-4)]);
-                system(['fslroi ', [fn_phase_in,'.gz'], ' ', fn_phase_in, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-4)]);
+                gunzip([fn_magn_in,'.gz'])
+                gunzip([fn_phase_in,'.gz'])
+                system(['fslroi ', fn_magn_in, ' ', fn_magn_in, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-4)]);
+                system(['fslroi ', fn_phase_in, ' ', fn_phase_in, ' 0 -1 0 -1 0 -1 0 ', num2str(info.ImageSize(end)-4)]);
                 system(['fslmaths ', fn_magn_in,  ' ', fn_magn_in,  ' -odt float']);
                 system(['fslmaths ', fn_phase_in, ' ', fn_phase_in, ' -odt float']);
 
@@ -56,7 +82,8 @@ for subI=1:length(subs)
                 ARG.noise_volume_last = 1;
                 [ARG.DIROUT,fn_out_name,~] = fileparts(fn_out);
                 ARG.DIROUT = [ARG.DIROUT, '/'];
-                NIFTI_NORDIC(fn_magn_in,fn_phase_in,fn_out_name,ARG)
+                ARG.save_gfactor_map = 1;
+                NIFTI_NORDIC(fn_magn_in,fn_phase_in,fn_out_name,ARG);
 
 
                 % clean up
@@ -71,18 +98,55 @@ for subI=1:length(subs)
         end
 
         % rename sbref
-        sbref_mags = rsl_ls(fullfile(sesP, 'func', '*_part-mag_sbref.nii.gz'), fullfile(sesP, 'func/'));
-        for sbref_magI = 1:length(sbref_mags)
-            sbref_mag = sbref_mags{sbref_magI};
-            system(['cp ', sbref_mag, ' ', strrep(sbref_mag, '_part-mag', '')]);
-            system(['cp ', strrep(sbref_mag, '.nii.gz', '.json'), ' ', ...
-                          strrep(sbref_mag, '_part-mag_sbref.nii.gz', '_sbref.json')]);
-        end
+%         sbref_mags = rsl_ls(fullfile(sesP, 'func', '*_part-mag_sbref.nii.gz'), fullfile(sesP, 'func/'));
+%         for sbref_magI = 1:length(sbref_mags)
+%             sbref_mag = sbref_mags{sbref_magI};
+%             system(['cp ', sbref_mag, ' ', strrep(sbref_mag, '_part-mag', '')]);
+%             system(['cp ', strrep(sbref_mag, '.nii.gz', '.json'), ' ', ...
+%                           strrep(sbref_mag, '_part-mag_sbref.nii.gz', '_sbref.json')]);
+%         end
 
         %             % for testing copy the original magnitude image as other task
         %             system(['cp ',fn_magn_in, '.gz ', strrep(fn_magn_in, '_run-01_magnitude', 'orig_run-01_bold'), '.gz']);
         %             system(['cp ', strrep(fn_magn_in, 'magnitude.nii', 'magnitude.json'), ' ', ...
         %                            strrep(fn_magn_in, '_run-01_magnitude.nii', 'orig_run-01_bold.json')]);
 
+        end
+        if dotsnr
+            bolds = rsl_ls(fullfile(sesP, 'func', '*_bold.nii.gz'), fullfile(sesP, 'func/'));
+            mags  = rsl_ls(fullfile(sesP, 'func', '*_magnitude.nii.gz'), fullfile(sesP, 'func/'));
+
+            for nb=1:length(bolds)
+                fprintf("\n\n%s_%s_run-0%i",sub,ses,nb)
+                % Define file names
+                magFile  = mags{nb};
+                boldFile = bolds{nb};
+                tsnrFile = strrep(boldFile,'bold','tsnr');
+                magtsnrFile = strrep(boldFile,'bold','MAGtsnr');
+                gfactorFile = strrep(boldFile,[sub '_ses'],['gfactor_' sub '_ses']);
+                gfactorFile = strrep(gfactorFile,'.gz','');
+                tsnrGfactorFile = strrep(boldFile,'bold','tsnrGfactor');
+                
+                % pre NORDIC tSNR
+                magData = single(niftiread(magFile));
+                magtsnrData = mean(magData,4) ./ std(magData,1,4);
+                niftiwrite(magtsnrData, magtsnrFile)
+                fprintf("\nPreNORDIC: %2.2g",mean(magtsnrData(~isnan(magtsnrData(:)))))
+                
+                % post NORDIC tSNR
+                boldData = niftiread(boldFile);
+                tsnrData = mean(boldData,4) ./ std(boldData,1,4);
+                niftiwrite(tsnrData, tsnrFile)
+                fprintf("\nPostNORDIC: %2.2g",mean(tsnrData(~isnan(tsnrData(:)))))
+                
+                % Write g factor in same space
+                tsnrHeader  = niftiinfo(strrep(tsnrFile,'gz','nii'));
+                gfactorData = niftiread(gfactorFile);
+                niftiwrite(gfactorData, tsnrGfactorFile, tsnrHeader)
+                
+                
+                
+            end
+        end
     end
 end
