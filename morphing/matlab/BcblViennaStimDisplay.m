@@ -8,7 +8,7 @@
 close all; clear all;
 cd('/Users/experimentaluser/toolboxes/BCBLViennaSoft/measurementlaptop')
 
-PatientName = 'votcloc-p002_001-xxx';  
+PatientName = 'votcloc-p002_001-GLU';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 0;
@@ -37,8 +37,7 @@ imageName = 'CB';
 lang = 'ES'; 
 
 % Edit macEcc. Options: 8 | 9
-maxEcc = 9; % Vienna = 9, , BCBL = 8. Objective 9 for bcbl first, then 13
-
+maxEcc = 9; % Vienna = 9, , BCBL = 9. 
 
 % No options for these for now
 stimSize     = 1024;  % pixels
@@ -118,7 +117,14 @@ params.calibration      = []; % Was calibrated with Photometer
 params.stimSize         = 'max';
 params.skipCycleFrames  = 0;
 params.prescanDuration  = 0; %s
-params.startScan        = 8; %s
+switch TR
+    case {0.8, 1, 2}
+        params.startScan = 8; %s 8 for all TRs, but for 1.5 error because it is not multiple
+    case {1.5}
+        params.startScan = 9; %s 8 for all TRs, but for 1.5 error because it is not multiple
+    otherwise
+        error('Check the TR and be sure that you have the stimuli prepared and that it is multiple of presScan')
+end
 params.tempFreq         = 2.5;
 % params.numImages        = round((params.scanDuration + params.prescanDuration)/params.tr);
 params.ShiftStim        = [0 0];
@@ -132,16 +138,30 @@ totalduration = params.scanDuration;
 
 
 % Generate file name to read (created with the python code)
-loadMatrix = fullfile(bvRP,'final_stimuli', ...
-                    [lang '_' imageName '_tr-' num2str(params.tr) ...
+fname = [lang '_' imageName '_tr-' num2str(params.tr) ...
                     '_duration-' num2str(totalduration) 'sec' ...
                     '_size-' num2str(stimSize) 'pix' ...
                     '_maxEcc-' num2str(maxEcc) 'deg' ...
                     '_barWidth-' num2str(barWidth) 'deg' ...
-                    '.mat']);   
+                    '.mat'];
+loadMatrix = fullfile(bvRP,'images', fname);   
                 
-if isfile(loadMatrix)
-    RetStim('FullStimName', loadMatrix, ...
+if ~isfile(loadMatrix)
+    % Try to download it from osf.io
+%     projectID = 'gwsj7';
+%     folderName = 'SENSOTIVE_VOTCLOC_STIMS';
+%     folderID = '6477482aa8dbe90615cb5503';
+%     
+%     apiURL = sprintf('https://api.osf.io/v2/nodes/%s/files/osfstorage/?filter[name]=%s', ...
+%                      projectID,fname);
+%     
+%     response = webread(apiURL);
+    
+    error(['The file does not exist locally or in osf.io. ' ...
+           'Make the stimulus and upload it to osf.io'])
+end
+
+RetStim('FullStimName', loadMatrix, ...
             'PatientName', PatientName, ...
             'Eyetracker', Eyetracker, ...
             'StimType', StimType, ...
@@ -160,6 +180,3 @@ if isfile(loadMatrix)
             'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation, ...
             'pre_params', params ...
         );
-else
-    error('Check the file %s exists, otherwise create it with the python code',loadMatrix)
-end

@@ -10,7 +10,7 @@ function retParamsCheck(params)
 ratio = params.startScan/params.framePeriod;
 if abs(ratio - round(ratio)) > 1e-5
 	error('start scan period (%.1f) is not an integer multiple of frame period (%.1f)!',...
-        params.startScan,params.frameperiod);
+        params.startScan,params.framePeriod);
 end
 
 ratio = params.prescanDuration/params.framePeriod;
