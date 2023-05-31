@@ -112,7 +112,7 @@ class Stimulus:
         elif self._carrier == "images":
             for i in range(nF):
                 for j in range(framesPerPos):
-                    self._flickerUncStim[..., 2 * i + j][
+                    self._flickerUncStim[..., 2 * i + j - 1][
                         self._stimUnc[i, ...].astype("bool")
                     ] = self.carrierImages[
                         self._stimUnc[i, ...].astype("bool"),
