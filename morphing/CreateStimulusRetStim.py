@@ -24,12 +24,12 @@ import os
 join = os.path.join
 
 # Find root path of the repo in any computer
-# try:
-#     RP = globals()['_dh'][0].parent
-# except:
-#     RP = os.path.dirname(os.path.realpath(__file__)).parent
+try:
+    RP = globals()['_dh'][0].parent.parent
+except:
+    RP = os.path.dirname(os.path.realpath(__file__)).parent.parent
 
-RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
+# RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
 # RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
 
 triggerKey = "generic"  # 
@@ -41,9 +41,9 @@ overlap   = 1 / 3
 duration = 300
 blank_duration = 9
 forceBarWidth  = 2
-# trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]
-# trs_flickerFreqs = [(0.8, 2.5), (1, 2)]
-trs_flickerFreqs = [(1.5, 2), (2, 2)]
+# trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
+# trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
+trs_flickerFreqs = [(1.5, 2), (2, 2)]  # (TR, flickerFreq)
 
 
 # langs = ["ES","AT"]
@@ -56,7 +56,7 @@ langs = ["ES"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = [ "RW"]
+imnames = ["CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
@@ -71,7 +71,7 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                 print(f"\n{tr}+{flickerFrequency}+{lang}+{imname}+{maxEcc}")
                 # Used this for the non morphed ones
                 imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
-                loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
+                loadImages = join(RP, "DATA", "retWordsMagno", imfilename)
                 
                 # Used this for the non morphed ones
                 # imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
@@ -101,6 +101,7 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                                         forceBarWidth=forceBarWidth,
                                     )
                 oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
+                        f"_flickfreq-{flickerFrequency}Hz" \
                         f"_size-{stimSize}pix_" \
                         f"maxEcc-{maxEcc}deg_barWidth-{forceBarWidth}deg.mat"
                 oPath = join(localpath, oName)

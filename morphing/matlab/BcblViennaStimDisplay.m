@@ -6,35 +6,52 @@
    tbUse BCBLViennaSoft;
 %} 
 close all; clear all;
-cd('/Users/experimentaluser/toolboxes/BCBLViennaSoft/measurementlaptop')
 
+cd(fullfile(bvRP, 'measurementlaptop'))
+
+
+%% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
+%%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 PatientName = 'votcloc-p002_001-GLU';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 0;
 
-% SENSOTIVE:
-% Edit TR. Options: 1 | 0.8
-% Select right sequence in scanner: 
-%  - for TR=1   > 305 = (300+5); 
-%  - for TR=0.8 > 380 = (300/0.8+5) volumes
-% Gari: David made changes and added 10 volumes at the beginning, we are
-% acquiring 390
-%      TR=0.8 > 380 (10+300/0.8+5) volumes
-% 
-% VOTCLOC
-% Edit TR. Options: 2 | 1.5
-% Select right sequence in scanner:
-%  - for TR=2   > 165 (10+300/2 + 5) volumes   >> Voxel Size: 1 x 1 x 1 mm
-%  - for TR=1.5 > 215 (10+300/1.5+5) volumes   >> Voxel Size: 1.2 x 1.2 x 1.2
-
-TR = 1.5; 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
 imageName = 'CB'; 
 
-
 lang = 'ES'; 
+
+TR = 1.5; 
+flickerFrequency = 2; % always 2, except 2.5 for TR=0.8
+%%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
+
+
+
+
+% Always delete this number of scans in the beggining. 
+% Multiply with TR for secs, for calculating startScan, for example
+preScanVolumes = 5;  
+
+% SENSOTIVE:
+% Edit TR. Options: 1 | 0.8
+% Select right sequence in scanner: 
+%  - for TR=1   > 310 vols = (5+ (300/1) +5); % preScans + length of stimuli/TR + Nordic scans 
+%  - for TR=0.8 > 385 vols = (5 + (300/0.8) + 5) volumes
+% NOTES: at some point David made changes and added 10 volumes at the beginning, we were
+% acquiring 390 vols for TR=0.8 > (10+300/0.8+5) volumes. In June 2023 we
+% decided to go with 5 volumes in the beginning regardless of TR (already
+% edited above) >> CHECK THE SEQUENCES IN THE SCANNER
+% 
+% VOTCLOC
+% Edit TR. Options: 2 | 1.5
+% Select right sequence in scanner, BE SURE it has the right volumes (see
+% below):
+%  - for TR=2   > 160 volumes (5+300/2 + 5) >> Voxel Size: 1 x 1 x 1 mm
+%  - for TR=1.5 > 210 volumes (5+300/1.5+5) >> Voxel Size: 1.2 x 1.2 x 1.2
+%  >> CHECK THE SEQUENCES IN THE SCANNER
+
 
 % Edit macEcc. Options: 8 | 9
 maxEcc = 9; % Vienna = 9, , BCBL = 9. 
@@ -43,6 +60,10 @@ maxEcc = 9; % Vienna = 9, , BCBL = 9.
 stimSize     = 1024;  % pixels
 barWidth     = 2;  % deg
 scanDuration = 300; % secs
+
+
+
+
 
 %% EDIT THIS DIFFERENTLY IN BCBL/VIENNA
 params = retCreateDefaultGUIParams;
@@ -117,15 +138,8 @@ params.calibration      = []; % Was calibrated with Photometer
 params.stimSize         = 'max';
 params.skipCycleFrames  = 0;
 params.prescanDuration  = 0; %s
-switch TR
-    case {0.8, 1, 2}
-        params.startScan = 8; %s 8 for all TRs, but for 1.5 error because it is not multiple
-    case {1.5}
-        params.startScan = 9; %s 8 for all TRs, but for 1.5 error because it is not multiple
-    otherwise
-        error('Check the TR and be sure that you have the stimuli prepared and that it is multiple of presScan')
-end
-params.tempFreq         = 2.5;
+params.startScan        = preScanVolumes * TR; 
+params.tempFreq         = flickerFrequency;
 % params.numImages        = round((params.scanDuration + params.prescanDuration)/params.tr);
 params.ShiftStim        = [0 0];
 params.display.gammaTable = [linspace(0,1,256);linspace(0,1,256);linspace(0,1,256)]';
@@ -140,26 +154,14 @@ totalduration = params.scanDuration;
 % Generate file name to read (created with the python code)
 fname = [lang '_' imageName '_tr-' num2str(params.tr) ...
                     '_duration-' num2str(totalduration) 'sec' ...
+                    '_flickfreq-' num2str(flickerFrequency) 'Hz' ...
                     '_size-' num2str(stimSize) 'pix' ...
                     '_maxEcc-' num2str(maxEcc) 'deg' ...
                     '_barWidth-' num2str(barWidth) 'deg' ...
                     '.mat'];
 loadMatrix = fullfile(bvRP,'images', fname);   
                 
-if ~isfile(loadMatrix)
-    % Try to download it from osf.io
-%     projectID = 'gwsj7';
-%     folderName = 'SENSOTIVE_VOTCLOC_STIMS';
-%     folderID = '6477482aa8dbe90615cb5503';
-%     
-%     apiURL = sprintf('https://api.osf.io/v2/nodes/%s/files/osfstorage/?filter[name]=%s', ...
-%                      projectID,fname);
-%     
-%     response = webread(apiURL);
-    
-    error(['The file does not exist locally or in osf.io. ' ...
-           'Make the stimulus and upload it to osf.io'])
-end
+if ~isfile(loadMatrix); download_from_OSF(loadMatrix); end
 
 RetStim('FullStimName', loadMatrix, ...
             'PatientName', PatientName, ...
@@ -180,3 +182,12 @@ RetStim('FullStimName', loadMatrix, ...
             'MeasurementlaptopFolderLocation', MeasurementlaptopFolderLocation, ...
             'pre_params', params ...
         );
+
+
+
+%{
+fname = 'ES_RW30_1024x1024x100.mat';
+loadMatrix = fullfile(bvRP,'DATA','retWordsMagno', fname);
+if ~isfile(loadMatrix); download_from_OSF(loadMatrix); end
+%}
+
