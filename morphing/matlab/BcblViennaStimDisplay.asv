@@ -12,7 +12,7 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
-PatientName = 'okazakipilot_01';  
+PatientName = 'votcloc-p002_001-GLU';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 0;
@@ -23,9 +23,9 @@ imageName = 'RW30';
 
 lang = 'ES'; 
 
-TR = 2; 
+TR = 1.5; 
 flickerFrequency = 2; % always 2, except 2.5 for TR=0.
-site = 'OKAZAKI';
+site = 'BCBL';
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 
 
@@ -69,64 +69,69 @@ scanDuration = 300; % secs
 %% EDIT THIS DIFFERENTLY IN BCBL/VIENNA
 params = retCreateDefaultGUIParams;
 % Paste here data from both Vienna and SS
-% switch site
-%     case 'BCBL'
-%         % BCBL
-%         % {
-%         % masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
-%         masks = string(fullfile(bvRP,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
-%         stimulusdir = string(fullfile(bvRP,"morphing","DATA","retWordsMagno"));
-%         % Screen size and distance
-%         params.display.numPixels  = [1280 1024];
-%         params.display.dimensions = [51 41];
-%         params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
-%         params.display.distance = 128;
-%         params.display.frameRate = 60; % VGA Projector
-%         params.display.backColorIndex=128;
-%         % Calculate radius (calculator: https://www.sr-research.com/visual-angle-calculator/)
-%         params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
-%         TriggerKey = 'bcbl';
-%         triggerDeviceDetector = 'KeyWarrior8 Flex';
-%         %}
-% 
-%     case 'VIENNA'
-%         masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
-%         masks = "~/soft/morphing/DATA/retWordsMagno/maskimages.mat"; % both are the same
-%         stimulusdir="/Users/glerma/soft/morphing/DATA/retWordsMagno";
-%         params.display.numPixels  = [1280 1024];
-%         params.display.dimensions = [24.6000 18.3000];
-%         params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
-%         params.display.distance = 43.0474;
-%         params.display.frameRate = 60; % VGA Projector
-%         Calculate radius (calculator: https://www.sr-research.com/visual-angle-calculator/)
-%         params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
-%         TriggerKey = 'prisma'; % In Vienna use the same thing as always
-%         triggerDeviceDetector = '904';
-% 
-%     case 'OKAZAKI'
-    	% OKAZAKI
-    	% {
-    	% masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
-    	masks = string(fullfile(bvRP,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
-    	stimulusdir = string(fullfile(bvRP,"morphing","DATA","retWordsMagno"));
-    	% Screen size and distance
-    	params.display.numPixels  = [800 600];
-    	params.display.dimensions = [51 41];
-    	params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
-    	params.display.distance = 128;
-    	params.display.frameRate = 60; % VGA Projector
-    	params.display.backColorIndex=128;
-    	% Calculate radius (calculator: https://www.sr-research.com/visual-angle-calculator/)
-    	params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
-    	TriggerKey = 'okazaki';
-    	triggerDeviceDetector = 'KeyWarrior8 Flex';
-    	%}
+switch site
+    case 'BCBL'
+	% BCBL
+	% {
+	% masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
+	masks = string(fullfile(bvRP,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
+	stimulusdir = string(fullfile(bvRP,"morphing","DATA","retWordsMagno"));
+	% Screen size and distance
+	params.display.numPixels  = [1280 1024];
+	params.display.dimensions = [51 41];
+	params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
+	params.display.distance = 128;
+	params.display.frameRate = 60; % VGA Projector
+	params.display.backColorIndex=128;
+	% Calculate radius (calculator: https://www.sr-research.com/visual-angle-calculator/)
+	params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
+	TriggerKey = 'bcbl';
+	triggerDeviceDetector = 'KeyWarrior8 Flex';
+	%}
 
-%     otherwise
-%         error('Site not defined, only BCBL or VIENNA are defined for now')
-% end
+	case 'VIENNA'
+	otherwise
+		error('Site not defined, only BCBL or VIENNA are defined for now')
+end
 
+    VIENNA
+    {
+    masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
+    masks = "~/soft/morphing/DATA/retWordsMagno/maskimages.mat"; % both are the same
+    stimulusdir="/Users/glerma/soft/morphing/DATA/retWordsMagno";
+    params.display.numPixels  = [1280 1024];
+    params.display.dimensions = [24.6000 18.3000];
+    params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
+    params.display.distance = 43.0474;
+    params.display.frameRate = 60; % VGA Projector
+    Calculate radius (calculator: https://www.sr-research.com/visual-angle-calculator/)
+    params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
+    TriggerKey = 'prisma'; % In Vienna use the same thing as always
+    triggerDeviceDetector = '904';
+    }
+    case 'OKAZAKI'
+	% OKAZAKI
+	% {
+	% masks = string(fullfile(pmRootPath,'data','images','maskimages.mat'));
+	masks = string(fullfile(bvRP,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
+	stimulusdir = string(fullfile(bvRP,"morphing","DATA","retWordsMagno"));
+	% Screen size and distance
+	params.display.numPixels  = [800 600];
+	params.display.dimensions = [51 41];
+	params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
+	params.display.distance = 128;
+	params.display.frameRate = 60; % VGA Projector
+	params.display.backColorIndex=128;
+	% Calculate radius (calculator: https://www.sr-research.com/visual-angle-calculator/)
+	params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
+	TriggerKey = 'okazaki';
+	triggerDeviceDetector = 'KeyWarrior8 Flex';
+	%}
 
+	case 'VIENNA'
+	otherwise
+		error('Site not defined, only BCBL or VIENNA are defined for now')
+end
 
 % This values modify the retstim, these are all the vars that it takes that are
 % not in the call

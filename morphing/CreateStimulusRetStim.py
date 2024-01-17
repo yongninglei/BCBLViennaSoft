@@ -31,19 +31,21 @@ except:
 
 # RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
 # RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
+RP = '/Users/glerma/soft/si-burmuin-prf/DATA'
 
 triggerKey = "generic"  # 
 localpath = join(RP, "images")
 stimSize  = 1024
-maxEccs   = [9] # 9 Vienna, 9 BCBL
+maxEccs   = [7.7806] # 9 Vienna, 9 BCBL
 overlap   = 1 / 3
 
-duration = 300
-blank_duration = 9
+duration = 256.0880
+blank_duration = 8
 forceBarWidth  = 2
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(1.5, 2), (2, 2)]  # (TR, flickerFreq)
+# trs_flickerFreqs = [(1.5, 2), (2, 2)]  # (TR, flickerFreq)
+trs_flickerFreqs = [(1.8830, 2)]  # (TR, flickerFreq)
 
 
 # langs = ["ES","AT"]
