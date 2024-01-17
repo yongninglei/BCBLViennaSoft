@@ -107,7 +107,7 @@ end
 
 % Initialize the persistent variables.
 if isempty(okNames)
-    okNames = {      'PCWIN',  'PCWIN64', 'SOL2', 'HPUX', 'HP700', 'ALPHA', 'IBM_RS', 'SGI', 'GLNX86', 'MAC',    'MAC2', 'MACI',    'i486-pc-linux-gnu', 'MACI64',    'GLNXA64' };
+    okNames = {      'PCWIN',  'PCWIN64', 'SOL2', 'HPUX', 'HP700', 'ALPHA', 'IBM_RS', 'SGI', 'GLNX86', 'MAC',    'MAC2', 'MACI',    'i486-pc-linux-gnu', 'MACA64', 'MACI64',    'GLNXA64' };
     mexExtensions = {'mexw32', 'mexw64',  '*',    '*',    '*',     '*',     '*',      '*',   'mexglx', 'mexmac', 'mex',  'mexmaci', 'mex',               'mexmaci64', 'mexa64' };
 end
 
