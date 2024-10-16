@@ -37,7 +37,7 @@ source $HOME/.bash_profile
 
 which python
 echo "Now eval-ing it: "
-eval $1
+# eval $1
  
 # **********************************************************
 # -- BEGIN POST-USER --
