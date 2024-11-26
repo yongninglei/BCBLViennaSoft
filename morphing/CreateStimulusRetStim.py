@@ -18,7 +18,7 @@ stim = barStimulus(stimSize=1024, maxEcc=9, overlap=1/3, TR=.8, stim_duration=30
 stim.saveMrVistaStimulus('/local/dlinhardt/develop/bcbl_stims/checkers_tr-0.8_duration-300s.mat', triggerKey='s')
 """
 
-from PRFstimulus import barStimulus
+from prfstimulus import barStimulus
 import os
 
 join = os.path.join
