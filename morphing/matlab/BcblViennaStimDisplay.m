@@ -15,11 +15,11 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 PatientName = 's03s01';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 0;
+Eyetracker = 1;
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'RW'; 
+imageName = 'CB'; 
 
 lang = 'IT'; 
 

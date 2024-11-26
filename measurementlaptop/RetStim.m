@@ -188,8 +188,9 @@ Screen('Preference', 'VisualDebuglevel', 1);
 if input.Eyetracker==1
     
     %Modifying CalibValidRatio
-    CalibValidRatio=[0.88,0.83];
-    
+    CalibValidRatio= [0.715,0.715]; % [0.715,0.715] is for 9 degree BCBL, Tiger use it for VOTCLOC
+    %[0.88,0.83] is what David have before, but for 9 degree BCBL, it is
+    %hard to validate
     if input.CalibValidRatio~=1
         
         CalibValidRatio=CalibValidRatio*input.CalibValidRatio;
