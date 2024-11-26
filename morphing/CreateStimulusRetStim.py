@@ -18,8 +18,10 @@ stim = barStimulus(stimSize=1024, maxEcc=9, overlap=1/3, TR=.8, stim_duration=30
 stim.saveMrVistaStimulus('/local/dlinhardt/develop/bcbl_stims/checkers_tr-0.8_duration-300s.mat', triggerKey='s')
 """
 
-from prfstimulus import barStimulus
 import os
+import sys
+sys.path.insert(1,'/Users/glerma/soft')
+from PRFstimulus import barStimulus
 
 join = os.path.join
 
@@ -31,20 +33,28 @@ except:
 
 # RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
 # RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
-RP = '/Users/glerma/soft/si-burmuin-prf/DATA'
+# RP = '/Users/glerma/soft/si-burmuin-prf/DATA'
+RP = '/Users/glerma/toolboxes/BCBLViennaSoft'
 
 triggerKey = "generic"  # 
-localpath = join(RP, "images")
+# localpath = join(RP, "images")
+localpath = join(RP, "morphing", "DATA", "retWordsMagno")
 stimSize  = 1024
-maxEccs   = [7.7806] # 9 Vienna, 9 BCBL
+maxEccs   = [9] # 9 Vienna, 9 BCBL, 7.7806 oldBCBL from MINI 
 overlap   = 1 / 3
 
-duration = 256.0880
+# duration = 256.0880 This is old BCBL MINI data
+duration = 300
 blank_duration = 8
-forceBarWidth  = 2
+forceBarWidth  = 4 # original ret with David 2022 was bar 2 deg, in orig Rosemary was 4, let's test 4 for now
+# Add TR and flickering, (TR, flickerFreq)
+# Flickering is implemented differently in David's code than in VistaDisp and Kendrick's code. 
+# We observed that when we add 2 here, there are two changes per second, for both words and CB.
+# In Rosemary code, they were using 2Hz for CB and 4Hz for words, but this means that CB make 2 full cycles
+# per second (meaning 4 changes), while words make 4 changes per second. 
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(2, 2)]  # (TR, flickerFreq)
+trs_flickerFreqs = [(2, 4)]  # This supposed to mimic Stanford's CNI and Tel Aviv experiment
 
 
 # langs = ["ES","AT"]
@@ -57,7 +67,7 @@ langs = ["IT"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["RW"]
+imnames = ["CB", "RW"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
@@ -72,7 +82,7 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                 print(f"\n{tr}+{flickerFrequency}+{lang}+{imname}+{maxEcc}")
                 # Used this for the non morphed ones
                 imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
-                loadImages = join(RP, "DATA", "retWordsMagno", imfilename)
+                loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
                 
                 # Used this for the non morphed ones
                 # imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"

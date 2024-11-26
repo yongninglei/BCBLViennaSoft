@@ -1,7 +1,7 @@
 %% This script creates the images that will be morphed lsqater on
 
 % RUN THIS LINE FIRST, THEN USE THE RUN COMMAND FOR THE WHOLE FILE
-% EVERY TIME WE ARE RUNNING THE STIMULUsqqqqS
+% EVERY TIME WE ARE RUNNING THE STIMULUS
 %{ 
    tbUse BCBLViennaSoft;
 %} 
@@ -12,20 +12,20 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
-PatientName = 'okazakipilot_01';  
+PatientName = 's03s01';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 0;
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'CB'; 
+imageName = 'RW'; 
 
-lang = 'ES'; 
+lang = 'IT'; 
 
 TR = 2; 
-flickerFrequency = 2; % always 2, except 2.5 for TR=0.
-site = 'OKAZAKI';
+flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
+site = 'BCBL';
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 
 
@@ -33,7 +33,7 @@ site = 'OKAZAKI';
 
 % Always delete this number of scans in the beggining. 
 % Multiply with TR for secs, for calculating startScan, for example
-preScanVolumes = 5;  
+preScanVolumes = 5;
 
 % SENSOTIVE:
 % Edit TR. Options: 1 | 0.8
@@ -59,7 +59,7 @@ maxEcc = 9; % Vienna = 9, , BCBL = 9.
 
 % No options for these for now
 stimSize     = 1024;  % pixels
-barWidth     = 2;  % deg
+barWidth     = 4;  % deg
 scanDuration = 300; % secs
 
 

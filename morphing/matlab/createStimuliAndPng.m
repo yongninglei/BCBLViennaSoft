@@ -93,13 +93,13 @@ end
 
 %% Visualize the bar stimuli
 
-destNameCB = 'AT_CB_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+destNameCB = '../images/AT_CB_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
 imCB = load(destNameCB);
 figure(1);
 imshow(imCB.stimulus.images(:,:,20))
 
 
-destName10 = 'AT_RW10_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+destName10 = '../images/AT_RW10_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
 im10 = load(destName10);
 figure(10);
 imshow(im10.stimulus.images(:,:,20))
@@ -109,7 +109,12 @@ im20=load(destName20);
 figure(20);
 imshow(im20.stimulus.images(:,:,20))
 
-destNameRW = 'AT_RW_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+destNameRW = '../images/AT_RW_tr-0.8_duration-300sec_size-1024pix_maxEcc-9deg_barWidth-2deg.mat';
+imRW=load(destNameRW);
+figure(30);
+imshow(imRW.stimulus.images(:,:,20))
+
+destNameRW = 'retWordsMagno/IT_RW_tr-2_duration-256.088sec_flickfreq-4Hz_size-1024pix_maxEcc-9deg_barWidth-4deg.mat';
 imRW=load(destNameRW);
 figure(30);
 imshow(imRW.stimulus.images(:,:,20))
