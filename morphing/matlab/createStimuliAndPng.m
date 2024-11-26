@@ -4,7 +4,7 @@ clear all
 
 res  = 1024;
 numImages = 100;
-langs = {'JP'};  % {'ES','AT'};
+langs = {'IT'};  % {'ES','AT'};
 imnames = {'RW'}; % {'RW','PW'};
 numImages = 100;
 
