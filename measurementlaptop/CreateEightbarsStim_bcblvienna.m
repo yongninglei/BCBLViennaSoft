@@ -37,6 +37,8 @@ params.calibration      =  []; % Was calibrated with Photometer --> TODO - so th
 params.stimSize         =  'max';%5.5;%'max';%5.5/2%5%5.5;%'max';%6;9
 if strcmp(location,'bcbl')
     params.triggerKey       =  'bcbl';
+elseif strcmp(location,'okazaki')
+    params.triggerKey       =  '5';
 else
     params.triggerKey       =  '6';%'Manual';%'6'; % For different trigger device see pressKey2Begin.m
     %params.triggerKey       =  'Manual';
@@ -57,7 +59,7 @@ if strcmp(location,'bcbl')
     display.distance = 128;
     display.frameRate = 60; % VGA Projector
     display.backColorIndex=128;
-    params.ImageSize=round(2 * angle2pix(display, params.stimSize));
+    params.ImageSize=round(2 * angle2pix(display, params.stimSize)); 
 else
     display.screenNumber = max(Screen('screens'));
     [width, height] = Screen('WindowSize',display.screenNumber);
