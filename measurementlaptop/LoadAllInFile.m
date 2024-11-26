@@ -59,11 +59,11 @@ else
     
 end
 
-if Eyelink('IsConnected') && input.Eyetracker==1
+% if Eyelink('IsConnected') && input.Eyetracker==1
     
-    params.EyetrackerExperiment=1;
+%     params.EyetrackerExperiment=1;
     
-end
+% end
 
 % run it
 params.triggerKey       = input.TriggerKey;

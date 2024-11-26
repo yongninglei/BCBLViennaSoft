@@ -206,7 +206,7 @@ for n = 1:params.repetitions
             ResponseDeviceNumber=pressKey2Begin(params.display, onlyWaitKb, [], [], params.triggerKey,stimulus,params.DrawFirstTexture,0, params.MovingFixation);
     else
         switch params.triggerKey
-            case {'bcbl'}
+            case {'bcbl','okazaki'}
                 pressKey2Begin_bcbl(params.display, onlyWaitKb, [], [], params.triggerKey);
                 ResponseDeviceNumber = 2;
             otherwise
