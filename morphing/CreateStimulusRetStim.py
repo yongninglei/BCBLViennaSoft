@@ -18,7 +18,7 @@ stim = barStimulus(stimSize=1024, maxEcc=9, overlap=1/3, TR=.8, stim_duration=30
 stim.saveMrVistaStimulus('/local/dlinhardt/develop/bcbl_stims/checkers_tr-0.8_duration-300s.mat', triggerKey='s')
 """
 
-from PRFstimulus import barStimulus
+from prfstimulus import barStimulus
 import os
 
 join = os.path.join
@@ -44,13 +44,12 @@ blank_duration = 8
 forceBarWidth  = 2
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-# trs_flickerFreqs = [(1.5, 2), (2, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(1.8830, 2)]  # (TR, flickerFreq)
+trs_flickerFreqs = [(2, 2)]  # (TR, flickerFreq)
 
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES"]  # , "AT"
+langs = ["IT"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -58,7 +57,7 @@ langs = ["ES"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["CB"]
+imnames = ["RW"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
