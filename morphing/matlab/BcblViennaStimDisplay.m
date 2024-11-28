@@ -12,7 +12,8 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
-PatientName = 's03s01';  
+% This program is not caring how long is the PatientName, so it´s easier
+PatientName = 's03s01_shjkffdqihifqiq';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 1;
