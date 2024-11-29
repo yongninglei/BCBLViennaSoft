@@ -6,11 +6,12 @@ clear all; clc; close all;
 %% modify here
 stimSize  = 1024;
 numImages = 100;
-langs = {'IT'};
+langs = {'FR'};
 imnames = {'RW'}; % {'RW','PW'};
 
 
-for lang=langs; for imname=imnames
+for lang=langs
+  for imname=imnames
     % Path to the .txt file with words in a column
     if strcmp(imname{:}, 'FF')
         txtfile = [lang{:} '_RW_words_list.txt']; 
@@ -76,74 +77,73 @@ for lang=langs; for imname=imnames
 
     for ii = 1: numImages
 
-    % initialize starting position
-    % origin (1,1) is upper left
-    wx = 1; 
-    wy = 1; 
-
-    while wy < Iheight
-
-        while (wx < Ilength) && (wy < Iheight)
-
-            % pick a random word
-            wordIndR    = randi(length(L)); 
-            if strcmp(imname{:}, 'FF')
-                georg = 4304 - abs('a');% es el offset entre el abecedario nuestro y el georgiano en ascii
-                wordImg     = renderText([latin2ff(L{wordIndR}, georg) '  '], ...
-                                                word_font, word_fontSize, ...
-                                            word_sampsPerPt, [], [], word_bold); 
-            else
-                wordImg     = renderText([L{wordIndR} '  '], ...
-                                                word_font, word_fontSize, ...
-                                            word_sampsPerPt, [], [], word_bold); 
+        % initialize starting position
+        % origin (1,1) is upper left
+        wx = 1; 
+        wy = 1; 
+    
+        while wy < Iheight
+    
+            while (wx < Ilength) && (wy < Iheight)
+    
+                % pick a random word
+                wordIndR    = randi(length(L)); 
+                if strcmp(imname{:}, 'FF')
+                    georg = 4304 - abs('a');% es el offset entre el abecedario nuestro y el georgiano en ascii
+                    wordImg     = renderText([latin2ff(L{wordIndR}, georg) '  '], ...
+                                                    word_font, word_fontSize, ...
+                                                word_sampsPerPt, [], [], word_bold); 
+                else
+                    wordImg     = renderText([L{wordIndR} '  '], ...
+                                                    word_font, word_fontSize, ...
+                                                word_sampsPerPt, [], [], word_bold); 
+                end
+                wordHeight  = size(wordImg,1);
+                wordLength  = size(wordImg,2); 
+    
+                % add this word to the canvas
+                tem(wy:wy+wordHeight-1,wx:wx+wordLength-1) = wordImg; 
+    
+    
+                % update horizontal position
+                wx = wx + wordLength; 
+    
+                % go to next line once we get to the end of this one
+                if wx > Ilength; 
+                    wy = wy + wordHeight; 
+                    wx = 1; 
+                end
+    
             end
-            wordHeight  = size(wordImg,1);
-            wordLength  = size(wordImg,2); 
-
-            % add this word to the canvas
-            tem(wy:wy+wordHeight-1,wx:wx+wordLength-1) = wordImg; 
-
-
-            % update horizontal position
-            wx = wx + wordLength; 
-
-            % go to next line once we get to the end of this one
-            if wx > Ilength; 
-                wy = wy + wordHeight; 
-                wx = 1; 
-            end
-
+    
         end
-
-    end
-
-    % crop the images so to fit
-    % (matrix may become enlarged because of last word in line)
-    tem = tem(1:res,1:res); 
-
-    % see what the image looks like
-    figure; 
-    imagesc(tem);
-    axis off; axis square; 
-    title(['fontsize: ' num2str(word_fontSize) '. sampsPerPt: ' num2str(word_sampsPerPt)])
-    colormap gray
-
-    I = uint8(zeros(size(tem)));
-
-    % renderText makes an image of 1s and 0s, where 0 is the background and 1 is the word
-    % change the 1s to be word color and 0s to be background color
-    I(tem==0) = bg_color; 
-    I(tem==1) = word_color;
-
-    % make multi channel
-    Ithree = cat(3, I,I,I);
-
-    % store in master 
-    II(:,:,:,ii) = Ithree; 
-
-    % track progress
-    imshow(Ithree); title(ii)
-    ii
+    
+        % crop the images so to fit
+        % (matrix may become enlarged because of last word in line)
+        tem = tem(1:res,1:res); 
+    
+        % see what the image looks like
+        figure; 
+        imagesc(tem);
+        axis off; axis square; 
+        title(['fontsize: ' num2str(word_fontSize) '. sampsPerPt: ' num2str(word_sampsPerPt)])
+        colormap gray
+    
+        I = uint8(zeros(size(tem)));
+    
+        % renderText makes an image of 1s and 0s, where 0 is the background and 1 is the word
+        % change the 1s to be word color and 0s to be background color
+        I(tem==0) = bg_color; 
+        I(tem==1) = word_color;
+    
+        % make multi channel
+        Ithree = cat(3, I,I,I);
+    
+        % store in master 
+        II(:,:,:,ii) = Ithree; 
+    
+        % track progress
+        imshow(Ithree); title(ii)
 
     end
 
@@ -161,4 +161,6 @@ for lang=langs; for imname=imnames
     % save('words_small4_2.mat','images'); 
     save(fullfile(dirSave, [nameSave]), 'images')
 
-end;end
+  end
+end
+
