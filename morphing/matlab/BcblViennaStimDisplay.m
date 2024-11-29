@@ -13,7 +13,7 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 % This program is not caring how long is the PatientName, so it´s easier
-PatientName = 's03s01_shjkffdqihifqiq';  
+PatientName = 's06s01';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 1;
@@ -22,11 +22,17 @@ Eyetracker = 1;
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
 imageName = 'CB'; 
 
-lang = 'IT'; 
+lang = 'FR'; 
 
 TR = 2; 
 flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
 site = 'BCBL';
+
+% No options for these for now
+stimSize     = 1024;  % pixels
+barWidth     = 4;  % deg
+scanDuration = 300; % secs
+
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 
 
@@ -58,10 +64,6 @@ preScanVolumes = 5;
 % Edit macEcc. Options: 8 | 9
 maxEcc = 9; % Vienna = 9, , BCBL = 9. 
 
-% No options for these for now
-stimSize     = 1024;  % pixels
-barWidth     = 4;  % deg
-scanDuration = 300; % secs
 
 
 
