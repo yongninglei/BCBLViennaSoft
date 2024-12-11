@@ -259,7 +259,7 @@ if input.Eyetracker==1
             
         end
         
-        GetEDFDataFile(edfFile,EDFLocalFilename);
+        GetEDFDataFile(edfFile,EDFLocalFilename); % read .edf and store a .mat
         
         Eyelink('ShutDown');
         
