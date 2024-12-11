@@ -1,12 +1,36 @@
-function [x, y]=ExtractFromEDFfile(EDFStruct)
+function [x, y]=ExtractFromEDFfile(EDFStructname)
 
-load([EDFStruct,'.mat'])
+%{
+% Examle in /Users/experimentaluser/toolboxes/BCBLViennaSoft/measurementlaptop/edfFiles
+
+% BAD no results stored
+EDFStructname = 's08s02_20240512_183746';
+bad = load([EDFStructname,'.mat']);
+for ii=1:length(bad.EDFStruct.FEVENT)
+    fprintf('%s\n', bad.EDFStruct.FEVENT(ii).message)
+end
+
+% GOOD no results stored
+EDFStructname = 'sensotive-p004_001_20222510_162221';
+good = load([EDFStructname,'.mat']);
+for ii=1:length(good.EDFStruct.FEVENT)
+    fprintf('%s\n', good.EDFStruct.FEVENT(ii).message)
+end
+gaze='sensotive-p004_001_20222510_162221_20222510_162221_gaze.mat';
+good_gaze = load(gaze);
+ExperimentStartTime=3168549;
+ExperimentStopTime=3476127;
+isequal(ExperimentStopTime - ExperimentStartTime+1, length(good_gaze.x))
+
+%}
+load([EDFStructname,'.mat'])
 
 
 % Get Stimulus Start and Ending Time
-
-ExperimentStartEventIndex=find(strncmp({EDFStruct.FEVENT.message},'Experiments Starts',length('Experiments Starts')));
-ExperimentStopEventIndex=find(strncmp({EDFStruct.FEVENT.message},'Experiments Stops',length('Experiments Stops')));
+ExperimentStartEventIndex=find(strncmp({EDFStruct.FEVENT.message}, ...
+    'Experiments Starts',length('Experiments Starts')));
+ExperimentStopEventIndex=find(strncmp({EDFStruct.FEVENT.message},...
+    'Experiments Stops',length('Experiments Stops')));
 
 ExperimentStartTime=EDFStruct.FEVENT(ExperimentStartEventIndex).sttime;
 ExperimentStopTime=EDFStruct.FEVENT(ExperimentStopEventIndex).sttime;
@@ -17,8 +41,10 @@ ExperimentStopSampleIndex=find(EDFStruct.FSAMPLE.time==ExperimentStopTime);
 
 % Get Blink Data
 
-StartBlinkTime=[EDFStruct.FEVENT(strcmp({EDFStruct.FEVENT.codestring},'ENDBLINK')).sttime];
-EndBlinkTime=[EDFStruct.FEVENT(strcmp({EDFStruct.FEVENT.codestring},'ENDBLINK')).entime];
+StartBlinkTime=[EDFStruct.FEVENT(strcmp({EDFStruct.FEVENT.codestring},...
+    'ENDBLINK')).sttime];
+EndBlinkTime=[EDFStruct.FEVENT(strcmp({EDFStruct.FEVENT.codestring},...
+    'ENDBLINK')).entime];
 
 NumberOfBlinks=size(StartBlinkTime,2);
 

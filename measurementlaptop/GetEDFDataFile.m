@@ -13,7 +13,8 @@ Eyelink('CloseFile');
 try
     fprintf('Receiving data file ''%s''\n', edfFile );
     %status=Eyelink('ReceiveFile');
-    status=Eyelink('ReceiveFile','',EDFLocalFilename,0);
+    % Eyelink('ReceiveFile', [], fullfile(dst_dir,newName), 0);
+    status=Eyelink('ReceiveFile','',[EDFLocalFilename '.edf'],0);
     if status > 0
         fprintf('ReceiveFile status %d\n', status);
     end
