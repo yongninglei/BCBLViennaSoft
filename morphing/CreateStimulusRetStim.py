@@ -42,11 +42,12 @@ localpath = join(RP, "morphing", "DATA", "retWordsMagno")
 stimSize  = 1024
 maxEccs   = [9] # 9 Vienna, 9 BCBL, 7.7806 oldBCBL from MINI 
 overlap   = 1 / 3
+letter_size = 70
 
 # duration = 256.0880 This is old BCBL MINI data
 duration = 300
 blank_duration = 8
-forceBarWidth  = 4 # original ret with David 2022 was bar 2 deg, in orig Rosemary was 4, let's test 4 for now
+forceBarWidth  = 2 # original ret with David 2022 was bar 2 deg, in orig Rosemary was 4, let's test 4 for now
 # Add TR and flickering, (TR, flickerFreq)
 # Flickering is implemented differently in David's code than in VistaDisp and Kendrick's code. 
 # We observed that when we add 2 here, there are two changes per second, for both words and CB.
@@ -54,12 +55,12 @@ forceBarWidth  = 4 # original ret with David 2022 was bar 2 deg, in orig Rosemar
 # per second (meaning 4 changes), while words make 4 changes per second. 
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(2, 4)]  # This supposed to mimic Stanford's CNI and Tel Aviv experiment
+trs_flickerFreqs = [(2, 2)]  # This supposed to mimic Stanford's CNI and Tel Aviv experiment
 
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES"]  # , "AT"
+langs = ["IT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -67,7 +68,7 @@ langs = ["ES"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["CB", "RW"]
+imnames = ["CB", "RW", "FF"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
@@ -81,7 +82,7 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
             for maxEcc in maxEccs: 
                 print(f"\n{tr}+{flickerFrequency}+{lang}+{imname}+{maxEcc}")
                 # Used this for the non morphed ones
-                imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
+                imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100_letsize-{letter_size}.mat"
                 loadImages = join(RP, "morphing", "DATA", "retWordsMagno", imfilename)
                 
                 # Used this for the non morphed ones
@@ -99,6 +100,8 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                                         flickerFrequency=flickerFrequency,
                                         forceBarWidth=forceBarWidth,
                                     )
+                    A = round(9*2/1.3)
+                    stim._checkerboard(nChecks=A)
                 else:
                     stim = barStimulus(
                                         stimSize=stimSize,
@@ -114,7 +117,7 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                 oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
                         f"_flickfreq-{flickerFrequency}Hz" \
                         f"_size-{stimSize}pix_" \
-                        f"maxEcc-{maxEcc}deg_barWidth-{forceBarWidth}deg.mat"
+                        f"maxEcc-{maxEcc}deg_barWidth-{forceBarWidth}deg_letsize-{letter_size}.mat"
                 oPath = join(localpath, oName)
                 stim.saveMrVistaStimulus(oPath, triggerKey=triggerKey)
                 
