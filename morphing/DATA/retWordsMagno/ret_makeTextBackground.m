@@ -6,12 +6,15 @@ clear all; clc; close all;
 %% modify here
 stimSize  = 1024;
 numImages = 100;
-langs = {'FR'};
-imnames = {'RW'}; % {'RW','PW'};
+langs = {'ES','IT','AT','FR'};
+imnames = {'RW','FF'}; % {'RW','PW'};
 
 
 for lang=langs
   for imname=imnames
+  %     disp(lang)
+  %     disp(imname)
+  % end;end
     % Path to the .txt file with words in a column
     if strcmp(imname{:}, 'FF')
         txtfile = [lang{:} '_RW_words_list.txt']; 
@@ -25,7 +28,7 @@ for lang=langs
     % CHANGE THIS. font name
     word_font       = 'Helvetica';
     % font size
-    word_fontSize   = 26;                       
+    word_fontSize   = 70; % it was 26, resulting in 1cm aprox 0.4476 deg in bcbl                       
     % spacing between words of the same line, in units of pixels
     word_spaceSize  = 8;                       
     % assumes square. dim of object image
@@ -35,7 +38,8 @@ for lang=langs
     % default is 2. With smaller font sizes we want larger (5 or larger)
     word_sampsPerPt = 2;                        
     % CHANGE THIS. what to save the image matrix as. 
-    nameSave = [lang{:} '_' imname{:} '_' num2str(res) 'x' num2str(res) 'x' num2str(numImages) '.mat']; 
+    nameSave = [lang{:} '_' imname{:} '_' num2str(res) 'x' num2str(res) 'x' ...
+        num2str(numImages) '_letsize-' num2str(word_fontSize) '.mat']; 
 
     % CHANGE THIS. directory to save the matrix.
     dirSave = './';
@@ -69,14 +73,15 @@ for lang=langs
     % we don't assign it to the color of the background because
     % renderText makes an image of 1s and 0s, where 0 is the background and 1 is the word
     % it is easier to go back and change this later. 
-    tem  = uint8(zeros(res, res)); 
-
-    Iheight = size(tem,1);
-    Ilength = size(tem,2);
+    
 
 
-    for ii = 1: numImages
 
+
+    parfor ii = 1: numImages
+        tem  = uint8(zeros(res, res));
+        Iheight = size(tem,1);
+        Ilength = size(tem,2);
         % initialize starting position
         % origin (1,1) is upper left
         wx = 1; 

@@ -90,6 +90,10 @@ switch site
         params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
         TriggerKey = 'bcbl';
         triggerDeviceDetector = 'KeyWarrior8 Flex';
+        % 1024/41cm x 1cm = 25 pixels, 0.22 deg
+        rad2deg(atan(1/params.display.distance))
+        % 5.8cm, 1.29cm, 1024/41*5.8=
+
         %}
 
     case 'VIENNA'
