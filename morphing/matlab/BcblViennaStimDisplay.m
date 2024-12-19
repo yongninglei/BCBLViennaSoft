@@ -25,14 +25,14 @@ imageName = 'CB';
 lang = 'AT'; 
 
 TR = 2; 
-flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
+flickerFrequency = 2; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
 site = 'BCBL';
 
 % No options for these for now
 stimSize     = 1024;  % pixels
-barWidth     = 4;  % deg
+barWidth     = 2;  % deg
 scanDuration = 300; % secs
-
+letter_size = 70; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 
 
@@ -90,10 +90,6 @@ switch site
         params.radius = rad2deg(atan(params.display.dimensions(2)/params.display.distance)/2);
         TriggerKey = 'bcbl';
         triggerDeviceDetector = 'KeyWarrior8 Flex';
-        % 1024/41cm x 1cm = 25 pixels, 0.22 deg
-        rad2deg(atan(1/params.display.distance))
-        % 5.8cm, 1.29cm, 1024/41*5.8=
-
         %}
 
     case 'VIENNA'
@@ -190,6 +186,7 @@ fname = [lang '_' imageName '_tr-' num2str(params.tr) ...
                     '_size-' num2str(stimSize) 'pix' ...
                     '_maxEcc-' num2str(maxEcc) 'deg' ...
                     '_barWidth-' num2str(barWidth) 'deg' ...
+                    '_letsize-' num2str(letter_size) ...
                     '.mat'];
 loadMatrix = fullfile(bvRP,'images', fname);
                 
