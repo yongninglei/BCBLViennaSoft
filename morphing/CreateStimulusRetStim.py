@@ -47,7 +47,7 @@ letter_size = 70
 # duration = 256.0880 This is old BCBL MINI data
 duration = 300
 blank_duration = 8
-forceBarWidth  = 2 # original ret with David 2022 was bar 2 deg, in orig Rosemary was 4, let's test 4 for now
+forceBarWidth  = 3 # original ret with David 2022 was bar 2 deg, in orig Rosemary was 4, let's test 4 for now
 # Add TR and flickering, (TR, flickerFreq)
 # Flickering is implemented differently in David's code than in VistaDisp and Kendrick's code. 
 # We observed that when we add 2 here, there are two changes per second, for both words and CB.
@@ -68,7 +68,7 @@ langs = ["IT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["CB", "RW", "FF"]
+imnames = ["RW"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            

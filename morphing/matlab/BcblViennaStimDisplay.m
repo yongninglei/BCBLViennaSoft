@@ -20,9 +20,9 @@ Eyetracker = 1;
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'CB'; 
+imageName = 'RW'; 
 
-lang = 'AT'; 
+lang = 'IT'; 
 
 TR = 2; 
 flickerFrequency = 2; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
@@ -30,7 +30,7 @@ site = 'BCBL';
 
 % No options for these for now
 stimSize     = 1024;  % pixels
-barWidth     = 2;  % deg
+barWidth     = 3;  % deg
 scanDuration = 300; % secs
 letter_size = 70; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
