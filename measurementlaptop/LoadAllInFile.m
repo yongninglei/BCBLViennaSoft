@@ -58,12 +58,22 @@ else
     display(['[',mfilename,'] Fixation will be central and stationary'])
     
 end
+% Add Leandro´s dummymode check, this to first recognize and then detect
+% the eyetracker. it is mandotory to BCBL eyelink otherwise it failed
 
-% if Eyelink('IsConnected') && input.Eyetracker==1
+dummymode=0;
+EyelinkInit(dummymode);
+
+status = Eyelink('IsConnected');
+if status < 1 % If EyeLink not connected
+    dummymode = 1;
+end
+
+if Eyelink('IsConnected') && input.Eyetracker==1
     
-%     params.EyetrackerExperiment=1;
+    params.EyetrackerExperiment=1;
     
-% end
+end
 
 % run it
 params.triggerKey       = input.TriggerKey;

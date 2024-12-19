@@ -27,7 +27,7 @@ end
 
 % Convert data file
 
-EDFStruct=edfmex(EDFLocalFilename);
+EDFStruct=edfmex([EDFLocalFilename '.edf']);
 
 save([EDFLocalFilename,'.mat'],'EDFStruct');
 

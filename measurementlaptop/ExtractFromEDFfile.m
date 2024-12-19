@@ -11,7 +11,7 @@ for ii=1:length(bad.EDFStruct.FEVENT)
 end
 
 % GOOD no results stored
-EDFStructname = 'sensotive-p004_001_20222510_162221';
+EDFStructname = 'test_no_eyelink_20241112_162739' %'sensotive-p004_001_20222510_162221';
 good = load([EDFStructname,'.mat']);
 for ii=1:length(good.EDFStruct.FEVENT)
     fprintf('%s\n', good.EDFStruct.FEVENT(ii).message)
