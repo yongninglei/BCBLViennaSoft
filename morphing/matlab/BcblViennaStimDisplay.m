@@ -32,7 +32,7 @@ site = 'BCBL';
 stimSize     = 1024;  % pixels
 barWidth     = 3;  % deg
 scanDuration = 300; % secs
-letter_size = 70; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
+letter_size = 50; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 
 
