@@ -20,21 +20,26 @@ stim.saveMrVistaStimulus('/local/dlinhardt/develop/bcbl_stims/checkers_tr-0.8_du
 
 import os
 import sys
-sys.path.insert(1,'/Users/glerma/soft')
+import shutil
+
+if sys.platform == "darwin":
+    sys.path.insert(1,'/Users/glerma/soft')
+    # RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
+    # RP = '/Users/glerma/soft/si-burmuin-prf/DATA'
+    # RP = '/Users/glerma/toolboxes/BCBLViennaSoft'
+if sys.platform.startswith("linux"):
+    sys.path.insert(1,'/bcbl/home/home_g-m/glerma/soft')
+    # RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
+
 from PRFstimulus import barStimulus
 
 join = os.path.join
 
 # Find root path of the repo in any computer
 try:
-    RP = globals()['_dh'][0].parent.parent
+    RP = globals()['_dh'][0]
 except:
-    RP = os.path.dirname(os.path.realpath(__file__)).parent.parent
-
-# RP = '/Users/experimentaluser/toolboxes/BCBLViennaSoft'
-# RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
-# RP = '/Users/glerma/soft/si-burmuin-prf/DATA'
-RP = '/Users/glerma/toolboxes/BCBLViennaSoft'
+    RP = os.path.dirname(os.path.realpath(__file__))
 
 triggerKey = "generic"  # 
 # localpath = join(RP, "images")
@@ -55,12 +60,12 @@ forceBarWidth  = 3 # original ret with David 2022 was bar 2 deg, in orig Rosemar
 # per second (meaning 4 changes), while words make 4 changes per second. 
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(2, 2)]  # This supposed to mimic Stanford's CNI and Tel Aviv experiment
+trs_flickerFreqs = [(2, 8)]  # This supposed to mimic Stanford's CNI and Tel Aviv experiment
 
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["IT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
+langs = ["IT","ES", "AT", "FR"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -68,7 +73,7 @@ langs = ["IT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["RW"]
+imnames = ["RW", "FF", "CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
@@ -77,9 +82,9 @@ imnames = ["RW"]
 # imnames = ["CB"]
 
 for (tr, flickerFrequency) in trs_flickerFreqs:
-    for lang in langs:
+    for maxEcc in maxEccs: 
         for imname in imnames:
-            for maxEcc in maxEccs: 
+            for lang in langs:
                 print(f"\n{tr}+{flickerFrequency}+{lang}+{imname}+{maxEcc}")
                 # Used this for the non morphed ones
                 imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100_letsize-{letter_size}.mat"
@@ -89,19 +94,29 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                 # imfilename = f"{lang}_{imname}_{stimSize}x{stimSize}x100.mat"
                 # loadImages = join(RP, "local", "mats", imfilename)
 
+                oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
+                        f"_flickfreq-{flickerFrequency}Hz" \
+                        f"_size-{stimSize}pix_" \
+                        f"maxEcc-{maxEcc}deg_barWidth-{forceBarWidth}deg_letsize-{letter_size}.mat"
+
                 if imname == "CB":
-                    stim = barStimulus(
-                                        stimSize=stimSize,
-                                        maxEcc=maxEcc,
-                                        overlap=overlap,
-                                        TR=tr,
-                                        stim_duration=duration,
-                                        blank_duration=blank_duration,
-                                        flickerFrequency=flickerFrequency,
-                                        forceBarWidth=forceBarWidth,
-                                    )
-                    A = round(9*2/1.3)
-                    stim._checkerboard(nChecks=A)
+                    if lang == langs[0]:
+                        stim = barStimulus(
+                                            stimSize=stimSize,
+                                            maxEcc=maxEcc,
+                                            overlap=overlap,
+                                            TR=tr,
+                                            stim_duration=duration,
+                                            blank_duration=blank_duration,
+                                            flickerFrequency=flickerFrequency,
+                                            forceBarWidth=forceBarWidth,
+                                        )
+                        A = round(9*2/1.3)
+                        stim._checkerboard(nChecks=A)
+                    else:
+                        destName = oName.replace(langs[0], lang)
+                        shutil.copy(oName, destName)
+                        continue
                 else:
                     stim = barStimulus(
                                         stimSize=stimSize,
@@ -114,10 +129,7 @@ for (tr, flickerFrequency) in trs_flickerFreqs:
                                         loadImages=loadImages,                    
                                         forceBarWidth=forceBarWidth,
                                     )
-                oName = f"{lang}_{imname}_tr-{tr}_duration-{duration}sec" \
-                        f"_flickfreq-{flickerFrequency}Hz" \
-                        f"_size-{stimSize}pix_" \
-                        f"maxEcc-{maxEcc}deg_barWidth-{forceBarWidth}deg_letsize-{letter_size}.mat"
+                
                 oPath = join(localpath, oName)
                 stim.saveMrVistaStimulus(oPath, triggerKey=triggerKey)
                 

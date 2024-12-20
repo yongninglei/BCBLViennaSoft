@@ -28,7 +28,7 @@ for lang=langs
     % CHANGE THIS. font name
     word_font       = 'Helvetica';
     % font size
-    word_fontSize   = 70; % it was 26, resulting in 1cm aprox 0.4476 deg in bcbl                       
+    word_fontSize   = 50; % it was 26, resulting in 1cm aprox 0.4476 deg in bcbl                       
     % spacing between words of the same line, in units of pixels
     word_spaceSize  = 8;                       
     % assumes square. dim of object image
