@@ -65,7 +65,7 @@ trs_flickerFreqs = [(2, 8)]  # This supposed to mimic Stanford's CNI and Tel Avi
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES", "AT", "FR"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
+langs = ["AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -73,7 +73,7 @@ langs = ["ES", "AT", "FR"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["RW", "FF"] # , "CB"]
+imnames = ["CB"] # , "CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
