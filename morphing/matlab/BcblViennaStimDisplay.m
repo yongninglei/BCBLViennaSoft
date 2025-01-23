@@ -16,7 +16,7 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 PatientName = 'sub-04_ses-02';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 1;
+Eyetracker = 0;
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
@@ -25,7 +25,7 @@ imageName = 'RW';
 lang = 'IT'; 
 
 TR = 2; 
-flickerFrequency = 2; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
+flickerFrequency = 8; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
 site = 'BCBL';
 
 % No options for these for now
@@ -139,7 +139,7 @@ end
 MeasurementlaptopFolderLocation = bvRP;
 FixationPerformanceFolder       = fullfile('measurementlaptop',...
                                   'FixationPerformance');
-StimType                        = 'allInFile'; % Provide file with params and stimuli
+StimType                        = 'eightbars_blanks'; % 'allInFile'; % Provide file with params and stimuli
 SimulatedScotoma                = 0; 
 FixationandBackgroundSizeMult   = [];
 StaticBlackFixation             =  'none';
