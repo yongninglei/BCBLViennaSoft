@@ -84,6 +84,24 @@ catch ME
     Screen('LoadNormalizedGammaTable', displayID.screenNumber,putgamma);
 end;
 
+%{
+% Leando and Gari testing with iMac M4, this code below is not working and
+changes the correct resolution of the screen
+
+STARTS CODE PLACEHOLDER
+if isfield(params,'rect')
+    params.display = openScreen(params.display);
+    if ~isequal(params.rect, params.display.rect)
+        warning('rect is not the same, we are using the one passed from the beginning')
+        params.display.rect = params.rect;
+        params.display.fixX = params.rect(3);
+        params.display.fixY = params.rect(4);
+    end
+else
+    params.display                = openScreen(params.display);
+end
+ENDS CODE PLACEHOLDER
+
 % Force the resolution indicated in the display parameter file.  Let the
 % user know if this fails, storing the actual resolution and hz within
 % displayID and proceeding.
@@ -96,6 +114,8 @@ try
 catch ME
     warning(ME.identifier, ME.message)
 end
+%}
+
 
 params = Screen('Resolution', displayID.screenNumber);
 if (params.width~=displayID.numPixels(1) || params.height~=displayID.numPixels(2) || params.hz~=displayID.frameRate)
