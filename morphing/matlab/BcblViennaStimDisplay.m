@@ -1,7 +1,7 @@
 %% This script creates the images that will be morphed lsqater on
 
 % RUN THIS LINE FIRST, THEN USE THE RUN COMMAND FOR THE WHOLE FILE
-% EVERY TIME WE ARE RUNNING THE STIMULUS
+% EVERY TIME WE ARE RUNNING THE STIMULUSss
 %{ 
    tbUse BCBLViennaSoft;
 %} 
@@ -19,10 +19,9 @@ PatientName = 'sub-06_ses-02';
 Eyetracker = 0;
 
 
-% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW20'|'PW'|'FF'
-imageName = 'CB'; 
-
-lang = 'FR'; 
+% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RWs'|'PW'|'FF'
+imageName = 'RW'; 
+lang = 'IT'; 
 
 TR = 2; 
 flickerFrequency = 8; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
@@ -80,7 +79,7 @@ switch site
         masks = string(fullfile(bvRP,"morphing","DATA","retWordsMagno","maskimages.mat")); % both are the same
         stimulusdir = string(fullfile(bvRP,"morphing","DATA","retWordsMagno"));
         % Screen size and distance
-        params.display.numPixels  = [1280 1024];
+        params.display.numPixels  = [1920 1080]; % [1280 1024];
         params.display.dimensions = [51 41];
         params.display.pixelSize = params.display.dimensions(2)/params.display.numPixels(2);
         params.display.distance = 128;
@@ -139,7 +138,7 @@ end
 MeasurementlaptopFolderLocation = bvRP;
 FixationPerformanceFolder       = fullfile('measurementlaptop',...
                                   'FixationPerformance');
-StimType                        = 'eightbars_blanks'; % 'allInFile'; % Provide file with params and stimuli
+StimType                        = 'allInFile'; %'eightbars_blanks'; % 'allInFile'; % Provide file with params and stimuli
 SimulatedScotoma                = 0; 
 FixationandBackgroundSizeMult   = [];
 StaticBlackFixation             =  'none';
