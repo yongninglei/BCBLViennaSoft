@@ -13,14 +13,16 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 % This program is not caring how long is the PatientName, so it´s easier
-PatientName = 'sub-06_ses-02';  
+PatientName = 'sub-08_ses-03';  
 
 % Edit EyeTracker. Options: 0 | 1
-Eyetracker = 0;
+Eyetracker = 1;
+
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RWs'|'PW'|'FF'
 imageName = 'RW'; 
+
 lang = 'IT'; 
 
 TR = 2; 
@@ -138,7 +140,8 @@ end
 MeasurementlaptopFolderLocation = bvRP;
 FixationPerformanceFolder       = fullfile('measurementlaptop',...
                                   'FixationPerformance');
-StimType                        = 'allInFile'; %'eightbars_blanks'; % 'allInFile'; % Provide file with params and stimuli
+StimType                        = 'allInFile'; %s'eightbars_blanks'; % 'allInFile'; % Provide file with params and stimuli
+>>>>>>> 31517b3ef49f2ee3cb9451eb4dcc8e96232b09fd
 SimulatedScotoma                = 0; 
 FixationandBackgroundSizeMult   = [];
 StaticBlackFixation             =  'none';
