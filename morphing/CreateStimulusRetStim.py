@@ -41,6 +41,8 @@ try:
 except:
     RP = os.path.dirname(os.path.realpath(__file__))
 
+RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'    
+
 triggerKey = "generic"  # 
 # localpath = join(RP, "images")
 localpath = join(RP, "morphing", "DATA", "retWordsMagno")
@@ -60,7 +62,7 @@ forceBarWidth  = 3 # original ret with David 2022 was bar 2 deg, in orig Rosemar
 # per second (meaning 4 changes), while words make 4 changes per second. 
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(2, 8)]  # This supposed to mimic Stanford's CNI and Tel Aviv experiment
+trs_flickerFreqs = [(2, 4)] 
 
 
 # langs = ["ES","AT"]
@@ -73,7 +75,7 @@ langs = ["AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["CB"] # , "CB"]
+imnames = ["FF", "RW", "CB"] # , "CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
