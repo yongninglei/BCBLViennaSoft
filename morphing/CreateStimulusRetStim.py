@@ -67,7 +67,7 @@ trs_flickerFreqs = [(2, 4)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
+langs = ["ES", "IT", "FR"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -75,7 +75,7 @@ langs = ["AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["FF", "RW", "CB"] # , "CB"]
+imnames = ["FF", "RW"] # , "CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
            
