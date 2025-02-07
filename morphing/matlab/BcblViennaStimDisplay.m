@@ -13,7 +13,7 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 % This program is not caring how long is the PatientName, so it´s easier
-PatientName = 'sub-08_ses-03';  
+PatientName = 'sub-04_ses-06';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 1;
@@ -23,10 +23,10 @@ Eyetracker = 1;
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RWs'|'PW'|'FF'
 imageName = 'RW'; 
 
-lang = 'IT'; 
+lang = 'AT'; 
 
 TR = 2; 
-flickerFrequency = 8; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
+flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
 site = 'BCBL';
 
 % No options for these for now
@@ -141,7 +141,6 @@ MeasurementlaptopFolderLocation = bvRP;
 FixationPerformanceFolder       = fullfile('measurementlaptop',...
                                   'FixationPerformance');
 StimType                        = 'allInFile'; %s'eightbars_blanks'; % 'allInFile'; % Provide file with params and stimuli
->>>>>>> 31517b3ef49f2ee3cb9451eb4dcc8e96232b09fd
 SimulatedScotoma                = 0; 
 FixationandBackgroundSizeMult   = [];
 StaticBlackFixation             =  'none';

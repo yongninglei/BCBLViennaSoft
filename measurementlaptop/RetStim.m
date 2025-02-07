@@ -188,7 +188,8 @@ Screen('Preference', 'VisualDebuglevel', 1);
 if input.Eyetracker==1
     
     %Modifying CalibValidRatio
-    CalibValidRatio= [0.715,0.715]; 
+    CalibValidRatio= [0.477,0.678]; 
+    % [0.477, 0.678] for the new iMac
     % [0.715,0.715] is for 9 degree BCBL, Tiger use it for VOTCLOC
     % [0.88,0.83] is what David have before, but for 9 degree BCBL, it is
     %hard to validate
