@@ -49,7 +49,7 @@ localpath = join(RP, "morphing", "DATA", "retWordsMagno")
 stimSize  = 1024
 maxEccs   = [9] # 9 Vienna, 9 BCBL, 7.7806 oldBCBL from MINI 
 overlap   = 1 / 3
-letter_size = 25
+letter_size = 100
 
 # duration = 256.0880 This is old BCBL MINI data
 duration = 300
@@ -62,7 +62,7 @@ forceBarWidth  = 3 # original ret with David 2022 was bar 2 deg, in orig Rosemar
 # per second (meaning 4 changes), while words make 4 changes per second. 
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(2, 2)] 
+trs_flickerFreqs = [(2, 8)] 
 
 
 # langs = ["ES","AT"]
