@@ -62,7 +62,7 @@ forceBarWidth  = 3 # original ret with David 2022 was bar 2 deg, in orig Rosemar
 # per second (meaning 4 changes), while words make 4 changes per second. 
 # trs_flickerFreqs = [(0.8, 2.5)] # [(0.8, 2.5), (1, 2)]   # (TR, flickerFreq)
 # trs_flickerFreqs = [(0.8, 2.5), (1, 2)]  # (TR, flickerFreq)
-trs_flickerFreqs = [(2, 4)] 
+trs_flickerFreqs = [(2, 2)] 
 
 
 # langs = ["ES","AT"]
