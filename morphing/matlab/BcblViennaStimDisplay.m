@@ -13,7 +13,7 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 % This program is not caring how long is the PatientName, so it´s easier
-PatientName = 'sub-04_ses-06';  
+PatientName = 'sub-03_ses-06';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 1;
@@ -21,25 +21,26 @@ Eyetracker = 1;
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RWs'|'PW'|'FF'
-imageName = 'RW'; 
+imageName = 'CB'; 
 
-lang = 'AT'; 
+lang = 'IT'; 
 
 TR = 2; 
 flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
+barWidth     = 3;  % deg
+letter_size = 50; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
 site = 'BCBL';
 
 % No options for these for now
-stimSize     = 1024;  % pixels
-barWidth     = 3;  % deg
+stimSize     = 1024;  % pixelssss
 scanDuration = 300; % secs
-letter_size = 50; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
+
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 
 
 
 
-% Always delete this number of scans in the beggining. 
+% Always delete this number of scans in the beggining. ss
 % Multiply with TR for secs, for calculating startScan, for example
 preScanVolumes = 5;
 
