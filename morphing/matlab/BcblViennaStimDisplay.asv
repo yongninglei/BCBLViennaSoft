@@ -21,14 +21,14 @@ Eyetracker = 1;
 
 
 % Edit imageName. Options: 'CB'|'RW'|'RW10'|'RWs'|'PW'|'FF'
-imageName = 'CB'; 
+imageName = 'RW'; 
 
 lang = 'AT'; 
 
 TR = 2; 
 flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
 barWidth     = 3;  % deg
-letter_size = 50; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
+letter_size = 50ssssssssssssssssssssss; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
 site = 'BCBL';
 
 % No options for these for now
