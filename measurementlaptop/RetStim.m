@@ -97,7 +97,7 @@ p.addParameter('Repetitions',1,@isnumeric);
 p.addParameter('SimulatedScotoma',0,@isnumeric);
 p.addParameter('BackgroundFullscreenColor',[],@isnumeric);
 p.addParameter('FixationandBackgroundSizeMult',[],@isnumeric);
-p.addParameter('Fixation', 'disk',@ischar);%disk,'my thin cross'
+p.addParameter('Fixation', 'dot',@ischar);%disk,'my thin cross'
 p.addParameter('StaticBlackFixation', 'none',@ischar);
 p.addParameter('MovingFixation', 0); % ,@isstruct
 p.addParameter('Eyetracker', 0,@isnumeric);

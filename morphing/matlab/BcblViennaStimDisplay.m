@@ -13,22 +13,23 @@ cd(fullfile(bvRP, 'measurementlaptop'))
 %% IMPORTANT TO CHECK ALWAYS, EDIT AND CHECK SCANNER NAME
 %%%%%% EDIT THIS BEFORE ANY SCAN, CHECK NAME OF SEQUENCE IN SCANNER %%%%%
 % This program is not caring how long is the PatientName, so it´s easier
-PatientName = 'sub-04_ses-07';  
+PatientName = 'sub-01_ses-09';  
 
 % Edit EyeTracker. Options: 0 | 1
 Eyetracker = 1;
 
 
 
-% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RWs'|'PW'|'FF'
-imageName = 'CB'; 
+% Edit imageName. Options: 'CB'|'RW'|'RW10'|'RW'|'PW'|'FF'|'fixRW'|'fixFF'|
+% fixRWblock01 fixRWblock02
+imageName = 'fixRWblock01'; 
 
-lang = 'AT'; 
+lang = 'ES'; 
 
 TR = 2; 
-flickerFrequency = 4; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
+flickerFrequency = 8; % always 2, except 2.5 for TR=0. BE careful, checking 4 for the first VOTCLOC adquisition Giada VOTCLOC_03
 barWidth     = 3;  % deg
-letter_size = 50; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
+letter_size = 25; % points when creating, it is almost 1.3deg in 9 deg fov at bcbl
 site = 'BCBL';
 
 % No options for these for now
