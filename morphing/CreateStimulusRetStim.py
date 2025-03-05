@@ -49,7 +49,7 @@ localpath = join(RP, "morphing", "DATA", "retWordsMagno")
 stimSize  = 1024
 maxEccs   = [9] # 9 Vienna, 9 BCBL, 7.7806 oldBCBL from MINI 
 overlap   = 1 / 3
-letter_size = 50
+letter_size = 25
 
 # duration = 256.0880 This is old BCBL MINI data
 duration = 300
@@ -67,7 +67,7 @@ trs_flickerFreqs = [(2, 8)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["ES"] # , "IT", "FR", "AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
+langs = ["CN"] # , "IT", "FR", "AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -75,7 +75,7 @@ langs = ["ES"] # , "IT", "FR", "AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["fixFF", "fixRW"] # ["FF", "RW", "CB"]
+imnames = ["FF", "RW"] # ["FF", "RW", "CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
         
