@@ -31,7 +31,7 @@ if sys.platform.startswith("linux"):
     sys.path.insert(1,'/bcbl/home/home_g-m/glerma/soft')
     # RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
 
-from PRFstimulus import barStimulus
+from PRFstimulus import barStimulus as barStimulus
 
 join = os.path.join
 
@@ -46,7 +46,7 @@ RP = '/export/home/glerma/glerma/toolboxes/BCBLViennaSoft'
 triggerKey = "generic"  # 
 # localpath = join(RP, "images")
 localpath = join(RP, "morphing", "DATA", "retWordsMagno")
-stimSize  = 1024
+stimSize  = 301# 1024
 maxEccs   = [9] # 9 Vienna, 9 BCBL, 7.7806 oldBCBL from MINI 
 overlap   = 1 / 3
 letter_size = 25
@@ -67,7 +67,7 @@ trs_flickerFreqs = [(2, 8)]
 
 # langs = ["ES","AT"]
 # imnames = ["CB", "PW", "FF", "RW", "PW10", "PW20", "FF10", "FF20", "RW10", "RW20"]
-langs = ["CN"] # , "IT", "FR", "AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
+langs = ["ES"] # , "CN", "IT", "FR", "AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # imnames = ["CB", "RW"]
 
 # Create one imname per every step in the morphing
@@ -75,7 +75,7 @@ langs = ["CN"] # , "IT", "FR", "AT"]  # ["ES", "IT", "AT", "FR"]  # , "AT"
 # for nstep in range(1,30):
 #     imnames.append(f"RW{nstep}")
 
-imnames = ["FF", "RW"] # ["FF", "RW", "CB"]
+imnames = ["fixFF", "fixRW"] # ["FF", "RW", "CB"]
 # for nstep in [10, 20]:
 #     imnames.append(f"RW{nstep}")
         
