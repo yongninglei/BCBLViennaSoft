@@ -133,3 +133,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+Psychtoolbox-3/PsychSourceGL/Cohorts/OculusSDK/ovr_sdk_linux_0.5.0.1.tar.xz
